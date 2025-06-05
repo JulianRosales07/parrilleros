@@ -662,4 +662,36 @@ export const customizationOptions: CustomizationOption[] = [
   { id: 14, name: 'AD JALAPEÑOS', price: 3000 },
   { id: 15, name: 'AD QUESO LIQUIDO Y TIERRA DE TOCINETA', price: 7000 },
   { id: 16, name: 'AD RIPIO DE PAPA CROCANTE', price: 1000 },
-]
+];
+
+export const categorizedSides = {
+  Papas: [
+    menuItems.find(item => item.id === 21),
+    menuItems.find(item => item.id === 22),
+    menuItems.find(item => item.id === 26),
+    menuItems.find(item => item.id === 43),
+  ].filter(Boolean),
+  Carnes: [
+    menuItems.find(item => item.id === 28),
+    menuItems.find(item => item.id === 29),
+    menuItems.find(item => item.id === 30),
+    menuItems.find(item => item.id === 31),
+  ].filter(Boolean),
+  Quesos: [
+    menuItems.find(item => item.id === 34),
+    menuItems.find(item => item.id === 35),
+    menuItems.find(item => item.id === 36),
+    menuItems.find(item => item.id === 37),
+    menuItems.find(item => item.id === 42),
+  ].filter(Boolean),
+  Cebollas: [
+    menuItems.find(item => item.id === 33),
+    menuItems.find(item => item.id === 38),
+    menuItems.find(item => item.id === 39),
+  ].filter(Boolean),
+  "Otros Vegetales y Adiciones": [
+    menuItems.find(item => item.id === 32),
+    menuItems.find(item => item.id === 40),
+    menuItems.find(item => item.id === 41),
+  ].filter(Boolean),
+};
