@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, ChevronDown } from 'lucide-react';
 import Layout from '../components/Layout';
 import CategorySelector from '../components/CategorySelector';
 import MenuCard from '../components/MenuCard';
@@ -14,12 +14,21 @@ const MenuPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart } = useOrder();
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   
-  const filteredItems = menuItems.filter(
-    (item) => item.category === selectedCategory
-  );
+  const filteredItems = menuItems.filter((item) => {
+    if (selectedCategory === 'sides') {
+      // If a subcategory is selected, filter by it
+      if (selectedSubcategory) {
+        return item.category === selectedSubcategory;
+      }
+      // If no subcategory is selected, show all sides
+      return item.category === 'sides';
+    }
+    return item.category === selectedCategory;
+  });
 
   const sides = menuItems.filter((item) => item.category === 'sides');
   const drinks = menuItems.filter((item) => item.category === 'drinks');
@@ -32,7 +41,6 @@ const MenuPage: React.FC = () => {
     const isBurgerCategory = selectedItem?.category.includes('burger');
     setSelectedItem(null);
     
-    // Only show suggestions modal for burger categories
     if (isBurgerCategory) {
       setShowSuggestions(true);
     }
@@ -44,11 +52,12 @@ const MenuPage: React.FC = () => {
 
   const cartTotal = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Get the current category object
+  const currentCategory = categories.find(cat => cat.id === selectedCategory);
+
   return (
     <Layout title="Menú" showCart={false}>
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        
-         {/* Botón para regresar a WelcomePage */}
         <button
           onClick={() => navigate('/')}
           className="mb-6 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded font-semibold"
@@ -56,16 +65,41 @@ const MenuPage: React.FC = () => {
           ← Volver al inicio
         </button>
         
-        {/* Category Selector */}
         <div className="max-w-4xl mx-auto mb-12">
           <CategorySelector
             categories={categories}
             selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
+            onSelectCategory={(category) => {
+              setSelectedCategory(category);
+              setSelectedSubcategory(null);
+            }}
           />
+
+          {/* Subcategories Dropdown for Sides */}
+          {selectedCategory === 'sides' && currentCategory?.subcategories && (
+            <div className="mt-6">
+              <div className="relative">
+                <select
+                  value={selectedSubcategory || ''}
+                  onChange={(e) => setSelectedSubcategory(e.target.value || null)}
+                  className="w-full p-3 bg-white rounded-lg border border-gray-300 shadow-sm appearance-none pr-10 cursor-pointer"
+                >
+                  <option value="">Todos los acompañamientos</option>
+                  {currentCategory.subcategories.map((sub) => (
+                    <option key={sub.id} value={sub.id}>
+                      {sub.name}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown 
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" 
+                  size={20} 
+                />
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Menu Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {filteredItems.map((item) => (
             <MenuCard key={item.id} item={item} onClick={handleItemClick} />
@@ -91,7 +125,6 @@ const MenuPage: React.FC = () => {
           />
         )}
         
-        {/* Floating cart button */}
         {cartTotal > 0 && (
           <div className="fixed bottom-8 right-8 z-50">
             <button
