@@ -7,12 +7,12 @@ export const categories: Category[] = [
   { id: 'contest-burgers', name: 'Hamburguesas de Concurso', icon: 'beef' },
   { id: 'hotdogs', name: 'Perros Calientes', icon: 'beef' },
   { id: 'sides', name: 'Acompañamientos', icon: 'french-fries', subcategories: [
-  { id: 'fries', name: 'Papas' },
-  { id: 'meats', name: 'Carnes' },
-  { id: 'cheeses', name: 'Quesos' },
-  { id: 'onions', name: 'Cebollas' },
-  { id: 'others', name: 'Otros Vegetales y Adiciones' }
-]},
+    { id: 'fries', name: 'Papas' },
+    { id: 'meats', name: 'Carnes' },
+    { id: 'cheeses', name: 'Quesos' },
+    { id: 'onions', name: 'Cebollas' },
+    { id: 'others', name: 'Otros Vegetales y Adiciones' }
+  ]},
   { id: 'drinks', name: 'Bebidas', icon: 'cup-soda' },
 ];
 
@@ -668,32 +668,184 @@ export const customizationOptions: CustomizationOption[] = [
 
 export const categorizedSides = {
   Papas: [
-    menuItems.find(item => item.id === 21),
-    menuItems.find(item => item.id === 22),
-    menuItems.find(item => item.id === 26),
-    menuItems.find(item => item.id === 43),
-  ].filter(Boolean),
+    {
+      id: 21,
+      name: "Papas Francesas",
+      description: "Crujientes papas fritas con sal",
+      price: 6000,
+      image: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "fries",
+      customizable: false
+    },
+    {
+      id: 22,
+      name: "Papas Rusticas",
+      description: "Crujientes papas fritas con sal",
+      price: 6000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "fries",
+      customizable: false
+    },
+    {
+      id: 26,
+      name: "PAPAS A LA PROVENZAL.",
+      description: "Crujientes papas fritas con sal",
+      price: 9000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "fries",
+      customizable: false
+    },
+    {
+      id: 43,
+      name: "AD RIPIO DE PAPA CROCANTE",
+      description: "ADICION DE RIPIO DE PAPA",
+      price: 1000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "fries",
+      customizable: false
+    }
+  ],
   Carnes: [
-    menuItems.find(item => item.id === 28),
-    menuItems.find(item => item.id === 29),
-    menuItems.find(item => item.id === 30),
-    menuItems.find(item => item.id === 31),
-  ].filter(Boolean),
+    {
+      id: 28,
+      name: "AD CHORIZO",
+      description: "CHORIZO",
+      price: 4000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "meats",
+      customizable: false
+    },
+    {
+      id: 29,
+      name: "AD TOCINETA",
+      description: "TOCINETA",
+      price: 4000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "meats",
+      customizable: false
+    },
+    {
+      id: 30,
+      name: "AD CARNE",
+      description: "ADICION DE CARNE",
+      price: 6000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "meats",
+      customizable: false
+    },
+    {
+      id: 31,
+      name: "AD CARNE CERTIFIED ANGUS BEEF",
+      description: "ADICION DE CARNE CERTIFIED ANGUS BEEF",
+      price: 13000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "meats",
+      customizable: false
+    }
+  ],
   Quesos: [
-    menuItems.find(item => item.id === 34),
-    menuItems.find(item => item.id === 35),
-    menuItems.find(item => item.id === 36),
-    menuItems.find(item => item.id === 37),
-    menuItems.find(item => item.id === 42),
-  ].filter(Boolean),
+    {
+      id: 34,
+      name: "AD QUESO FUNDIDO",
+      description: "ADICION DE QUESO FUNDIDO",
+      price: 3000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "cheeses",
+      customizable: false
+    },
+    {
+      id: 35,
+      name: "AD QUESO CHEDDAR",
+      description: "ADICION DE QUESO CHEDDAR",
+      price: 4000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "cheeses",
+      customizable: false
+    },
+    {
+      id: 36,
+      name: "AD QUESO COLBY JACK",
+      description: "ADICION DE QUESO COLBY JACK",
+      price: 4000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "cheeses",
+      customizable: false
+    },
+    {
+      id: 37,
+      name: "AD QUESO SABANA",
+      description: "ADICION DE QUESO SABANA",
+      price: 4000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "cheeses",
+      customizable: false
+    },
+    {
+      id: 42,
+      name: "AD CHEDDAR LIQUIDO Y TIERRA DE TOCINETA",
+      description: "ADICION DE QUESO CHEDAR Y TOCINETA",
+      price: 7000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "cheeses",
+      customizable: false
+    }
+  ],
   Cebollas: [
-    menuItems.find(item => item.id === 33),
-    menuItems.find(item => item.id === 38),
-    menuItems.find(item => item.id === 39),
-  ].filter(Boolean),
+    {
+      id: 33,
+      name: "AD CEBOLLA CARAMELIZADA",
+      description: "ADICION DE CEBOLLA CARAMELIZADA",
+      price: 3000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "onions",
+      customizable: false
+    },
+    {
+      id: 38,
+      name: "AD AROS DE CEBOLLA APANADOS",
+      description: "ADICION DE AROS DE CEBOLLA (3 UN)",
+      price: 4500,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "onions",
+      customizable: false
+    },
+    {
+      id: 39,
+      name: "AD CEBOLLA CRUNCH",
+      description: "ADICION DE CEBOLLA CRUNCH",
+      price: 3000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "onions",
+      customizable: false
+    }
+  ],
   "Otros Vegetales y Adiciones": [
-    menuItems.find(item => item.id === 32),
-    menuItems.find(item => item.id === 40),
-    menuItems.find(item => item.id === 41),
-  ].filter(Boolean),
+    {
+      id: 32,
+      name: "PIÑA ASADA",
+      description: "ADICION DE PIÑA ASADA",
+      price: 2500,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "others",
+      customizable: false
+    },
+    {
+      id: 40,
+      name: "AD PEPINILLOS",
+      description: "ADICION DE PEPINILLOS",
+      price: 13000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "others",
+      customizable: false
+    },
+    {
+      id: 41,
+      name: "AD JALAPEÑOS",
+      description: "ADICION DE JALAPEÑOS",
+      price: 3000,
+      image: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      category: "others",
+      customizable: false
+    }
+  ]
 };
