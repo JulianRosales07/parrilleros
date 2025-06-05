@@ -7,12 +7,12 @@ export const categories: Category[] = [
   { id: 'contest-burgers', name: 'Hamburguesas de Concurso', icon: 'beef' },
   { id: 'hotdogs', name: 'Perros Calientes', icon: 'beef' },
   { id: 'sides', name: 'Acompañamientos', icon: 'french-fries', subcategories: [
-    { id: 'fries', name: 'Papas' },
-    { id: 'meats', name: 'Carnes' },
-    { id: 'cheeses', name: 'Quesos' },
-    { id: 'onions', name: 'Cebollas' },
-    { id: 'others', name: 'Otros Vegetales y Adiciones' }
-  ]},
+  { id: 'fries', name: 'Papas' },
+  { id: 'meats', name: 'Carnes' },
+  { id: 'cheeses', name: 'Quesos' },
+  { id: 'onions', name: 'Cebollas' },
+  { id: 'others', name: 'Otros Vegetales y Adiciones' }
+]},
   { id: 'drinks', name: 'Bebidas', icon: 'cup-soda' },
 ];
 
