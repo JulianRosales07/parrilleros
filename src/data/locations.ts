@@ -28,7 +28,7 @@ export const locations: Location[] = [
     name: 'Parrilleros Cuadras',
     address: 'Calle 20 # 31C - 38 - Las Cuadras',
     phone: '313 341 9733',
-    whatsapp: '+573186025829',
+    whatsapp: '+573133419733',
     neighborhood: 'Las Cuadras',
     deliveryZones: [
        'Cualquier sitio de la ciudad'
