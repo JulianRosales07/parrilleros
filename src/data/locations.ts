@@ -17,7 +17,7 @@ export const locations: Location[] = [
     name: 'Parrilleros San Ignacio',
     address: 'Cra 32 # 14 - 84 - San Ignacio',
     phone: '316 606 0005',
-    whatsapp: '+573148300987',
+    whatsapp: '+573166060005',
     neighborhood: 'San Ignacio',
     deliveryZones: [
       'Cualquier sitio de la ciudad'
