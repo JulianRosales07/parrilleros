@@ -6,7 +6,7 @@ export const locations: Location[] = [
     name: 'Parrilleros Tamasagra',
     address: 'Manzana 9A casa 1 - Tamasagra',
     phone: '301 222 2098',
-    whatsapp: '+573186025827',
+    whatsapp: '+573012222098',
     neighborhood: 'Tamasagra',
     deliveryZones: [
       'Cualquier sitio de la ciudad'
