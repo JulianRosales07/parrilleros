@@ -192,7 +192,7 @@ export const menuItems: MenuItem[] = [
     category: 'contest-burgers',
     customizable: true,
     badges: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s'],
-  }
+  },
 
   // Perros Calientes
   {
