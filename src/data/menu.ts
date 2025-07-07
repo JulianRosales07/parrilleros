@@ -182,6 +182,17 @@ export const menuItems: MenuItem[] = [
     customizable: true,
     badges: ['https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100'],
   },
+    {
+    id: 25,
+    name: 'Burguer Parrillera SUPER MEAT',
+    description: 'LA MAS SALVAJE DEL BARRIO, DOS CARNES DE 80 GR QUE RUGEN EN CADA MORDIDA, PAN BRIOCHE SELLADO EN MANTEQUILLA, QUESO DOBLE CREMA Y UN CHEDDAR CREMOSOQUE SE DESBORDASIN PEDIR PERMISO, LA MAYOCHIRRI LE METE TODO EL POWER CALLEJERO, LAS TOCINETAS CARAMELIZADAS EN REDUCCION DE CERVEZA ESTAN BIEN LOCAS Y CRIJIENTES, TE ATREVES A PROBARLA?',
+    price: 27000,
+    priceWithFries: 33000,
+    image: 'https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg',
+    category: 'contest-burgers',
+    customizable: true,
+    badges: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s'],
+  }
 
   // Perros Calientes
   {
