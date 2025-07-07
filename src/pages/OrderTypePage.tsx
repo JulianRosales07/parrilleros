@@ -5,7 +5,7 @@ import { useOrder } from '../context/OrderContext';
 
 const OrderTypePage: React.FC = () => {
   const navigate = useNavigate();
-  const { cart } = useOrder();
+  const { cart, total } = useOrder();
   const [selectedType, setSelectedType] = useState<'delivery' | 'pickup' | null>(null);
 
   const handleBack = () => {
@@ -34,7 +34,8 @@ const OrderTypePage: React.FC = () => {
         'Seguimiento del pedido',
         'Pago contra entrega'
       ],
-      color: 'border-[#FF8C00] bg-orange-50'
+      color: 'border-[#FF8C00] bg-orange-50',
+      priceText: `$${total.toLocaleString()} + domicilio`
     },
     {
       id: 'pickup' as const,
@@ -47,7 +48,8 @@ const OrderTypePage: React.FC = () => {
         'Producto más fresco',
         'Atención personalizada'
       ],
-      color: 'border-green-600 bg-green-50'
+      color: 'border-green-600 bg-green-50',
+      priceText: `$${total.toLocaleString()}`
     }
   ];
 
@@ -84,11 +86,7 @@ const OrderTypePage: React.FC = () => {
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold text-[#FF8C00]">
-                ${cart.reduce((sum, item) => {
-                  const basePrice = item.withFries ? (item.menuItem.priceWithFries || item.menuItem.price) : item.menuItem.price;
-                  const customizationsTotal = item.customizations.reduce((sum, option) => sum + option.price, 0);
-                  return sum + (basePrice + customizationsTotal) * item.quantity;
-                }, 0).toLocaleString()}
+                ${total.toLocaleString()}
               </p>
             </div>
           </div>
@@ -120,6 +118,17 @@ const OrderTypePage: React.FC = () => {
                   <div>
                     <h3 className="text-2xl font-bold text-gray-800 mb-1">{type.title}</h3>
                     <p className="text-gray-600">{type.subtitle}</p>
+                  </div>
+                </div>
+
+                {/* Price Display */}
+                <div className="mb-6 p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600 mb-1">Total a pagar:</p>
+                    <p className="text-2xl font-bold text-[#FF8C00]">{type.priceText}</p>
+                    {type.id === 'delivery' && (
+                      <p className="text-xs text-gray-500 mt-1">*Costo de domicilio según zona</p>
+                    )}
                   </div>
                 </div>
 

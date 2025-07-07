@@ -28,9 +28,9 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
     );
   }
 
-  // Cálculos de impuestos corregidos - solo IVA
+  // Cálculos de impuestos corregidos - INC (Ipoconsumo) en lugar de IVA
   const subtotal = orderTotal * 0.92; // Base gravable (92%)
-  const iva = orderTotal * 0.08; // IVA (8%)
+  const inc = orderTotal * 0.08; // INC - Ipoconsumo (8%)
 
   return (
     <div className={`${isReceipt ? 'text-sm' : 'bg-white rounded-lg shadow-md p-6'}`}>
@@ -54,8 +54,8 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
           <span className="font-medium">${Math.round(subtotal).toLocaleString()}</span>
         </div>
         <div className="flex justify-between mb-1">
-          <span className="text-gray-600">IVA (8%):</span>
-          <span className="font-medium">${Math.round(iva).toLocaleString()}</span>
+          <span className="text-gray-600">INC (8%):</span>
+          <span className="font-medium">${Math.round(inc).toLocaleString()}</span>
         </div>
         <div className={`flex justify-between font-bold mt-2 pt-2 border-t border-gray-200 ${isReceipt ? 'text-sm' : 'text-lg'}`}>
           <span>Total:</span>

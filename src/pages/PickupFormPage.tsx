@@ -56,7 +56,7 @@ const PickupFormPage: React.FC = () => {
 
   const generateTicketContent = () => {
     const subtotal = total * 0.92;
-    const iva = total * 0.08;
+    const inc = total * 0.08;
 
     const cartDetails = cart.map((item, index) => {
       const basePrice = item.withFries ? (item.menuItem.priceWithFries || item.menuItem.price) : item.menuItem.price;
@@ -103,7 +103,7 @@ ${cartDetails}
 
 💰 DESGLOSE DE COSTOS
 • Subtotal: $${Math.round(subtotal).toLocaleString()}
-• IVA (8%): $${Math.round(iva).toLocaleString()}
+• INC (8%): $${Math.round(inc).toLocaleString()}
 • TOTAL: $${Math.round(total).toLocaleString()}
 
 💳 Forma de pago: ${formData.paymentMethod}
@@ -118,7 +118,7 @@ ${cartDetails}
     if (!selectedLocation) return;
 
     const subtotal = total * 0.92;
-    const iva = total * 0.08;
+    const inc = total * 0.08;
 
     const invoiceData = {
       orderNumber,
@@ -133,7 +133,7 @@ ${cartDetails}
       locationPhone: selectedLocation.phone,
       items: cart,
       subtotal: Math.round(subtotal),
-      iva: Math.round(iva),
+      iva: Math.round(inc), // Using iva field for INC
       total: Math.round(total),
       paymentMethod: formData.paymentMethod,
       requiresInvoice: formData.requiresInvoice,
@@ -194,7 +194,7 @@ ${cartDetails}
 
   if (orderSubmitted) {
     const subtotal = total * 0.92;
-    const iva = total * 0.08;
+    const inc = total * 0.08;
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50 flex items-center justify-center p-4">
@@ -252,8 +252,8 @@ ${cartDetails}
                   <span className="font-medium">${Math.round(subtotal).toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-blue-700">IVA (8%):</span>
-                  <span className="font-medium">${Math.round(iva).toLocaleString()}</span>
+                  <span className="text-blue-700">INC (8%):</span>
+                  <span className="font-medium">${Math.round(inc).toLocaleString()}</span>
                 </div>
                 <div className="border-t border-blue-300 pt-2 mt-2">
                   <div className="flex justify-between font-bold text-base">

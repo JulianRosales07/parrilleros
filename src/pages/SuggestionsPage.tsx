@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ShoppingCart, ArrowRight, Plus } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, ArrowRight, Plus, ChevronDown, ChevronUp } from 'lucide-react';
 import { MenuItem } from '../types';
 import { useOrder } from '../context/OrderContext';
 import { menuItems } from '../data/menu';
@@ -9,6 +9,7 @@ const SuggestionsPage: React.FC = () => {
   const { addToCart } = useOrder();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['gaseosas'])); // Gaseosas expanded by default
 
   const sides = menuItems.filter((item) => item.category === 'sides');
   const drinks = menuItems.filter((item) => item.category === 'drinks');
@@ -30,6 +31,18 @@ const SuggestionsPage: React.FC = () => {
     navigate('/cart');
   };
 
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(categoryId)) {
+        newSet.delete(categoryId);
+      } else {
+        newSet.add(categoryId);
+      }
+      return newSet;
+    });
+  };
+
   // Get popular sides (first few items)
   const popularSides = sides.slice(0, 4);
 
@@ -44,13 +57,13 @@ const SuggestionsPage: React.FC = () => {
 
   const jugosNaturales = drinks.filter(drink => 
     drink.name.includes('JUGO NATURAL')
-  ).slice(0, 6);
+  );
 
   const otherDrinks = drinks.filter(drink => 
     !gaseosas.includes(drink) && 
     !limonadas.includes(drink) && 
     !jugosNaturales.includes(drink)
-  ).slice(0, 4);
+  );
 
   const ProductCard = ({ item }: { item: MenuItem }) => (
     <div 
@@ -98,23 +111,50 @@ const SuggestionsPage: React.FC = () => {
     </div>
   );
 
-  const DrinkCategory = ({ title, drinks, icon }: { title: string; drinks: MenuItem[]; icon: string }) => {
+  const DrinkCategory = ({ 
+    id, 
+    title, 
+    drinks, 
+    icon 
+  }: { 
+    id: string;
+    title: string; 
+    drinks: MenuItem[]; 
+    icon: string;
+  }) => {
     if (drinks.length === 0) return null;
     
+    const isExpanded = expandedCategories.has(id);
+    
     return (
-      <div className="mb-8">
-        <div className="flex items-center mb-4">
-          <span className="text-2xl mr-3">{icon}</span>
-          <h4 className="text-xl font-bold text-gray-800">{title}</h4>
-          <span className="ml-3 text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-            {drinks.length} opciones
-          </span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {drinks.map((item) => (
-            <ProductCard key={item.id} item={item} />
-          ))}
-        </div>
+      <div className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
+        <button
+          onClick={() => toggleCategory(id)}
+          className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex items-center">
+            <span className="text-2xl mr-3">{icon}</span>
+            <h4 className="text-xl font-bold text-gray-800">{title}</h4>
+            <span className="ml-3 text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+              {drinks.length} opciones
+            </span>
+          </div>
+          {isExpanded ? (
+            <ChevronUp size={24} className="text-gray-500" />
+          ) : (
+            <ChevronDown size={24} className="text-gray-500" />
+          )}
+        </button>
+        
+        {isExpanded && (
+          <div className="p-4 pt-0 border-t border-gray-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {drinks.map((item) => (
+                <ProductCard key={item.id} item={item} />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     );
   };
@@ -148,21 +188,26 @@ const SuggestionsPage: React.FC = () => {
 
       <div className="max-w-6xl mx-auto p-6">
         {/* Sides Section */}
-        <div className="mb-12">
-          <div className="flex items-center mb-6">
-            <span className="text-3xl mr-3">🍟</span>
-            <h3 className="text-2xl font-bold text-gray-800">Acompañamientos</h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popularSides.map((item) => (
-              <ProductCard key={item.id} item={item} />
-            ))}
+        <div className="mb-8">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="flex items-center mb-6">
+              <span className="text-3xl mr-3">🍟</span>
+              <h3 className="text-2xl font-bold text-gray-800">Acompañamientos</h3>
+              <span className="ml-4 text-sm text-gray-500 bg-gray-100 px-4 py-2 rounded-full">
+                {popularSides.length} opciones populares
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {popularSides.map((item) => (
+                <ProductCard key={item.id} item={item} />
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Drinks Section - Organized by categories */}
+        {/* Drinks Section - Organized by categories with dropdowns */}
         <div className="mb-8">
-          <div className="flex items-center mb-8">
+          <div className="flex items-center mb-6">
             <span className="text-3xl mr-3">🥤</span>
             <h3 className="text-2xl font-bold text-gray-800">Bebidas</h3>
             <span className="ml-4 text-sm text-gray-500 bg-gray-100 px-4 py-2 rounded-full">
@@ -170,12 +215,12 @@ const SuggestionsPage: React.FC = () => {
             </span>
           </div>
           
-          <div className="space-y-8">
-            <DrinkCategory title="Gaseosas" drinks={gaseosas} icon="🥤" />
-            <DrinkCategory title="Limonadas" drinks={limonadas.slice(0, 4)} icon="🍋" />
-            <DrinkCategory title="Jugos Naturales" drinks={jugosNaturales} icon="🧃" />
+          <div className="space-y-4">
+            <DrinkCategory id="gaseosas" title="Gaseosas" drinks={gaseosas} icon="🥤" />
+            <DrinkCategory id="limonadas" title="Limonadas" drinks={limonadas} icon="🍋" />
+            <DrinkCategory id="jugos" title="Jugos Naturales" drinks={jugosNaturales} icon="🧃" />
             {otherDrinks.length > 0 && (
-              <DrinkCategory title="Otras Bebidas" drinks={otherDrinks} icon="🥤" />
+              <DrinkCategory id="otros" title="Otras Bebidas" drinks={otherDrinks} icon="🥤" />
             )}
           </div>
         </div>

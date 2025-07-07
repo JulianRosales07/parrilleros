@@ -3,11 +3,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus } from 'lucide-react';
 import { MenuItem, CustomizationOption } from '../types';
 import { useOrder } from '../context/OrderContext';
+import { customizationOptions } from '../data/menu';
 
 const CustomizationPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { menuItem, options } = location.state as { menuItem: MenuItem; options: CustomizationOption[] };
+  const { menuItem } = location.state as { menuItem: MenuItem };
   
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState<CustomizationOption[]>([]);
@@ -15,12 +16,10 @@ const CustomizationPage: React.FC = () => {
   const [withFries, setWithFries] = useState(false);
   const { addToCart } = useOrder();
 
+  // Get all available customization options for hamburgers
+  const availableOptions = customizationOptions;
+
   const toggleOption = (option: CustomizationOption) => {
-    if (option.name === 'Agregar papas (+$6.000)') {
-      setWithFries(!withFries);
-      return;
-    }
-    
     setSelectedOptions((prevOptions) => {
       const exists = prevOptions.some((item) => item.id === option.id);
       if (exists) {
@@ -32,8 +31,7 @@ const CustomizationPage: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    const customizations = selectedOptions.filter(opt => opt.name !== 'Agregar papas (+$6.000)');
-    addToCart(menuItem, quantity, customizations, withFries, specialInstructions);
+    addToCart(menuItem, quantity, selectedOptions, withFries, specialInstructions);
     
     // Check if it's a burger to show suggestions
     const isBurgerCategory = menuItem.category.includes('burger');
@@ -45,26 +43,24 @@ const CustomizationPage: React.FC = () => {
   };
 
   const basePrice = withFries ? (menuItem.priceWithFries || menuItem.price) : menuItem.price;
-  const optionsPrice = selectedOptions
-    .filter(opt => opt.name !== 'Agregar papas (+$6.000)')
-    .reduce((sum, option) => sum + option.price, 0);
+  const optionsPrice = selectedOptions.reduce((sum, option) => sum + option.price, 0);
   const totalPrice = (basePrice + optionsPrice) * quantity;
 
   // Group options by type for better organization
-  const proteinOptions = options.filter(opt => 
+  const proteinOptions = availableOptions.filter(opt => 
     opt.name.includes('CARNE') || opt.name.includes('CHORIZO') || opt.name.includes('TOCINETA')
   );
   
-  const cheeseOptions = options.filter(opt => 
+  const cheeseOptions = availableOptions.filter(opt => 
     opt.name.includes('QUESO')
   );
   
-  const vegetableOptions = options.filter(opt => 
+  const vegetableOptions = availableOptions.filter(opt => 
     opt.name.includes('CEBOLLA') || opt.name.includes('PIÑA') || opt.name.includes('PEPINILLOS') || 
     opt.name.includes('JALAPEÑOS') || opt.name.includes('AROS')
   );
   
-  const otherOptions = options.filter(opt => 
+  const otherOptions = availableOptions.filter(opt => 
     !proteinOptions.includes(opt) && !cheeseOptions.includes(opt) && !vegetableOptions.includes(opt)
   );
 
@@ -76,6 +72,9 @@ const CustomizationPage: React.FC = () => {
         <h4 className="font-bold text-lg mb-3 flex items-center text-gray-800">
           <span className="mr-2 text-xl">{icon}</span>
           {title}
+          <span className="ml-2 text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+            {options.length} opciones
+          </span>
         </h4>
         <div className="grid grid-cols-1 gap-3">
           {options.map((option) => (
