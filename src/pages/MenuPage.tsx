@@ -6,12 +6,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Layout from '../components/Layout';
 import CategorySelector from '../components/CategorySelector';
 import MenuCard from '../components/MenuCard';
-import CustomizationModal from '../components/CustomizationModal';
-import SuggestionsModal from '../components/SuggestionsModal';
 import SearchBar from '../components/SearchBar';
 import TourButton from '../components/TourButton';
 import { categories, menuItems, customizationOptions } from '../data/menu';
-import { MenuItem } from '../types';
 import { useOrder } from '../context/OrderContext';
 import { useDriverTour, menuTourSteps } from '../hooks/useDriverTour';
 
@@ -22,8 +19,6 @@ const MenuPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart } = useOrder();
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
-  const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showTourButton, setShowTourButton] = useState(true);
   
@@ -212,31 +207,6 @@ const MenuPage: React.FC = () => {
     }
   }, [cart.length]);
 
-  const sides = menuItems.filter((item) => item.category === 'sides');
-  const drinks = menuItems.filter((item) => item.category === 'drinks');
-
-  const handleItemClick = (item: MenuItem) => {
-    setSelectedItem(item);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedItem(null);
-  };
-
-  // Nueva función para manejar cuando se añade un item
-  const handleItemAdded = () => {
-    const isBurgerCategory = selectedItem?.category.includes('burger');
-    
-    // Solo mostrar sugerencias para categorías de hamburguesas
-    if (isBurgerCategory) {
-      setShowSuggestions(true);
-    }
-  };
-
-  const handleCloseSuggestions = () => {
-    setShowSuggestions(false);
-  };
-
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
@@ -359,7 +329,7 @@ const MenuPage: React.FC = () => {
                 className="menu-card-container"
               >
                 <div className="menu-card-enhanced rounded-2xl">
-                  <MenuCard item={item} onClick={handleItemClick} />
+                  <MenuCard item={item} />
                 </div>
               </div>
             ))}
@@ -385,26 +355,6 @@ const MenuPage: React.FC = () => {
             </div>
           </div>
         ) : null}
-
-        {selectedItem && (
-          <CustomizationModal
-            menuItem={selectedItem}
-            options={customizationOptions.filter(
-              (option) => selectedItem.category !== 'burgers' || 
-                        option.id <= 10
-            )}
-            onClose={handleCloseModal}
-            onItemAdded={handleItemAdded}
-          />
-        )}
-
-        {showSuggestions && (
-          <SuggestionsModal
-            onClose={handleCloseSuggestions}
-            sides={sides}
-            drinks={drinks}
-          />
-        )}
         
         {/* Floating cart button */}
         {cartTotal > 0 && (

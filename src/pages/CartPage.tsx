@@ -4,13 +4,11 @@ import Layout from '../components/Layout';
 import TourButton from '../components/TourButton';
 import { useOrder } from '../context/OrderContext';
 import OrderSummary from '../components/OrderSummary';
-import DeliveryForm from '../components/DeliveryForm';
 import { useDriverTour, cartTourSteps } from '../hooks/useDriverTour';
 
 const CartPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart } = useOrder();
-  const [showDeliveryForm, setShowDeliveryForm] = useState(false);
   const [showTourButton, setShowTourButton] = useState(true);
 
   const { startTour } = useDriverTour({
@@ -39,21 +37,13 @@ const CartPage: React.FC = () => {
     navigate('/menu');
   };
 
-  const handleOrderDelivery = () => {
-    setShowDeliveryForm(true);
-  };
-
-  const handleBackFromDelivery = () => {
-    setShowDeliveryForm(false);
+  const handleOrderType = () => {
+    navigate('/order-type');
   };
 
   const handleStartTour = () => {
     startTour();
   };
-
-  if (showDeliveryForm) {
-    return <DeliveryForm onBack={handleBackFromDelivery} />;
-  }
 
   return (
     <Layout title="Tu pedido" showBack onBack={handleBackToMenu}>
@@ -66,10 +56,10 @@ const CartPage: React.FC = () => {
           {cart.length > 0 && (
             <button
               data-tour="delivery-button"
-              onClick={handleOrderDelivery}
+              onClick={handleOrderType}
               className="w-full py-4 bg-[#FF8C00] text-white font-bold rounded-lg hover:bg-orange-600 transition-colors text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
             >
-              🛵 Pedir a Domicilio
+              🛵 Continuar con el Pedido
             </button>
           )}
           

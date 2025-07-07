@@ -2,21 +2,28 @@ import React from 'react';
 import { Plus, Tag } from 'lucide-react';
 import { MenuItem } from '../types';
 import { useOrder } from '../context/OrderContext';
+import { useNavigate } from 'react-router-dom';
 
 interface MenuCardProps {
   item: MenuItem;
-  onClick: (item: MenuItem) => void;
 }
 
-const MenuCard: React.FC<MenuCardProps> = ({ item, onClick }) => {
+const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
   const { name, description, price, image, category } = item;
   const { addToCart } = useOrder();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (category === 'sides' || category === 'drinks') {
       addToCart(item, 1, [], false, '');
     } else {
-      onClick(item);
+      // Navigate to customization page with item data
+      navigate('/customize', { 
+        state: { 
+          menuItem: item, 
+          options: [] // You can pass customization options here
+        } 
+      });
     }
   };
 
