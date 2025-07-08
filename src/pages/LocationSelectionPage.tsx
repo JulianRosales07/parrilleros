@@ -62,12 +62,10 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
 
   const handleLocationSelect = (location: Location) => {
     setSelectedLocation(location);
-  };
-
-  const handleContinue = () => {
-    if (selectedLocation) {
-      onLocationSelected(selectedLocation);
-    }
+    // Auto-continue after selection
+    setTimeout(() => {
+      onLocationSelected(location);
+    }, 500);
   };
 
   const handleStartTour = () => {
@@ -184,48 +182,17 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
           </div>
         </div>
 
-        {/* Continue Button */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <button
-            data-tour="continue-button"
-            onClick={handleContinue}
-            disabled={!selectedLocation}
-            className={`w-full py-4 font-bold rounded-lg text-lg flex items-center justify-center transition-all ${
-              selectedLocation
-                ? 'bg-[#FF8C00] text-white hover:bg-orange-600 shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            {selectedLocation ? (
-              <>
-                <CheckCircle size={24} className="mr-2" />
-                Continuar con <span className="font-heavyrust-primary">{selectedLocation.name}</span>
-              </>
-            ) : (
-              <>
-                <MapPin size={24} className="mr-2" />
-                Selecciona una sede para continuar
-              </>
-            )}
-          </button>
-          
-          {selectedLocation && (
-            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <CheckCircle size={16} className="text-green-600" />
-                </div>
-                <div>
-                  <p className="font-medium text-green-800">
-                    Sede seleccionada: <span className="font-heavyrust-primary">{selectedLocation.name}</span>
-                  </p>
-                  <p className="text-sm text-green-600">
-                    Tu pedido será procesado por esta sede
-                  </p>
-                </div>
-              </div>
+        {/* Instructions */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center" data-tour="continue-button">
+          <div className="flex items-center justify-center mb-3">
+            <div className="bg-blue-100 rounded-full p-3 mr-3">
+              <span className="text-2xl">👆</span>
             </div>
-          )}
+            <h3 className="text-lg font-bold text-blue-800">¡Selecciona tu sede preferida!</h3>
+          </div>
+          <p className="text-blue-700">
+            Haz clic en cualquiera de las sedes de arriba para continuar automáticamente
+          </p>
         </div>
 
         {/* Tour Button - Pequeño en esquina inferior izquierda */}

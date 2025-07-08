@@ -22,6 +22,18 @@ const OrderTypePage: React.FC = () => {
     }
   };
 
+  const handleTypeSelect = (type: 'delivery' | 'pickup') => {
+    setSelectedType(type);
+    // Auto-navigate after selection
+    setTimeout(() => {
+      if (type === 'delivery') {
+        navigate('/delivery-form');
+      } else {
+        navigate('/pickup-form');
+      }
+    }, 500);
+  };
+
   const orderTypes = [
     {
       id: 'delivery' as const,
@@ -97,7 +109,7 @@ const OrderTypePage: React.FC = () => {
           {orderTypes.map((type) => (
             <div
               key={type.id}
-              onClick={() => setSelectedType(type.id)}
+              onClick={() => handleTypeSelect(type.id)}
               className={`relative bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl transform hover:scale-[1.02] border-2 ${
                 selectedType === type.id
                   ? type.color + ' shadow-xl scale-[1.02]'
@@ -125,7 +137,9 @@ const OrderTypePage: React.FC = () => {
                 <div className="mb-6 p-4 bg-gray-50 rounded-lg border-2 border-gray-200">
                   <div className="text-center">
                     <p className="text-sm text-gray-600 mb-1">Total a pagar:</p>
-                    <p className="text-2xl font-bold text-[#FF8C00]">{type.priceText}</p>
+                    <p className="text-2xl font-bold text-[#FF8C00]">
+                      {type.id === 'delivery' ? `$${total.toLocaleString()} + domicilio` : `$${total.toLocaleString()}`}
+                    </p>
                     {type.id === 'delivery' && (
                       <p className="text-xs text-gray-500 mt-1">*Costo de domicilio según zona</p>
                     )}
@@ -167,49 +181,17 @@ const OrderTypePage: React.FC = () => {
           ))}
         </div>
 
-        {/* Continue Button */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <button
-            onClick={handleContinue}
-            disabled={!selectedType}
-            className={`w-full py-4 font-bold rounded-lg text-lg flex items-center justify-center transition-all ${
-              selectedType
-                ? 'bg-[#FF8C00] text-white hover:bg-orange-600 shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            {selectedType ? (
-              <>
-                <CheckCircle size={24} className="mr-2" />
-                Continuar con {selectedType === 'delivery' ? 'Entrega a Domicilio' : 'Recogida en Sede'}
-              </>
-            ) : (
-              <>
-                Selecciona una opción para continuar
-              </>
-            )}
-          </button>
-          
-          {selectedType && (
-            <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                  <CheckCircle size={16} className="text-green-600" />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-800">
-                    Opción seleccionada: {selectedType === 'delivery' ? 'Entrega a Domicilio' : 'Recogida en Sede'}
-                  </p>
-                  <p className="text-sm text-gray-600">
-                    {selectedType === 'delivery' 
-                      ? 'Completa tus datos de entrega en el siguiente paso'
-                      : 'Selecciona tu sede preferida en el siguiente paso'
-                    }
-                  </p>
-                </div>
-              </div>
+        {/* Instructions */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+          <div className="flex items-center justify-center mb-3">
+            <div className="bg-blue-100 rounded-full p-3 mr-3">
+              <span className="text-2xl">👆</span>
             </div>
-          )}
+            <h3 className="text-lg font-bold text-blue-800">¡Selecciona tu opción preferida!</h3>
+          </div>
+          <p className="text-blue-700">
+            Haz clic en cualquiera de las opciones de arriba para continuar automáticamente
+          </p>
         </div>
       </div>
     </div>
