@@ -3,7 +3,6 @@ import { Check, Printer, Download, Share2, Home, Clock, MapPin, Phone, Receipt }
 import { useOrder } from '../context/OrderContext';
 import OrderSummary from './OrderSummary';
 import { generateInvoicePDF } from '../utils/pdfGenerator';
-import QRCode from 'qrcode'; // Optional: For QR code generation
 
 interface TicketViewProps {
   onDone: () => void;
@@ -12,7 +11,7 @@ interface TicketViewProps {
 const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
   const { orderNumber, cart, total, currentOrder } = useOrder();
   const ticketRef = useRef<HTMLDivElement>(null);
-
+  
   // Simulate printing animation
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,44 +20,18 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
         ticketRef.current.classList.add('translate-y-0', 'opacity-100');
       }
     }, 500);
-
+    
     return () => clearTimeout(timer);
   }, []);
 
-  const handlePrint = async () => {
-    console.log('handlePrint called with:', { orderNumber, cart, total }); // Debug log
-    if (!orderNumber || !cart || total === undefined) {
-      alert('Error: Datos del pedido incompletos. Por favor, verifica tu pedido e intenta de nuevo.');
-      return;
-    }
-
-    // Calculate subtotal and INC (8%)
-    const subtotal = total * 0.92; // Base gravable (92%)
-    const inc = total * 0.08; // INC (8%)
-
-    // Optional: Generate QR code
-    let qrCodeUrl = '';
-    try {
-      qrCodeUrl = await QRCode.toDataURL(`Pedido #${orderNumber.toString().padStart(3, '0')}`);
-      console.log('QR code generated successfully');
-    } catch (error) {
-      console.error('Error generating QR code:', error);
-      qrCodeUrl = ''; // Fallback to placeholder
-    }
-
+  const handlePrint = () => {
     if (ticketRef.current) {
-      try {
-        const printWindow = window.open('', '_blank');
-        if (!printWindow) {
-          alert('El navegador bloqueó la ventana de impresión. Por favor, permite las ventanas emergentes e intenta de nuevo.');
-          return;
-        }
-
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
         printWindow.document.write(`
           <html>
             <head>
               <title>Ticket Parrilleros #${orderNumber.toString().padStart(3, '0')}</title>
-              <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
               <style>
                 @page { 
                   margin: 15mm; 
@@ -489,15 +462,11 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                 
                 <!-- QR Section -->
                 <div class="qr-section">
-                  ${qrCodeUrl ? `
-                    <img src="${qrCodeUrl}" style="width: 80px; height: 80px; margin: 0 auto 10px;" />
-                  ` : `
-                    <div class="qr-placeholder">
-                      QR CODE<br>
-                      PEDIDO<br>
-                      #${orderNumber.toString().padStart(3, '0')}
-                    </div>
-                  `}
+                  <div class="qr-placeholder">
+                    QR CODE<br>
+                    PEDIDO<br>
+                    #${orderNumber.toString().padStart(3, '0')}
+                  </div>
                   <p style="font-size: 10px; color: #666;">Código QR para seguimiento del pedido</p>
                 </div>
                 
@@ -515,23 +484,13 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
           </html>
         `);
         printWindow.document.close();
-        console.log('Print window written and closed');
-        setTimeout(() => {
-          console.log('Attempting to print');
-          printWindow.focus();
-          printWindow.print();
-        }, 1000); // Increased delay to 1000ms
-      } catch (error) {
-        console.error('Error in handlePrint:', error);
-        alert('Error al generar la impresión. Por favor, revisa la consola para más detalles.');
+        printWindow.print();
       }
-    } else {
-      console.error('ticketRef is null');
-      alert('Error: No se pudo acceder al contenido del ticket. Por favor, intenta de nuevo.');
     }
   };
 
   const handleDownload = () => {
+    // Cálculos de impuestos corregidos - INC en lugar de IVA
     const subtotal = total * 0.92; // Base gravable (92%)
     const inc = total * 0.08; // INC (8%)
 
@@ -552,7 +511,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
       total: Math.round(total),
       paymentMethod: 'Por definir',
       requiresInvoice: false,
-      date: new Date(),
+      date: new Date()
     };
 
     generateInvoicePDF(invoiceData);
@@ -562,7 +521,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
     const shareData = {
       title: `Pedido Parrilleros #${orderNumber.toString().padStart(3, '0')}`,
       text: `¡Mi pedido en Parrilleros está listo! Pedido #${orderNumber.toString().padStart(3, '0')} - Total: $${Math.round(total).toLocaleString()}`,
-      url: window.location.href,
+      url: window.location.href
     };
 
     if (navigator.share) {
@@ -572,6 +531,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
         console.log('Error sharing:', err);
       }
     } else {
+      // Fallback for browsers that don't support Web Share API
       const text = `${shareData.text} - ${shareData.url}`;
       navigator.clipboard.writeText(text).then(() => {
         alert('¡Enlace copiado al portapapeles!');
@@ -579,11 +539,12 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
     }
   };
 
+  // Cálculos de impuestos corregidos - INC en lugar de IVA
   const subtotal = total * 0.92; // Base gravable (92%)
   const inc = total * 0.08; // INC (8%)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-orange-50 flex flex-col items-center justify-center p-4 ticket-view">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-orange-50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-lg">
         {/* Success Header */}
         <div className="bg-white rounded-2xl shadow-2xl p-8 text-center mb-6 border border-green-200">
@@ -594,7 +555,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
           <div className="bg-gradient-to-r from-[#FF8C00] to-orange-600 text-white px-6 py-3 rounded-full inline-block mb-4">
             <span className="text-lg font-bold">Pedido #{orderNumber.toString().padStart(3, '0')}</span>
           </div>
-
+          
           {/* Quick Info Cards */}
           <div className="grid grid-cols-2 gap-4 mt-6">
             <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
@@ -604,7 +565,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
               </div>
               <p className="text-xl font-bold text-blue-600">15-20 min</p>
             </div>
-
+            
             <div className="bg-green-50 border border-green-200 rounded-xl p-4">
               <div className="flex items-center justify-center mb-2">
                 <Receipt size={20} className="text-green-600 mr-2" />
@@ -616,7 +577,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
         </div>
 
         {/* Detailed Ticket */}
-        <div
+        <div 
           ref={ticketRef}
           className="bg-white rounded-2xl shadow-2xl transition-all duration-1000 ease-out transform translate-y-full opacity-0 border border-gray-200"
         >
@@ -632,7 +593,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                   <p className="text-gray-600 text-sm font-bebas-neue-primary">FAST FOOD</p>
                 </div>
               </div>
-
+              
               <div className="bg-gray-50 rounded-lg p-4 mb-4">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
@@ -646,7 +607,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                 </div>
               </div>
             </div>
-
+            
             {/* Order Details */}
             <div className="mb-6">
               <h4 className="font-bold text-lg text-gray-800 mb-4 flex items-center">
@@ -655,13 +616,13 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                 </div>
                 Detalles del Pedido
               </h4>
-
+              
               <div className="space-y-3">
                 {cart.map((item, index) => {
                   const basePrice = item.withFries ? (item.menuItem.priceWithFries || item.menuItem.price) : item.menuItem.price;
                   const customizationsTotal = item.customizations.reduce((sum, option) => sum + option.price, 0);
                   const itemTotal = (basePrice + customizationsTotal) * item.quantity;
-
+                  
                   return (
                     <div key={item.id} className="bg-gray-50 rounded-lg p-4">
                       <div className="flex justify-between items-start mb-2">
@@ -676,14 +637,14 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                           ${Math.round(itemTotal).toLocaleString()}
                         </span>
                       </div>
-
+                      
                       {item.customizations.length > 0 && (
                         <div className="text-sm text-gray-600 mb-2">
                           <span className="font-medium">Extras: </span>
                           {item.customizations.map(c => c.name.replace('AD ', '')).join(', ')}
                         </div>
                       )}
-
+                      
                       {item.specialInstructions && (
                         <div className="text-sm text-gray-600 italic">
                           <span className="font-medium">Instrucciones: </span>
@@ -704,7 +665,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                 </div>
                 Resumen de Costos
               </h4>
-
+              
               <div className="bg-gray-50 rounded-lg p-4 space-y-3">
                 <div className="flex justify-between text-gray-700">
                   <span>Subtotal:</span>
@@ -736,7 +697,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
               </ul>
             </div>
 
-            <!-- Action Buttons -->
+            {/* Action Buttons */}
             <div className="space-y-3">
               <div className="grid grid-cols-3 gap-3">
                 <button
@@ -746,7 +707,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                   <Download size={20} className="mb-1" />
                   <span className="text-xs">Descargar</span>
                 </button>
-
+                
                 <button
                   onClick={handlePrint}
                   className="flex flex-col items-center justify-center py-3 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors"
@@ -754,7 +715,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                   <Printer size={20} className="mb-1" />
                   <span className="text-xs">Imprimir</span>
                 </button>
-
+                
                 <button
                   onClick={handleShare}
                   className="flex flex-col items-center justify-center py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
@@ -763,7 +724,7 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
                   <span className="text-xs">Compartir</span>
                 </button>
               </div>
-
+              
               <button
                 onClick={onDone}
                 className="w-full py-4 bg-gradient-to-r from-[#FF8C00] to-orange-600 text-white font-bold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] flex items-center justify-center"
@@ -773,18 +734,15 @@ const TicketView: React.FC<TicketViewProps> = ({ onDone }) => {
               </button>
             </div>
           </div>
-
-          <!-- Decorative bottom border -->
+          
+          {/* Decorative bottom border */}
           <div className="h-4 w-full overflow-hidden relative bg-gray-100">
-            <div
-              className="absolute w-full h-8 left-0"
-              style={{
-                backgroundImage: 'radial-gradient(circle at 10px -4px, transparent 14px, white 16px)',
-                backgroundSize: '20px 20px',
-                backgroundPosition: 'bottom',
-                backgroundRepeat: 'repeat-x',
-              }}
-            ></div>
+            <div className="absolute w-full h-8 left-0" style={{ 
+              backgroundImage: 'radial-gradient(circle at 10px -4px, transparent 14px, white 16px)',
+              backgroundSize: '20px 20px',
+              backgroundPosition: 'bottom',
+              backgroundRepeat: 'repeat-x'
+            }}></div>
           </div>
         </div>
       </div>
