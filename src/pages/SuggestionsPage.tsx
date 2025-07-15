@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, ShoppingCart, ArrowRight, Plus, ChevronDown, ChevronUp } from 'lucide-react';
-import { MenuItem } from '../types';
-import { useOrder } from '../context/OrderContext';
-import { menuItems } from '../data/menu';
-import FONDO from '../assets/fondo.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  ShoppingCart,
+  ArrowRight,
+  Plus,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
+import { MenuItem } from "../types";
+import { useOrder } from "../context/OrderContext";
+import { menuItems } from "../data/menu";
+import FONDO from "../assets/fondo.png";
 
 const SuggestionsPage: React.FC = () => {
   const { addToCart } = useOrder();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['gaseosas'])); // Gaseosas expanded by default
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set(["gaseosas"])
+  ); // Gaseosas expanded by default
 
-  const sides = menuItems.filter((item) => item.category === 'sides');
-  const drinks = menuItems.filter((item) => item.category === 'drinks');
+  const sides = menuItems.filter((item) => item.category === "sides");
+  const drinks = menuItems.filter((item) => item.category === "drinks");
 
   const handleAddItem = (item: MenuItem) => {
-    addToCart(item, 1, [], false, '');
-    setSelectedItems(prev => {
+    addToCart(item, 1, [], false, "");
+    setSelectedItems((prev) => {
       const newSet = new Set(prev);
       newSet.add(item.id);
       return newSet;
@@ -25,15 +34,15 @@ const SuggestionsPage: React.FC = () => {
   };
 
   const handleContinue = () => {
-    navigate('/cart');
+    navigate("/cart");
   };
 
   const handleSkip = () => {
-    navigate('/cart');
+    navigate("/cart");
   };
 
   const toggleCategory = (categoryId: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {
         newSet.delete(categoryId);
@@ -48,28 +57,38 @@ const SuggestionsPage: React.FC = () => {
   const popularSides = sides.slice(0, 4);
 
   // Categorize drinks
-  const gaseosas = drinks.filter(drink => 
-    drink.name.includes('GASEOSA') || drink.name.includes('COCA')
+  const gaseosas = drinks.filter(
+    (drink) => drink.name.includes("GASEOSA") || drink.name.includes("COCA")
   );
 
-  const limonadas = drinks.filter(drink => 
-    drink.name.includes('LIMONADA')
+  const limonadas = drinks.filter((drink) => drink.name.includes("LIMONADA"));
+
+  const jugosNaturales = drinks.filter((drink) =>
+    drink.name.includes("JUGO NATURAL")
   );
 
-  const jugosNaturales = drinks.filter(drink => 
-    drink.name.includes('JUGO NATURAL')
+  // Separate natural juices by water and milk
+  const jugosEnAgua = jugosNaturales.filter((drink) =>
+    drink.name.includes("EN AGUA")
   );
 
-  const otherDrinks = drinks.filter(drink => 
-    !gaseosas.includes(drink) && 
-    !limonadas.includes(drink) && 
-    !jugosNaturales.includes(drink)
+  const jugosEnLeche = jugosNaturales.filter((drink) =>
+    drink.name.includes("EN LECHE")
+  );
+
+  const otherDrinks = drinks.filter(
+    (drink) =>
+      !gaseosas.includes(drink) &&
+      !limonadas.includes(drink) &&
+      !jugosNaturales.includes(drink)
   );
 
   const ProductCard = ({ item }: { item: MenuItem }) => (
-    <div 
+    <div
       className={`relative bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer border-2 ${
-        selectedItems.has(item.id) ? 'border-[#FF8C00] ring-2 ring-[#FF8C00]/20' : 'border-gray-100 hover:border-gray-200'
+        selectedItems.has(item.id)
+          ? "border-[#FF8C00] ring-2 ring-[#FF8C00]/20"
+          : "border-gray-100 hover:border-gray-200"
       }`}
       onClick={() => handleAddItem(item)}
     >
@@ -78,24 +97,30 @@ const SuggestionsPage: React.FC = () => {
           <ShoppingCart size={16} />
         </div>
       )}
-      
+
       <div className="h-32 overflow-hidden">
-        <img 
-          src={item.image} 
-          alt={item.name} 
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110" 
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
       </div>
-      
+
       <div className="p-4">
-        <h4 className="font-bold text-gray-800 mb-2 line-clamp-2">{item.name}</h4>
-        <p className="text-[#FF8C00] font-bold text-lg mb-3">${item.price.toLocaleString()}</p>
-        
-        <button className={`w-full py-2 px-3 rounded text-sm font-medium transition-all ${
-          selectedItems.has(item.id)
-            ? 'bg-[#FF8C00] text-white'
-            : 'bg-gray-100 text-gray-700 hover:bg-[#FF8C00] hover:text-white'
-        }`}>
+        <h4 className="font-bold text-gray-800 mb-2 line-clamp-2">
+          {item.name}
+        </h4>
+        <p className="text-[#FF8C00] font-bold text-lg mb-3">
+          ${item.price.toLocaleString()}
+        </p>
+
+        <button
+          className={`w-full py-2 px-3 rounded text-sm font-medium transition-all ${
+            selectedItems.has(item.id)
+              ? "bg-[#FF8C00] text-white"
+              : "bg-gray-100 text-gray-700 hover:bg-[#FF8C00] hover:text-white"
+          }`}
+        >
           {selectedItems.has(item.id) ? (
             <span className="flex items-center justify-center">
               <ShoppingCart size={16} className="mr-2" />
@@ -112,21 +137,21 @@ const SuggestionsPage: React.FC = () => {
     </div>
   );
 
-  const DrinkCategory = ({ 
-    id, 
-    title, 
-    drinks, 
-    icon 
-  }: { 
+  const DrinkCategory = ({
+    id,
+    title,
+    drinks,
+    icon,
+  }: {
     id: string;
-    title: string; 
-    drinks: MenuItem[]; 
+    title: string;
+    drinks: MenuItem[];
     icon: string;
   }) => {
     if (drinks.length === 0) return null;
-    
+
     const isExpanded = expandedCategories.has(id);
-    
+
     return (
       <div className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
         <button
@@ -146,7 +171,7 @@ const SuggestionsPage: React.FC = () => {
             <ChevronDown size={24} className="text-gray-500" />
           )}
         </button>
-        
+
         {isExpanded && (
           <div className="p-4 pt-0 border-t border-gray-100">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -161,32 +186,36 @@ const SuggestionsPage: React.FC = () => {
   };
 
   return (
-<div
-  className="min-h-screen"
-  style={{
-    backgroundImage: `url(${FONDO})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  }}
->
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url(${FONDO})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       {/* Header */}
       <div className="bg-transparent shadow-md p-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center">
             <button
-              onClick={() => navigate('/menu')}
+              onClick={() => navigate("/menu")}
               className="mr-4 p-2 bg-transparent-100 rounded-full hover:bg-gray-200 transition-colors"
             >
               <ArrowLeft size={20} />
             </button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-800">¿Deseas agregar algo más?</h1>
-              <p className="text-gray-600">Completa tu pedido con nuestros acompañamientos y bebidas</p>
+              <h1 className="text-2xl font-bold text-gray-800">
+                ¿Deseas agregar algo más?
+              </h1>
+              <p className="text-gray-600">
+                Completa tu pedido con nuestros acompañamientos y bebidas
+              </p>
             </div>
           </div>
-          
+
           <button
             onClick={handleSkip}
             className="text-gray-600 hover:text-gray-800 font-medium"
@@ -206,13 +235,39 @@ const SuggestionsPage: React.FC = () => {
               {drinks.length} opciones disponibles
             </span>
           </div>
-          
+
           <div className="space-y-4">
-            <DrinkCategory id="gaseosas" title="Gaseosas" drinks={gaseosas} icon="🥤" />
-            <DrinkCategory id="limonadas" title="Limonadas" drinks={limonadas} icon="🍋" />
-            <DrinkCategory id="jugos" title="Jugos Naturales" drinks={jugosNaturales} icon="🧃" />
+            <DrinkCategory
+              id="gaseosas"
+              title="Gaseosas"
+              drinks={gaseosas}
+              icon="🥤"
+            />
+            <DrinkCategory
+              id="limonadas"
+              title="Limonadas"
+              drinks={limonadas}
+              icon="🍋"
+            />
+            <DrinkCategory
+              id="jugos-agua"
+              title="Jugos Naturales en Agua"
+              drinks={jugosEnAgua}
+              icon="💧"
+            />
+            <DrinkCategory
+              id="jugos-leche"
+              title="Jugos Naturales en Leche"
+              drinks={jugosEnLeche}
+              icon="🥛"
+            />
             {otherDrinks.length > 0 && (
-              <DrinkCategory id="otros" title="Otras Bebidas" drinks={otherDrinks} icon="🥤" />
+              <DrinkCategory
+                id="otros"
+                title="Otras Bebidas"
+                drinks={otherDrinks}
+                icon="🥤"
+              />
             )}
           </div>
         </div>
@@ -226,14 +281,16 @@ const SuggestionsPage: React.FC = () => {
             >
               No, gracias
             </button>
-            
+
             <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               {selectedItems.size > 0 && (
                 <span className="text-sm text-gray-600 bg-gray-100 px-4 py-2 rounded-lg text-center">
-                  {selectedItems.size} producto{selectedItems.size > 1 ? 's' : ''} agregado{selectedItems.size > 1 ? 's' : ''}
+                  {selectedItems.size} producto
+                  {selectedItems.size > 1 ? "s" : ""} agregado
+                  {selectedItems.size > 1 ? "s" : ""}
                 </span>
               )}
-              
+
               <button
                 onClick={handleContinue}
                 className="flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-[#FF8C00] text-white rounded-lg font-medium hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
