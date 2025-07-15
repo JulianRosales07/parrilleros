@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, MapPin, Truck, CheckCircle, Phone } from 'lucide-react';
-import { locations } from '../data/locations';
-import { Location } from '../types';
-import TourButton from '../components/TourButton';
-import { useDriverTour } from '../hooks/useDriverTour';
-import FONDO from '../assets/fondo.png';
+import React, { useState, useEffect } from "react";
+import { ArrowLeft, MapPin, Truck, CheckCircle, Phone } from "lucide-react";
+import { locations } from "../data/locations";
+import { Location } from "../types";
+import TourButton from "../components/TourButton";
+import { useDriverTour } from "../hooks/useDriverTour";
+import FONDO from "../assets/fondo.png";
 
 interface LocationSelectionPageProps {
   onLocationSelected: (location: Location) => void;
@@ -15,26 +15,30 @@ const locationSelectionTourSteps = [
   {
     element: '[data-tour="location-grid"]',
     popover: {
-      title: '📍 Selecciona tu Sede',
-      description: 'Elige la sede más cercana a tu ubicación para un mejor servicio de domicilio.',
-      side: 'bottom'
-    }
+      title: "📍 Selecciona tu Sede",
+      description:
+        "Elige la sede más cercana a tu ubicación para un mejor servicio de domicilio.",
+      side: "bottom",
+    },
   },
   {
     element: '[data-tour="continue-button"]',
     popover: {
-      title: '✅ Continuar',
-      description: 'Una vez seleccionada tu sede, usa este botón para continuar con el formulario.',
-      side: 'top'
-    }
-  }
+      title: "✅ Continuar",
+      description:
+        "Una vez seleccionada tu sede, usa este botón para continuar con el formulario.",
+      side: "top",
+    },
+  },
 ];
 
-const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({ 
-  onLocationSelected, 
-  onBack 
+const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
+  onLocationSelected,
+  onBack,
 }) => {
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+    null
+  );
   const [showTourButton, setShowTourButton] = useState(true);
 
   const { startTour } = useDriverTour({
@@ -44,16 +48,16 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
       setTimeout(() => {
         setShowTourButton(true);
       }, 30000);
-    }
+    },
   });
 
   // Auto-start tour for first-time users
   useEffect(() => {
-    const hasSeenTour = localStorage.getItem('parrilleros-location-tour-seen');
+    const hasSeenTour = localStorage.getItem("parrilleros-location-tour-seen");
     if (!hasSeenTour) {
       const timer = setTimeout(() => {
         startTour();
-        localStorage.setItem('parrilleros-location-tour-seen', 'true');
+        localStorage.setItem("parrilleros-location-tour-seen", "true");
       }, 1500);
       return () => clearTimeout(timer);
     }
@@ -72,16 +76,16 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
   };
 
   return (
-<div
-  className="min-h-screen"
-  style={{
-    backgroundImage: `url(${FONDO})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  }}
->
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url(${FONDO})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -97,14 +101,19 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
                 <MapPin size={28} className="mr-2 text-[#FF8C00]" />
                 Selecciona tu Sede
               </h1>
-              <p className="text-gray-600">Elige la sede más cercana a tu ubicación para un mejor servicio</p>
+              <p className="text-gray-600">
+                Elige la sede más cercana a tu ubicación para un mejor servicio
+              </p>
             </div>
           </div>
-          
+
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <p className="text-sm text-blue-800">
-              <strong>🛵 Tiempo de entrega:</strong> 45-60 minutos aproximadamente<br/>
-              <strong>📍 Cobertura:</strong> Cada sede tiene zonas específicas de entrega
+              <strong>🛵 Tiempo de entrega:</strong> 45-60 minutos
+              aproximadamente
+              <br />
+              <strong>📍 Cobertura:</strong> Cada sede tiene zonas específicas
+              de entrega
             </p>
           </div>
         </div>
@@ -115,7 +124,7 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
             <Truck size={24} className="mr-2 text-[#FF8C00]" />
             Nuestras Sedes Disponibles
           </h2>
-          
+
           <div className="grid grid-cols-1 gap-6" data-tour="location-grid">
             {locations.map((location) => (
               <div
@@ -123,8 +132,8 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
                 onClick={() => handleLocationSelect(location)}
                 className={`p-6 rounded-xl border-2 cursor-pointer transition-all hover:shadow-lg transform hover:scale-[1.02] ${
                   selectedLocation?.id === location.id
-                    ? 'border-[#FF8C00] bg-orange-50 shadow-lg scale-[1.02]'
-                    : 'border-gray-200 hover:border-gray-300 bg-white'
+                    ? "border-[#FF8C00] bg-orange-50 shadow-lg scale-[1.02]"
+                    : "border-gray-200 hover:border-gray-300 bg-white"
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -140,30 +149,41 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="space-y-3">
                       <div className="flex items-center text-gray-600">
-                        <MapPin size={18} className="mr-3 text-[#FF8C00] flex-shrink-0" />
+                        <MapPin
+                          size={18}
+                          className="mr-3 text-[#FF8C00] flex-shrink-0"
+                        />
                         <span className="text-base">{location.address}</span>
                       </div>
-                      
+
                       <div className="flex items-center text-gray-600">
-                        <Phone size={18} className="mr-3 text-[#FF8C00] flex-shrink-0" />
+                        <Phone
+                          size={18}
+                          className="mr-3 text-[#FF8C00] flex-shrink-0"
+                        />
                         <span className="text-base">{location.phone}</span>
                       </div>
-                      
+
                       <div className="flex items-start text-gray-600">
-                        <Truck size={18} className="mr-3 text-[#FF8C00] flex-shrink-0 mt-0.5" />
+                        <Truck
+                          size={18}
+                          className="mr-3 text-[#FF8C00] flex-shrink-0 mt-0.5"
+                        />
                         <div className="text-base">
-                          <span className="font-medium text-gray-700">Zonas de entrega:</span>
+                          <span className="font-medium text-gray-700">
+                            Zonas de entrega:
+                          </span>
                           <div className="mt-2 flex flex-wrap gap-2">
                             {location.deliveryZones.map((zone, index) => (
                               <span
                                 key={index}
                                 className={`px-3 py-1 rounded-full text-sm font-medium ${
                                   selectedLocation?.id === location.id
-                                    ? 'bg-[#FF8C00] text-white'
-                                    : 'bg-gray-100 text-gray-700'
+                                    ? "bg-[#FF8C00] text-white"
+                                    : "bg-gray-100 text-gray-700"
                                 }`}
                               >
                                 {zone}
@@ -174,7 +194,7 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
                       </div>
                     </div>
                   </div>
-                  
+
                   {selectedLocation?.id === location.id && (
                     <div className="ml-6">
                       <div className="w-8 h-8 bg-[#FF8C00] rounded-full flex items-center justify-center">
@@ -189,21 +209,27 @@ const LocationSelectionPage: React.FC<LocationSelectionPageProps> = ({
         </div>
 
         {/* Instructions */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center" data-tour="continue-button">
+        <div
+          className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center"
+          data-tour="continue-button"
+        >
           <div className="flex items-center justify-center mb-3">
             <div className="bg-blue-100 rounded-full p-3 mr-3">
               <span className="text-2xl">👆</span>
             </div>
-            <h3 className="text-lg font-bold text-blue-800">¡Selecciona tu sede preferida!</h3>
+            <h3 className="text-lg font-bold text-blue-800">
+              ¡Selecciona tu sede preferida!
+            </h3>
           </div>
           <p className="text-blue-700">
-            Haz clic en cualquiera de las sedes de arriba para continuar automáticamente
+            Haz clic en cualquiera de las sedes de arriba para continuar
+            automáticamente
           </p>
         </div>
 
         {/* Tour Button - Pequeño en esquina inferior izquierda */}
         {showTourButton && (
-          <TourButton 
+          <TourButton
             onStartTour={handleStartTour}
             variant="floating"
             size="sm"

@@ -44,7 +44,7 @@ const OrderTypePage: React.FC = () => {
       features: [
         'Entrega en 45-60 minutos',
         'Cobertura en toda la ciudad',
-        'Seguimiento del pedido',
+        'El valor del domicilio puede ser de (6.000 a 8.000)',
         'Pago contra entrega'
       ],
       color: 'border-[#FF8C00] bg-orange-50',

@@ -1,13 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { User, MapPin, Phone, CreditCard, Mail, FileText, ArrowLeft, Send, CheckCircle, Clock, Truck, Download, Printer, Receipt, ExternalLink } from 'lucide-react';
-import { useOrder } from '../context/OrderContext';
-import OrderSummary from './OrderSummary';
-import TourButton from './TourButton';
-import LocationSelectionPage from '../pages/LocationSelectionPage';
-import { Location } from '../types';
-import { useDriverTour } from '../hooks/useDriverTour';
-import { generateInvoicePDF } from '../utils/pdfGenerator';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  User,
+  MapPin,
+  Phone,
+  CreditCard,
+  Mail,
+  FileText,
+  ArrowLeft,
+  Send,
+  CheckCircle,
+  Clock,
+  Truck,
+  Download,
+  Printer,
+  Receipt,
+  ExternalLink,
+} from "lucide-react";
+import { useOrder } from "../context/OrderContext";
+import OrderSummary from "./OrderSummary";
+import TourButton from "./TourButton";
+import LocationSelectionPage from "../pages/LocationSelectionPage";
+import { Location } from "../types";
+import { useDriverTour } from "../hooks/useDriverTour";
+import { generateInvoicePDF } from "../utils/pdfGenerator";
 
 interface DeliveryFormProps {
   onBack: () => void;
@@ -17,44 +33,56 @@ const deliveryFormTourSteps = [
   {
     element: '[data-tour="delivery-form"]',
     popover: {
-      title: '📝 Datos de Entrega',
-      description: 'Completa todos tus datos personales y dirección de entrega. Todos los campos son obligatorios.',
-      side: 'left'
-    }
+      title: "📝 Datos de Entrega",
+      description:
+        "Completa todos tus datos personales y dirección de entrega. Todos los campos son obligatorios.",
+      side: "left",
+    },
   },
   {
     element: '[data-tour="order-summary-delivery"]',
     popover: {
-      title: '💰 Resumen Final',
-      description: 'Revisa una vez más tu pedido y el total antes de enviarlo.',
-      side: 'left'
-    }
+      title: "💰 Resumen Final",
+      description: "Revisa una vez más tu pedido y el total antes de enviarlo.",
+      side: "left",
+    },
   },
   {
     element: '[data-tour="submit-button"]',
     popover: {
-      title: '🚀 Enviar Pedido',
-      description: 'Una vez completados todos los datos, envía tu pedido y te contactaremos pronto.',
-      side: 'top'
-    }
-  }
+      title: "🚀 Enviar Pedido",
+      description:
+        "Una vez completados todos los datos, envía tu pedido y te contactaremos pronto.",
+      side: "top",
+    },
+  },
 ];
 
 const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (onBack) {
+      onBack();
+    } else {
+      navigate("/order-type");
+    }
+  };
   const { cart, total, clearCart, orderNumber } = useOrder();
-  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(
+    null
+  );
   const [showLocationSelection, setShowLocationSelection] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
-    address: '',
-    neighborhood: '',
-    phone: '',
-    cedula: '',
-    email: '',
-    paymentMethod: '',
+    name: "",
+    address: "",
+    neighborhood: "",
+    phone: "",
+    cedula: "",
+    email: "",
+    paymentMethod: "",
     requiresInvoice: false,
-    dataProcessingAuthorized: false
+    dataProcessingAuthorized: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSubmitted, setOrderSubmitted] = useState(false);
@@ -68,34 +96,31 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
       setTimeout(() => {
         setShowTourButton(true);
       }, 30000);
-    }
+    },
   });
 
   // Auto-start tour for first-time users (only when form is visible)
   useEffect(() => {
     if (!showLocationSelection && selectedLocation) {
-      const hasSeenTour = localStorage.getItem('parrilleros-delivery-form-tour-seen');
+      const hasSeenTour = localStorage.getItem(
+        "parrilleros-delivery-form-tour-seen"
+      );
       if (!hasSeenTour) {
         const timer = setTimeout(() => {
           startTour();
-          localStorage.setItem('parrilleros-delivery-form-tour-seen', 'true');
+          localStorage.setItem("parrilleros-delivery-form-tour-seen", "true");
         }, 1500);
         return () => clearTimeout(timer);
       }
     }
   }, [startTour, showLocationSelection, selectedLocation]);
 
-  const paymentMethods = [
-    'Efectivo',
-    'Bancolombia',
-    'Nequi',
-    'Daviplata'
-  ];
+  const paymentMethods = ["Efectivo", "Bancolombia", "Nequi"];
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -113,14 +138,15 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
   };
 
   const isFormValid = () => {
-    const basicFieldsValid = selectedLocation &&
-           formData.name && 
-           formData.address && 
-           formData.neighborhood && 
-           formData.phone && 
-           formData.paymentMethod && 
-           cart.length > 0 &&
-           formData.dataProcessingAuthorized;
+    const basicFieldsValid =
+      selectedLocation &&
+      formData.name &&
+      formData.address &&
+      formData.neighborhood &&
+      formData.phone &&
+      formData.paymentMethod &&
+      cart.length > 0 &&
+      formData.dataProcessingAuthorized;
 
     if (formData.requiresInvoice) {
       return basicFieldsValid && formData.cedula && formData.email;
@@ -134,36 +160,52 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
     const subtotal = total * 0.92; // Base gravable (92%)
     const inc = total * 0.08; // INC (8%)
 
-    const cartDetails = cart.map((item, index) => {
-      const basePrice = item.withFries ? (item.menuItem.priceWithFries || item.menuItem.price) : item.menuItem.price;
-      const customizationsTotal = item.customizations.reduce((sum, option) => sum + option.price, 0);
-      const itemSubtotal = (basePrice + customizationsTotal) * item.quantity;
-      
-      let itemText = `${index + 1}. ${item.menuItem.name}`;
-      if (item.withFries) {
-        itemText += ' + Papas';
-      }
-      itemText += ` x${item.quantity} - $${Math.round(itemSubtotal).toLocaleString()}`;
-      
-      if (item.customizations.length > 0) {
-        itemText += `\n   + ${item.customizations.map(c => c.name.replace('AD ', '')).join(', ')}`;
-      }
-      
-      if (item.specialInstructions) {
-        itemText += `\n   * ${item.specialInstructions}`;
-      }
-      
-      return itemText;
-    }).join('\n\n');
+    const cartDetails = cart
+      .map((item, index) => {
+        const basePrice = item.withFries
+          ? item.menuItem.priceWithFries || item.menuItem.price
+          : item.menuItem.price;
+        const customizationsTotal = item.customizations.reduce(
+          (sum, option) => sum + option.price,
+          0
+        );
+        const itemSubtotal = (basePrice + customizationsTotal) * item.quantity;
 
-    const invoiceInfo = formData.requiresInvoice ? 
-      `\n📄 FACTURA REQUERIDA\nCC: ${formData.cedula} | Email: ${formData.email}` : 
-      '\n📄 Sin factura';
+        let itemText = `${index + 1}. ${item.menuItem.name}`;
+        if (item.withFries) {
+          itemText += " + Papas";
+        }
+        itemText += ` x${item.quantity} - $${Math.round(
+          itemSubtotal
+        ).toLocaleString()}`;
+
+        if (item.customizations.length > 0) {
+          itemText += `\n   + ${item.customizations
+            .map((c) => c.name.replace("AD ", ""))
+            .join(", ")}`;
+        }
+
+        if (item.specialInstructions) {
+          itemText += `\n   * ${item.specialInstructions}`;
+        }
+
+        return itemText;
+      })
+      .join("\n\n");
+
+    const invoiceInfo = formData.requiresInvoice
+      ? `\n📄 FACTURA REQUERIDA\nCC: ${formData.cedula} | Email: ${formData.email}`
+      : "\n📄 Sin factura";
 
     return `🍔 NUEVO PEDIDO DOMICILIO - PARRILLEROS
 ═══════════════════════════════════════
 
-📋 PEDIDO #${orderNumber.toString().padStart(3, '0')} | ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
+📋 PEDIDO #${orderNumber
+      .toString()
+      .padStart(
+        3,
+        "0"
+      )} | ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
 
 👤 CLIENTE
 ${formData.name}
@@ -211,7 +253,7 @@ ${cartDetails}
       total: Math.round(total),
       paymentMethod: formData.paymentMethod,
       requiresInvoice: formData.requiresInvoice,
-      date: new Date()
+      date: new Date(),
     };
 
     generateInvoicePDF(invoiceData);
@@ -219,12 +261,14 @@ ${cartDetails}
 
   const handlePrintTicket = () => {
     if (ticketRef.current) {
-      const printWindow = window.open('', '_blank');
+      const printWindow = window.open("", "_blank");
       if (printWindow) {
         printWindow.document.write(`
           <html>
             <head>
-              <title>Ticket Parrilleros #${orderNumber.toString().padStart(3, '0')}</title>
+              <title>Ticket Parrilleros #${orderNumber
+                .toString()
+                .padStart(3, "0")}</title>
               <style>
                 @page { 
                   margin: 15mm; 
@@ -550,13 +594,18 @@ ${cartDetails}
                 
                 <!-- Invoice Title -->
                 <div class="invoice-title">
-                  <div class="invoice-number">FACTURA DE VENTA #${orderNumber.toString().padStart(3, '0')}</div>
-                  <div class="invoice-date">${new Date().toLocaleDateString('es-CO', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })} - ${new Date().toLocaleTimeString('es-CO')}</div>
+                  <div class="invoice-number">FACTURA DE VENTA #${orderNumber
+                    .toString()
+                    .padStart(3, "0")}</div>
+                  <div class="invoice-date">${new Date().toLocaleDateString(
+                    "es-CO",
+                    {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    }
+                  )} - ${new Date().toLocaleTimeString("es-CO")}</div>
                 </div>
                 
                 <!-- Info Section -->
@@ -578,10 +627,14 @@ ${cartDetails}
                       <p><strong>Teléfono:</strong> ${formData.phone}</p>
                       <p><strong>Dirección:</strong> ${formData.address}</p>
                       <p><strong>Barrio:</strong> ${formData.neighborhood}</p>
-                      ${formData.requiresInvoice ? `
+                      ${
+                        formData.requiresInvoice
+                          ? `
                         <p><strong>CC:</strong> ${formData.cedula}</p>
                         <p><strong>Email:</strong> ${formData.email}</p>
-                      ` : ''}
+                      `
+                          : ""
+                      }
                     </div>
                   </div>
                 </div>
@@ -598,30 +651,53 @@ ${cartDetails}
                     </tr>
                   </thead>
                   <tbody>
-                    ${cart.map((item, index) => {
-                      const basePrice = item.withFries ? (item.menuItem.priceWithFries || item.menuItem.price) : item.menuItem.price;
-                      const customizationsTotal = item.customizations.reduce((sum, option) => sum + option.price, 0);
-                      const unitPrice = basePrice + customizationsTotal;
-                      const itemTotal = unitPrice * item.quantity;
-                      
-                      return `
+                    ${cart
+                      .map((item, index) => {
+                        const basePrice = item.withFries
+                          ? item.menuItem.priceWithFries || item.menuItem.price
+                          : item.menuItem.price;
+                        const customizationsTotal = item.customizations.reduce(
+                          (sum, option) => sum + option.price,
+                          0
+                        );
+                        const unitPrice = basePrice + customizationsTotal;
+                        const itemTotal = unitPrice * item.quantity;
+
+                        return `
                         <tr>
-                          <td style="text-align: center; font-weight: bold;">${index + 1}</td>
+                          <td style="text-align: center; font-weight: bold;">${
+                            index + 1
+                          }</td>
                           <td>
-                            <div class="item-name">${item.menuItem.name}${item.withFries ? ' + Papas Francesas' : ''}</div>
-                            ${item.customizations.length > 0 ? `
-                              <div class="item-extras">+ ${item.customizations.map(c => c.name.replace('AD ', '')).join(', ')}</div>
-                            ` : ''}
-                            ${item.specialInstructions ? `
+                            <div class="item-name">${item.menuItem.name}${
+                          item.withFries ? " + Papas Francesas" : ""
+                        }</div>
+                            ${
+                              item.customizations.length > 0
+                                ? `
+                              <div class="item-extras">+ ${item.customizations
+                                .map((c) => c.name.replace("AD ", ""))
+                                .join(", ")}</div>
+                            `
+                                : ""
+                            }
+                            ${
+                              item.specialInstructions
+                                ? `
                               <div class="item-instructions">📝 ${item.specialInstructions}</div>
-                            ` : ''}
+                            `
+                                : ""
+                            }
                           </td>
-                          <td style="text-align: center; font-weight: bold;">${item.quantity}</td>
+                          <td style="text-align: center; font-weight: bold;">${
+                            item.quantity
+                          }</td>
                           <td class="price">$${unitPrice.toLocaleString()}</td>
                           <td class="price">$${itemTotal.toLocaleString()}</td>
                         </tr>
                       `;
-                    }).join('')}
+                      })
+                      .join("")}
                   </tbody>
                 </table>
                 
@@ -645,7 +721,9 @@ ${cartDetails}
                 <!-- Payment Info -->
                 <div class="payment-info">
                   <div class="payment-title">💳 Información de Pago</div>
-                  <p><strong>Forma de pago:</strong> ${formData.paymentMethod}</p>
+                  <p><strong>Forma de pago:</strong> ${
+                    formData.paymentMethod
+                  }</p>
                   <p>El pago se realizará contra entrega del pedido</p>
                 </div>
                 
@@ -662,7 +740,7 @@ ${cartDetails}
                   <div class="qr-placeholder">
                     QR CODE<br>
                     PEDIDO<br>
-                    #${orderNumber.toString().padStart(3, '0')}
+                    #${orderNumber.toString().padStart(3, "0")}
                   </div>
                   <p style="font-size: 10px; color: #666;">Código QR para seguimiento del pedido</p>
                 </div>
@@ -673,7 +751,9 @@ ${cartDetails}
                   <div class="footer-text">
                     PARRILLEROS FAST FOOD - Hamburguesas artesanales a la parrilla<br>
                     Síguenos en redes sociales para promociones especiales<br>
-                    Factura generada automáticamente el ${new Date().toLocaleString('es-CO')}
+                    Factura generada automáticamente el ${new Date().toLocaleString(
+                      "es-CO"
+                    )}
                   </div>
                 </div>
               </div>
@@ -688,30 +768,30 @@ ${cartDetails}
 
   const handleSubmit = async () => {
     if (!isFormValid() || !selectedLocation) return;
-    
+
     setIsSubmitting(true);
-    
+
     // Simulate order processing and redirect directly
     setTimeout(() => {
       // Construct WhatsApp message with exact format
       const message = generateTicketContent();
-      
+
       // Encode message and create WhatsApp URL with selected location's WhatsApp
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${selectedLocation.whatsapp}?text=${encodedMessage}`;
 
       // Open WhatsApp in a new tab
-      window.open(whatsappUrl, '_blank');
-      
+      window.open(whatsappUrl, "_blank");
+
       // Clear cart and redirect to home immediately
       clearCart();
-      navigate('/');
+      navigate("/");
     }, 2000);
   };
 
   const handleFinish = () => {
     clearCart();
-    navigate('/');
+    navigate("/");
   };
 
   // Show location selection page
@@ -719,7 +799,7 @@ ${cartDetails}
     return (
       <LocationSelectionPage
         onLocationSelected={handleLocationSelected}
-        onBack={onBack}
+        onBack={handleBack}
       />
     );
   }
@@ -741,10 +821,12 @@ ${cartDetails}
                 <Truck size={28} className="mr-2 text-[#FF8C00]" />
                 Datos de Entrega
               </h1>
-              <p className="text-gray-600">Completa tus datos para procesar tu pedido</p>
+              <p className="text-gray-600">
+                Completa tus datos para procesar tu pedido
+              </p>
             </div>
           </div>
-          
+
           {/* Selected Location Info */}
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <div className="flex items-center">
@@ -753,7 +835,10 @@ ${cartDetails}
               </div>
               <div>
                 <p className="font-medium text-green-800">
-                  Sede seleccionada: <span className="font-heavyrust-primary">{selectedLocation?.name}</span>
+                  Sede seleccionada:{" "}
+                  <span className="font-heavyrust-primary">
+                    {selectedLocation?.name}
+                  </span>
                 </p>
                 <p className="text-sm text-green-600">
                   {selectedLocation?.address} | {selectedLocation?.phone}
@@ -767,9 +852,14 @@ ${cartDetails}
           {/* Left Column - Form */}
           <div className="space-y-6">
             {/* Form */}
-            <div className="bg-white rounded-lg shadow-md p-6" data-tour="delivery-form">
-              <h2 className="text-xl font-bold mb-6 text-gray-800">Información Personal</h2>
-              
+            <div
+              className="bg-white rounded-lg shadow-md p-6"
+              data-tour="delivery-form"
+            >
+              <h2 className="text-xl font-bold mb-6 text-gray-800">
+                Información Personal
+              </h2>
+
               <div className="space-y-4">
                 {/* Name */}
                 <div>
@@ -780,7 +870,7 @@ ${cartDetails}
                   <input
                     type="text"
                     value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                     placeholder="Ingresa tu nombre completo"
                   />
@@ -795,7 +885,9 @@ ${cartDetails}
                   <input
                     type="text"
                     value={formData.address}
-                    onChange={(e) => handleInputChange('address', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("address", e.target.value)
+                    }
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                     placeholder="Calle, carrera, número"
                   />
@@ -809,13 +901,19 @@ ${cartDetails}
                   <input
                     type="text"
                     value={formData.neighborhood}
-                    onChange={(e) => handleInputChange('neighborhood', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("neighborhood", e.target.value)
+                    }
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                     placeholder="Escribe el nombre de tu barrio"
                   />
                   <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                     <p className="text-xs text-blue-800 font-medium mb-1">
-                      📍 Zonas de entrega para <span className="font-heavyrust-primary">{selectedLocation?.name}</span>:
+                      📍 Zonas de entrega para{" "}
+                      <span className="font-heavyrust-primary">
+                        {selectedLocation?.name}
+                      </span>
+                      :
                     </p>
                     <div className="flex flex-wrap gap-1">
                       {selectedLocation?.deliveryZones.map((zone, index) => (
@@ -827,7 +925,6 @@ ${cartDetails}
                         </span>
                       ))}
                     </div>
-
                   </div>
                 </div>
 
@@ -840,7 +937,7 @@ ${cartDetails}
                   <input
                     type="tel"
                     value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                     placeholder="3001234567"
                   />
@@ -852,7 +949,9 @@ ${cartDetails}
                     <input
                       type="checkbox"
                       checked={formData.requiresInvoice}
-                      onChange={(e) => handleInputChange('requiresInvoice', e.target.checked)}
+                      onChange={(e) =>
+                        handleInputChange("requiresInvoice", e.target.checked)
+                      }
                       className="w-4 h-4 accent-[#FF8C00] mr-3"
                     />
                     <div>
@@ -861,7 +960,8 @@ ${cartDetails}
                         ¿Requiere factura a su nombre?
                       </span>
                       <p className="text-sm text-gray-600 mt-1">
-                        Si necesita factura, marque esta opción y complete los campos adicionales
+                        Si necesita factura, marque esta opción y complete los
+                        campos adicionales
                       </p>
                     </div>
                   </label>
@@ -870,8 +970,10 @@ ${cartDetails}
                 {/* Conditional fields for invoice */}
                 {formData.requiresInvoice && (
                   <div className="space-y-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h3 className="font-medium text-gray-800 mb-3">Datos para facturación</h3>
-                    
+                    <h3 className="font-medium text-gray-800 mb-3">
+                      Datos para facturación
+                    </h3>
+
                     {/* Cedula */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -881,7 +983,9 @@ ${cartDetails}
                       <input
                         type="text"
                         value={formData.cedula}
-                        onChange={(e) => handleInputChange('cedula', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("cedula", e.target.value)
+                        }
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                         placeholder="12345678"
                       />
@@ -896,7 +1000,9 @@ ${cartDetails}
                       <input
                         type="email"
                         value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                         placeholder="tu@email.com"
                       />
@@ -912,7 +1018,9 @@ ${cartDetails}
                   </label>
                   <select
                     value={formData.paymentMethod}
-                    onChange={(e) => handleInputChange('paymentMethod', e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("paymentMethod", e.target.value)
+                    }
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
                   >
                     <option value="">Selecciona forma de pago</option>
@@ -930,7 +1038,12 @@ ${cartDetails}
                     <input
                       type="checkbox"
                       checked={formData.dataProcessingAuthorized}
-                      onChange={(e) => handleInputChange('dataProcessingAuthorized', e.target.checked)}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "dataProcessingAuthorized",
+                          e.target.checked
+                        )
+                      }
                       className="w-4 h-4 accent-[#FF8C00] mr-3 mt-1 flex-shrink-0"
                     />
                     <div className="text-sm">
@@ -938,10 +1051,11 @@ ${cartDetails}
                         Autorizo el tratamiento de mis datos personales *
                       </span>
                       <p className="text-gray-600 mt-1">
-                        Acepto que mis datos personales sean utilizados para procesar mi pedido y contactarme. 
-                        <a 
-                          href="/privacy-policy" 
-                          target="_blank" 
+                        Acepto que mis datos personales sean utilizados para
+                        procesar mi pedido y contactarme.
+                        <a
+                          href="/privacy-policy"
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="text-[#FF8C00] hover:text-orange-600 font-medium ml-1 inline-flex items-center"
                         >
@@ -961,15 +1075,31 @@ ${cartDetails}
                 disabled={!isFormValid() || isSubmitting}
                 className={`w-full mt-6 py-4 font-bold rounded-lg text-lg flex items-center justify-center transition-all ${
                   isFormValid() && !isSubmitting
-                    ? 'bg-[#FF8C00] text-white hover:bg-orange-600 shadow-lg hover:shadow-xl transform hover:scale-[1.02]'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    ? "bg-[#FF8C00] text-white hover:bg-orange-600 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
               >
                 {isSubmitting ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Enviando pedido...
                   </>
@@ -984,14 +1114,17 @@ ${cartDetails}
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="bg-white rounded-lg shadow-md p-6" data-tour="order-summary-delivery">
+          <div
+            className="bg-white rounded-lg shadow-md p-6"
+            data-tour="order-summary-delivery"
+          >
             <OrderSummary />
           </div>
         </div>
 
         {/* Tour Button - Pequeño en esquina inferior izquierda */}
         {showTourButton && !orderSubmitted && (
-          <TourButton 
+          <TourButton
             onStartTour={handleStartTour}
             variant="floating"
             size="sm"
