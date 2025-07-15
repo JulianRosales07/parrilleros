@@ -264,9 +264,9 @@ export const menuItems: MenuItem[] = [
     name: "Burguer Parrillera SUPER MEAT",
     description:
       "LA MAS SALVAJE DEL BARRIO, DOS CARNES DE 80 GR QUE RUGEN EN CADA MORDIDA, PAN BRIOCHE SELLADO EN MANTEQUILLA, QUESO DOBLE CREMA Y UN CHEDDAR CREMOSOQUE SE DESBORDASIN PEDIR PERMISO, LA MAYOCHIRRI LE METE TODO EL POWER CALLEJERO, LAS TOCINETAS CARAMELIZADAS EN REDUCCION DE CERVEZA ESTAN BIEN LOCAS Y CRIJIENTES, TE ATREVES A PROBARLA?",
-    price: 27000,
-    priceWithFries: 33000,
-    priceWithRusticFries: 33000,
+    price: 24000,
+    priceWithFries: 30000,
+    priceWithRusticFries: 30000,
     image: SUPER,
     category: "contest-burgers",
     customizable: true,
