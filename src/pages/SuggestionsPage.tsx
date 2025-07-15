@@ -58,22 +58,22 @@ const SuggestionsPage: React.FC = () => {
 
   // Categorize drinks
   const gaseosas = drinks.filter(
-    (drink) => drink.name.includes("GASEOSA") || drink.name.includes("COCA")
+    (drink) => drink.name.includes("gaseosa") || drink.name.includes("coca")
   );
 
-  const limonadas = drinks.filter((drink) => drink.name.includes("LIMONADA"));
+  const limonadas = drinks.filter((drink) => drink.name.includes("limonada"));
 
   const jugosNaturales = drinks.filter((drink) =>
-    drink.name.includes("JUGO NATURAL")
+    drink.name.includes("jugo natural")
   );
 
   // Separate natural juices by water and milk
   const jugosEnAgua = jugosNaturales.filter((drink) =>
-    drink.name.includes("EN AGUA")
+    drink.name.includes("en agua")
   );
 
   const jugosEnLeche = jugosNaturales.filter((drink) =>
-    drink.name.includes("EN LECHE")
+    drink.name.includes("en leche")
   );
 
   const otherDrinks = drinks.filter(

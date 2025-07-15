@@ -1,16 +1,16 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, ArrowLeft } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Layout from '../components/Layout';
-import CategorySelector from '../components/CategorySelector';
-import MenuCard from '../components/MenuCard';
-import SearchBar from '../components/SearchBar';
-import TourButton from '../components/TourButton';
-import { categories, menuItems, customizationOptions } from '../data/menu';
-import { useOrder } from '../context/OrderContext';
-import { useDriverTour, menuTourSteps } from '../hooks/useDriverTour';
+import React, { useState, useMemo, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { ShoppingCart, ArrowLeft } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Layout from "../components/Layout";
+import CategorySelector from "../components/CategorySelector";
+import MenuCard from "../components/MenuCard";
+import SearchBar from "../components/SearchBar";
+import TourButton from "../components/TourButton";
+import { categories, menuItems, customizationOptions } from "../data/menu";
+import { useOrder } from "../context/OrderContext";
+import { useDriverTour, menuTourSteps } from "../hooks/useDriverTour";
 
 // Registrar el plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -19,9 +19,9 @@ const MenuPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart } = useOrder();
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [showTourButton, setShowTourButton] = useState(true);
-  
+
   // Referencias para animaciones GSAP
   const backButtonRef = useRef<HTMLButtonElement>(null);
   const searchBarRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ const MenuPage: React.FC = () => {
   const menuGridRef = useRef<HTMLDivElement>(null);
   const cartButtonRef = useRef<HTMLDivElement>(null);
   const menuCardsRefs = useRef<(HTMLDivElement | null)[]>([]);
-  
+
   const { startTour } = useDriverTour({
     steps: menuTourSteps,
     onDestroyed: () => {
@@ -38,83 +38,96 @@ const MenuPage: React.FC = () => {
       setTimeout(() => {
         setShowTourButton(true);
       }, 30000);
-    }
+    },
   });
 
   // Filter items based on category and search query - MOVED BEFORE useEffect
   const filteredItems = useMemo(() => {
     let items;
-    
+
     // Handle drink subcategories
-    if (selectedCategory === 'gaseosas') {
-      items = menuItems.filter(item => 
-        item.category === 'drinks' && (
-          item.name.includes('GASEOSA') || 
-          item.name.includes('COCA') ||
-          item.name.includes('FUZE')
-        )
+    if (selectedCategory === "gaseosas") {
+      items = menuItems.filter(
+        (item) =>
+          item.category === "drinks" &&
+          (item.name.toLowerCase().includes("gaseosa") ||
+            item.name.toLowerCase().includes("coca") ||
+            item.name.toLowerCase().includes("fuze"))
       );
-    } else if (selectedCategory === 'limonadas') {
-      items = menuItems.filter(item => 
-        item.category === 'drinks' && item.name.includes('LIMONADA')
+    } else if (selectedCategory === "limonadas") {
+      items = menuItems.filter(
+        (item) =>
+          item.category === "drinks" &&
+          item.name.toLowerCase().includes("limonada")
       );
-    } else if (selectedCategory === 'jugos-naturales') {
-      items = menuItems.filter(item => 
-        item.category === 'drinks' && item.name.includes('JUGO NATURAL')
+    } else if (selectedCategory === "jugos-naturales") {
+      items = menuItems.filter(
+        (item) =>
+          item.category === "drinks" &&
+          item.name.toLowerCase().includes("jugo natural")
       );
-    } else if (selectedCategory === 'malteadas') {
-      items = menuItems.filter(item => 
-        item.category === 'drinks' && item.name.includes('MALTEDA')
+    } else if (selectedCategory === "malteadas") {
+      items = menuItems.filter(
+        (item) =>
+          item.category === "drinks" &&
+          item.name.toLowerCase().includes("malteada")
       );
-    } else if (selectedCategory === 'cervezas') {
-      items = menuItems.filter(item => 
-        item.category === 'drinks' && item.name.includes('CERVEZA')
+    } else if (selectedCategory === "cervezas") {
+      items = menuItems.filter(
+        (item) =>
+          item.category === "drinks" &&
+          item.name.toLowerCase().includes("cerveza")
       );
-    } else if (selectedCategory === 'otras-bebidas') {
-      items = menuItems.filter(item => 
-        item.category === 'drinks' && 
-        !item.name.includes('GASEOSA') && 
-        !item.name.includes('COCA') &&
-        !item.name.includes('FUZE') &&
-        !item.name.includes('LIMONADA') &&
-        !item.name.includes('JUGO NATURAL') &&
-        !item.name.includes('MALTEDA') &&
-        !item.name.includes('CERVEZA')
-      );
+    } else if (selectedCategory === "otras-bebidas") {
+      items = menuItems.filter((item) => {
+        const itemName = item.name.toLowerCase();
+        return (
+          item.category === "drinks" &&
+          !itemName.includes("gaseosa") &&
+          !itemName.includes("coca") &&
+          !itemName.includes("fuze") &&
+          !itemName.includes("limonada") &&
+          !itemName.includes("jugo natural") &&
+          !itemName.includes("malteada") &&
+          !itemName.includes("cerveza")
+        );
+      });
     } else {
       // Default filtering by category
       items = menuItems.filter((item) => item.category === selectedCategory);
     }
-    
+
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
-      items = items.filter((item) =>
-        item.name.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query)
+      items = items.filter(
+        (item) =>
+          item.name.toLowerCase().includes(query) ||
+          item.description.toLowerCase().includes(query)
       );
     }
-    
+
     return items;
   }, [selectedCategory, searchQuery]);
 
   // Global search across all items - MOVED BEFORE useEffect
   const globalSearchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
-    
+
     const query = searchQuery.toLowerCase().trim();
-    return menuItems.filter((item) =>
-      item.name.toLowerCase().includes(query) ||
-      item.description.toLowerCase().includes(query)
+    return menuItems.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query)
     );
   }, [searchQuery]);
 
   // Auto-start tour for first-time users
   useEffect(() => {
-    const hasSeenTour = localStorage.getItem('parrilleros-menu-tour-seen');
+    const hasSeenTour = localStorage.getItem("parrilleros-menu-tour-seen");
     if (!hasSeenTour) {
       const timer = setTimeout(() => {
         startTour();
-        localStorage.setItem('parrilleros-menu-tour-seen', 'true');
+        localStorage.setItem("parrilleros-menu-tour-seen", "true");
       }, 2000);
       return () => clearTimeout(timer);
     }
@@ -123,37 +136,56 @@ const MenuPage: React.FC = () => {
   // Animaciones de entrada de la página
   useEffect(() => {
     // Check if all refs are available before proceeding
-    if (!backButtonRef.current || !searchBarRef.current || !categorySelectorRef.current) {
+    if (
+      !backButtonRef.current ||
+      !searchBarRef.current ||
+      !categorySelectorRef.current
+    ) {
       return;
     }
 
     const tl = gsap.timeline();
 
     // Configurar estados iniciales
-    gsap.set([backButtonRef.current, searchBarRef.current, categorySelectorRef.current], {
-      opacity: 0,
-      y: -30
-    });
+    gsap.set(
+      [
+        backButtonRef.current,
+        searchBarRef.current,
+        categorySelectorRef.current,
+      ],
+      {
+        opacity: 0,
+        y: -30,
+      }
+    );
 
     // Animación de entrada secuencial
     tl.to(backButtonRef.current, {
       opacity: 1,
       y: 0,
       duration: 0.6,
-      ease: "power3.out"
+      ease: "power3.out",
     })
-    .to(searchBarRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: "power3.out"
-    }, "-=0.4")
-    .to(categorySelectorRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      ease: "power3.out"
-    }, "-=0.4");
+      .to(
+        searchBarRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      )
+      .to(
+        categorySelectorRef.current,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+        },
+        "-=0.4"
+      );
 
     return () => {
       tl.kill();
@@ -163,17 +195,17 @@ const MenuPage: React.FC = () => {
   // Animaciones para las tarjetas del menú
   useEffect(() => {
     // Filter out null refs before proceeding
-    const validCards = menuCardsRefs.current.filter(card => card !== null);
-    
+    const validCards = menuCardsRefs.current.filter((card) => card !== null);
+
     if (validCards.length > 0) {
       // Limpiar animaciones anteriores
       gsap.killTweensOf(validCards);
-      
+
       // Configurar estado inicial
       gsap.set(validCards, {
         opacity: 0,
         y: 50,
-        scale: 0.9
+        scale: 0.9,
       });
 
       // Animación de entrada escalonada
@@ -185,17 +217,18 @@ const MenuPage: React.FC = () => {
         ease: "power3.out",
         stagger: {
           amount: 0.8,
-          from: "start"
-        }
+          from: "start",
+        },
       });
 
       // Animaciones con ScrollTrigger para efectos al hacer scroll
       validCards.forEach((card, index) => {
         if (card) {
-          gsap.fromTo(card, 
+          gsap.fromTo(
+            card,
             {
               rotationY: 15,
-              transformPerspective: 1000
+              transformPerspective: 1000,
             },
             {
               rotationY: 0,
@@ -205,8 +238,8 @@ const MenuPage: React.FC = () => {
                 trigger: card,
                 start: "top 80%",
                 end: "bottom 20%",
-                toggleActions: "play none none reverse"
-              }
+                toggleActions: "play none none reverse",
+              },
             }
           );
         }
@@ -214,7 +247,7 @@ const MenuPage: React.FC = () => {
     }
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, [filteredItems]);
 
@@ -222,18 +255,19 @@ const MenuPage: React.FC = () => {
   useEffect(() => {
     if (cartButtonRef.current && cart.length > 0) {
       // Animación de entrada del botón del carrito
-      gsap.fromTo(cartButtonRef.current, 
+      gsap.fromTo(
+        cartButtonRef.current,
         {
           scale: 0,
           rotation: -180,
-          opacity: 0
+          opacity: 0,
         },
         {
           scale: 1,
           rotation: 0,
           opacity: 1,
           duration: 0.8,
-          ease: "back.out(1.7)"
+          ease: "back.out(1.7)",
         }
       );
 
@@ -243,7 +277,7 @@ const MenuPage: React.FC = () => {
         duration: 1,
         ease: "power2.inOut",
         yoyo: true,
-        repeat: -1
+        repeat: -1,
       });
     }
   }, [cart.length]);
@@ -258,19 +292,20 @@ const MenuPage: React.FC = () => {
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
-    
+
     // Animación suave al cambiar categoría
     if (menuGridRef.current) {
-      gsap.fromTo(menuGridRef.current, 
+      gsap.fromTo(
+        menuGridRef.current,
         {
           opacity: 0.5,
-          y: 20
+          y: 20,
         },
         {
           opacity: 1,
           y: 0,
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         }
       );
     }
@@ -281,7 +316,7 @@ const MenuPage: React.FC = () => {
       gsap.to(backButtonRef.current, {
         scale: 1.05,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     }
   };
@@ -291,7 +326,7 @@ const MenuPage: React.FC = () => {
       gsap.to(backButtonRef.current, {
         scale: 1,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     }
   };
@@ -310,21 +345,25 @@ const MenuPage: React.FC = () => {
           <button
             ref={backButtonRef}
             data-tour="back-button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             onMouseEnter={handleBackButtonHover}
             onMouseLeave={handleBackButtonLeave}
             className="group flex items-center bg-white hover:bg-[#FF8C00] text-[#FF8C00] hover:text-white px-4 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-[#FF8C00] font-semibold menu-card-enhanced"
           >
-            <ArrowLeft 
-              size={20} 
-              className="mr-2 transition-transform duration-300 group-hover:-translate-x-1" 
+            <ArrowLeft
+              size={20}
+              className="mr-2 transition-transform duration-300 group-hover:-translate-x-1"
             />
             <span className="text-sm sm:text-base">Volver al inicio</span>
           </button>
         </div>
         {/* Search Bar */}
-        <div ref={searchBarRef} className="max-w-6xl mx-auto mb-8" data-tour="search-bar">
-          <SearchBar 
+        <div
+          ref={searchBarRef}
+          className="max-w-6xl mx-auto mb-8"
+          data-tour="search-bar"
+        >
+          <SearchBar
             onSearch={handleSearch}
             placeholder="Buscar burguer, gaseosa, acompañamientos..."
           />
@@ -332,7 +371,11 @@ const MenuPage: React.FC = () => {
 
         {/* Category Selector - only show when not searching */}
         {showCategorySelector && (
-          <div ref={categorySelectorRef} className="max-w-4xl mx-auto mb-12 mt-16" data-tour="category-selector">
+          <div
+            ref={categorySelectorRef}
+            className="max-w-4xl mx-auto mb-12 mt-16"
+            data-tour="category-selector"
+          >
             <div className="menu-category-enhanced rounded-2xl">
               <CategorySelector
                 categories={categories}
@@ -351,7 +394,9 @@ const MenuPage: React.FC = () => {
                 Resultados para "{searchQuery}"
               </h2>
               <p className="text-gray-600">
-                {itemsToShow.length} producto{itemsToShow.length !== 1 ? 's' : ''} encontrado{itemsToShow.length !== 1 ? 's' : ''}
+                {itemsToShow.length} producto
+                {itemsToShow.length !== 1 ? "s" : ""} encontrado
+                {itemsToShow.length !== 1 ? "s" : ""}
               </p>
             </div>
           </div>
@@ -359,11 +404,15 @@ const MenuPage: React.FC = () => {
 
         {/* Menu Grid */}
         {itemsToShow.length > 0 ? (
-          <div ref={menuGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto" data-tour="menu-grid">
+          <div
+            ref={menuGridRef}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto"
+            data-tour="menu-grid"
+          >
             {itemsToShow.map((item, index) => (
               <div
                 key={item.id}
-                ref={el => menuCardsRefs.current[index] = el}
+                ref={(el) => (menuCardsRefs.current[index] = el)}
                 className="menu-card-container transform transition-all duration-300"
               >
                 <div className="menu-card-enhanced rounded-3xl overflow-hidden">
@@ -375,7 +424,6 @@ const MenuPage: React.FC = () => {
         ) : searchQuery.trim() ? (
           <div className="max-w-4xl mx-auto">
             <div className="menu-card-enhanced rounded-lg shadow-sm p-8 text-center">
-
               <h3 className="text-xl font-bold text-gray-800 mb-2">
                 No se encontraron productos
               </h3>
@@ -383,7 +431,7 @@ const MenuPage: React.FC = () => {
                 No hay productos que coincidan con "{searchQuery}"
               </p>
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="bg-[#FF8C00] text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
               >
                 Ver todos los productos
@@ -391,12 +439,16 @@ const MenuPage: React.FC = () => {
             </div>
           </div>
         ) : null}
-        
+
         {/* Floating cart button */}
         {cartTotal > 0 && (
-          <div ref={cartButtonRef} className="fixed bottom-8 right-8 z-50" data-tour="cart-button">
+          <div
+            ref={cartButtonRef}
+            className="fixed bottom-8 right-8 z-50"
+            data-tour="cart-button"
+          >
             <button
-              onClick={() => navigate('/cart')}
+              onClick={() => navigate("/cart")}
               className="flex items-center bg-[#FF8C00] text-white px-6 py-4 rounded-full shadow-lg hover:bg-orange-600 transition-all hover:scale-105 hover:shadow-xl backdrop-blur-sm"
             >
               <ShoppingCart size={28} />
@@ -407,7 +459,7 @@ const MenuPage: React.FC = () => {
 
         {/* Tour Button - Pequeño en esquina inferior izquierda */}
         {showTourButton && (
-          <TourButton 
+          <TourButton
             onStartTour={handleStartTour}
             variant="floating"
             size="sm"

@@ -24,7 +24,7 @@ export const categories: Category[] = [
   { id: "contest-burgers", name: "Hamburguesas Burger Master", icon: "beef" },
   { id: "hotdogs", name: "Perros Calientes", icon: "hot-dog" },
   { id: "fries", name: "Papas", icon: "french-fries" },
-  { id: "sides", name: "Acompañamientos", icon: "french-fries" },
+  { id: "sides", name: "Acompañamientos", icon: "acompañamientos" },
   { id: "drinks", name: "Bebidas", icon: "cup-soda" },
 ];
 
@@ -32,7 +32,7 @@ export const menuItems: MenuItem[] = [
   // Hamburguesas Clásicas
   {
     id: 1,
-    name: "Burguer Parrillera Sencilla",
+    name: "burguer parrillera sencilla",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso doble crema, vegetales frescos, papitas crocantes, mayonesa de ajo y salsa BBQ",
     price: 15000,
@@ -47,7 +47,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 2,
-    name: "Burguer Parrillera Ranchera",
+    name: "burguer parrillera ranchera",
     description:
       "Pan artesanal sellado en mantequilla, queso doble crema, trocitos de chorizo en nuestra salsa BBQ Johnnie Walker, vegetales frescos, mayonesa de ajo",
     price: 17000,
@@ -62,7 +62,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 3,
-    name: "Burguer Parrillera Beacon-chese",
+    name: "burguer parrillera beacon-chese",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso cheddar, tocineta ahumada, vegetales frescos, mayonesa de ajo, mostaza, y nuestra BBQ Johnnie Walker",
     price: 17000,
@@ -77,7 +77,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 4,
-    name: "Burguer Parrillera Pollo Grill",
+    name: "burguer parrillera pollo grill",
     description:
       "130 GR DE PECHUGA DE POLLO A LA PARRILLA, pan artesanal sellado en mantequilla, queso fundido, tocineta, cebolla caramelizada, pimientos asados, vegetales frescos (lechuga, tomate), mayonesa de ajo y nuestra salsa BBQ.",
     price: 17000,
@@ -92,7 +92,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 5,
-    name: "Burguer Parrillera Chicken Crunch",
+    name: "burguer parrillera chicken crunch",
     description:
       "130 GR DE PECHUGA APANADA AL ESTILO AMERICANO, pan artesanal sellado en mantequilla, queso colby jack, pepinillos agridulces, cebolla crunch, lechuga y nuestra salsa especial New York.",
     price: 17000,
@@ -109,7 +109,7 @@ export const menuItems: MenuItem[] = [
   // Hamburguesas Deluxe
   {
     id: 6,
-    name: "Burguer Parrillera Especial",
+    name: "burguer parrillera especial",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal, queso fundido, queso cheddar, piña asada, tocineta ahumada, lechuga fresca, papitas crocantes, mayonesa de ajo.",
     price: 18000,
@@ -124,7 +124,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 7,
-    name: "Burguer Parrillera Argentina",
+    name: "burguer parrillera argentina",
     description:
       "150 GR de carne de res y chorizo marinados en cerveza, pan artesanal sellado en mantequilla, queso doble crema, salsa criolla (pimentón, cebolla, especias), vegetales frescos (lechuga, tomate), mayonesa de ajo.",
     price: 19000,
@@ -139,7 +139,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 8,
-    name: "Burguer Parrillera Doble Carne",
+    name: "burguer parrillera doble carne",
     description:
       "270 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso doble crema, queso cheddar, tocineta ahumada, cebolla caramelizada, vegetales frescos (lechuga, tomate), mayonesa de ajo, mostaza y nuestra salsa Johnnie Walker.",
     price: 27000,
@@ -156,7 +156,7 @@ export const menuItems: MenuItem[] = [
   // Hamburguesas Burger Master (anteriormente de Concurso)
   {
     id: 9,
-    name: "Burguer Parrillera ROLLY BURGUER",
+    name: "burguer parrillera rolly burguer",
     description:
       "150 GR DE CARNE DE RES A LA PARRILLA ACOMPAÑADA DE PAN ARTESANAL, QUESO CHEEDAR, SOUR CREAM, TOCINETA AHUMADA CROCANTE Y NUESTRA SALSA BBQ ROLLY CON UNOS TONOS DULCES Y PIMIENTA.",
     price: 24000,
@@ -171,7 +171,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 10,
-    name: "Burguer Parrillera VOLCANICA 2.0",
+    name: "burguer parrillera volcanica 2.0",
     description:
       "150 GR DE CARNE DE RES A LA PARRILLA, ACOMPAÑADA DE PAN ARTESANAL, QUESO SABANA, TROCITOS DE CHILACUAN, TOCINETA AHUMADA, CUAJADA ASADA, UN ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
     price: 24000,
@@ -186,7 +186,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 11,
-    name: "BURGER PARRIIIERA-BIG MONSTER",
+    name: "burger parriiiera-big monster",
     description:
       "330 GR DE CARNE DE RES A LA PARRILLA, acompañada de pan artesanal, triple queso cheddar, tocineta ahumada, aros de cebolla apanados, mayonesa de ajo, mostaza y nuestra salsa BBQ Johnnie Walker",
     price: 31000,
@@ -201,7 +201,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 12,
-    name: "Burguer Parrillera MERO FLOW",
+    name: "Burguer Parrillera mero flow",
     description:
       "150 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO MOZARELA. MERMELADA DE TOCINETA AHUMADA Y MANZANA VERDE, SOUR CREAM CON TONOS DE QUESO AZUL, CEBOLLA CRISPY Y SALSA DE LA CASA.",
     price: 24000,
@@ -216,7 +216,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 13,
-    name: "Burguer Parrillera BEACON DELUXE",
+    name: "Burguer Parrillera bacon deluxe",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO CHEDDAR, TOCINETA EN REDUCCION DE VINO TINTO, CEBOLLA CARAMELIZADA, RUGULA, MAYONESA DE AJO Y SALSA CHIPOTLE.",
     price: 19000,
@@ -231,7 +231,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 14,
-    name: "Burguer Parrillera VOLCANICA",
+    name: "Burguer Parrillera volcanica",
     description:
       "180 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, DOBLE QUESO SABANA, TOCINETA AHUMADA, CHUTNEY DE MANGO, ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
     price: 26000,
@@ -246,7 +246,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 15,
-    name: "Burguer Parrillera BEEF MASTER",
+    name: "Burguer Parrillera beef master",
     description:
       "180 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, DOBLE QUESO SABANA, DOBLE TOCINETA AHUMADA EN REDUCCION DE VINO TINTO, RUGULA, MAYONESA DE AJO.",
     price: 26000,
@@ -261,7 +261,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 16,
-    name: "Burguer Parrillera SUPER MEAT",
+    name: "Burguer Parrillera super meat",
     description:
       "LA MAS SALVAJE DEL BARRIO, DOS CARNES DE 80 GR QUE RUGEN EN CADA MORDIDA, PAN BRIOCHE SELLADO EN MANTEQUILLA, QUESO DOBLE CREMA Y UN CHEDDAR CREMOSOQUE SE DESBORDASIN PEDIR PERMISO, LA MAYOCHIRRI LE METE TODO EL POWER CALLEJERO, LAS TOCINETAS CARAMELIZADAS EN REDUCCION DE CERVEZA ESTAN BIEN LOCAS Y CRIJIENTES, TE ATREVES A PROBARLA?",
     price: 24000,
@@ -290,7 +290,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 18,
-    name: "Hot Dog Parrillero ESPECIAL",
+    name: "hot dog parrillero especial",
     description:
       "SALCHICHA TIPO AMERICANA, PAN BRIOCHE, DOBLE QUESO MOZARELLA, PIÑA ASADA, TOCINETA CROCANTE Y NUESTRAS SALSAS DE LA CASA.",
     price: 17000,
@@ -304,7 +304,7 @@ export const menuItems: MenuItem[] = [
   // Papas
   {
     id: 19,
-    name: "CHICKEN POP",
+    name: "chicken pop",
     description:
       "10 TROCITOS DE PECHUGA APANADAS AL ESTILO PARRILLEROS, PAPITAS RUSTICAS, LIMINADA NATURAL O AGUA SABORIZADA DE LIMON.",
     price: 22000,
@@ -314,7 +314,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 20,
-    name: "PAPAS DE LA CASA",
+    name: "papas de la casa",
     description:
       "PAPAS RUSTICAS, TROCITOS DE PECHUGA A LA PARRILLA, TROCITOS DE CHORIZO, TOCINETA Y SALSAS DE LA CASA. (APROX 600 GR)",
     price: 18000,
@@ -324,7 +324,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 21,
-    name: "CHEESE AND BEACON FRIES",
+    name: "cheese and beacon fries",
     description:
       "PAPAS RUSTICAS BAÑADAS EN QUESO CHEEDAR Y TIERRA DE TOCINETA.",
     price: 16000,
@@ -337,7 +337,7 @@ export const menuItems: MenuItem[] = [
   // Acompañamientos
   {
     id: 22,
-    name: "Papas Francesas",
+    name: "papas francesas",
     description: "Crujientes papas fritas con sal",
     price: 6000,
     image:
@@ -347,7 +347,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 23,
-    name: "Papas Rusticas",
+    name: "papas rusticas",
     description: "Crujientes papas fritas con sal",
     price: 6000,
     image:
@@ -357,7 +357,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 24,
-    name: "PAPAS A LA PROVENZAL.",
+    name: "papas a la provenzal.",
     description: "Crujientes papas fritas con sal",
     price: 9000,
     image:
@@ -367,7 +367,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 25,
-    name: "AD CHORIZO",
+    name: "ad chorizo",
     description: "CHORIZO",
     price: 4000,
     image:
@@ -377,7 +377,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 26,
-    name: "AD TOCINETA",
+    name: "ad tocineta",
     description: "TOCINETA",
     price: 4000,
     image:
@@ -387,7 +387,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 27,
-    name: "AD CARNE",
+    name: "ad carne",
     description: "ADICION DE CARNE",
     price: 6000,
     image:
@@ -397,7 +397,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 28,
-    name: "AD CARNE CERTIFIED ANGUS BEEF",
+    name: "ad carne certified angus beef",
     description: "ADICION DE CARNE CERTIFIED ANGUS BEEF",
     price: 13000,
     image:
@@ -407,7 +407,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 29,
-    name: "PIÑA ASADA",
+    name: "piña asada",
     description: "ADICION DE PIÑA ASADA",
     price: 2500,
     image:
@@ -417,7 +417,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 30,
-    name: "AD CEBOLLA CARAMELIZADA",
+    name: "ad cebolla caramelizada",
     description: "ADICION DE CEBOLLA CARAMELIZADA",
     price: 3000,
     image:
@@ -427,7 +427,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 31,
-    name: "AD QUESO FUNDIDO",
+    name: "ad queso fundido",
     description: "ADICION DE QUESO FUNDIDO",
     price: 3000,
     image:
@@ -437,7 +437,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 32,
-    name: "AD QUESO CHEDDAR",
+    name: "ad queso cheddar",
     description: "ADICION DE QUESO CHEDDAR",
     price: 4000,
     image:
@@ -447,7 +447,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 33,
-    name: "AD QUESO COLBY JACK",
+    name: "ad queso colby jack",
     description: "ADICION DE QUESO COLBY JACK",
     price: 4000,
     image:
@@ -457,7 +457,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 34,
-    name: "AD QUESO SABANA",
+    name: "ad queso sabana",
     description: "ADICION DE QUESO SABANA",
     price: 4000,
     image:
@@ -467,7 +467,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 35,
-    name: "AD AROS DE CEBOLLA APANADOS",
+    name: "ad aros de cebolla apanados",
     description: "ADICION DE AROS DE CEBOLLA (3 UN)",
     price: 4500,
     image:
@@ -477,7 +477,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 36,
-    name: "AD CEBOLLA CRUNCH",
+    name: "ad cebolla crunch",
     description: "ADICION DE CEBOLLA CRUNCH",
     price: 3000,
     image:
@@ -487,7 +487,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 37,
-    name: "AD PEPINILLOS",
+    name: "ad pepinillos",
     description: "ADICION DE CEBOLLA CARAMELIZADA",
     price: 13000,
     image:
@@ -497,7 +497,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 38,
-    name: "AD JALAPEÑOS",
+    name: "ad jalapeños",
     description: "ADICION DE JALAPEÑOS",
     price: 3000,
     image:
@@ -507,7 +507,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 39,
-    name: "AD CHEDDAR LIQUIDO Y TIERRA DE TOCINETA",
+    name: "ad cheddar liquido y tierra de tocineta",
     description: "ADICION DE QUESO CHEDAR Y TOCINETA",
     price: 7000,
     image:
@@ -517,7 +517,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 40,
-    name: "AD RIPIO DE PAPA CROCANTE",
+    name: "ad ripio de papa crocante",
     description: "ADICION DE RIPIO DE PAPA",
     price: 1000,
     image:
@@ -529,7 +529,7 @@ export const menuItems: MenuItem[] = [
   // Bebidas
   {
     id: 41,
-    name: "GASEOSA COCA COLA",
+    name: "gaseosa coca cola",
     description: "COCA COLA",
     price: 6000,
     image:
@@ -539,7 +539,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 42,
-    name: "FUZE TE DURAZNO",
+    name: "fuze te durazno",
     description: "FUZE TE DURAZNO",
     price: 5000,
     image:
@@ -549,7 +549,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 43,
-    name: "FUZE TE LIMON",
+    name: "fuze te limon",
     description: "FUZE TE LIMON",
     price: 5000,
     image:
@@ -559,7 +559,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 44,
-    name: "JUGO DEL VALLE DE MANDARINA",
+    name: "jugo del valle de mandarina",
     description: "JUGO DEL VALLE DE MANDARINA",
     price: 4500,
     image:
@@ -569,7 +569,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 45,
-    name: "AGUA NATURAL",
+    name: "agua natural",
     description: "AGUA",
     price: 3500,
     image:
@@ -579,7 +579,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 46,
-    name: "AGUA SABORIZADA",
+    name: "agua saborizada",
     description: "AGUA",
     price: 3500,
     image:
@@ -589,7 +589,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 47,
-    name: "LIMONADA NATURAL",
+    name: "limonada natural",
     description: "LIMONADA NATURAL",
     price: 6500,
     image:
@@ -599,7 +599,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 48,
-    name: "LIMONADA CEREZADA",
+    name: "limonada cerezada",
     description: "LIMONADA CEREZADA",
     price: 8500,
     image:
@@ -609,7 +609,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 49,
-    name: "LIMONADA DE FRESA",
+    name: "limonada de fresa",
     description: "LIMONADA DE FRESA",
     price: 8500,
     image:
@@ -619,7 +619,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 50,
-    name: "LIMONADA DE COCO",
+    name: "limonada de coco",
     description: "LIMONADA DE COCO",
     price: 9500,
     image:
@@ -629,7 +629,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 51,
-    name: "JUGO NATURAL MORA EN AGUA",
+    name: "jugo natural mora en agua",
     description: "JUGO NATURAL MORA EN AGUA",
     price: 6500,
     image:
@@ -639,7 +639,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 52,
-    name: "JUGO NATURAL MORA EN LECHE",
+    name: "jugo natural mora en leche",
     description: "JUGO NATURAL MORA EN LECHE",
     price: 7500,
     image:
@@ -649,7 +649,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 53,
-    name: "JUGO NATURAL FRESA EN AGUA",
+    name: "jugo natural fresa en agua",
     description: "JUGO NATURAL FRESA EN AGUA",
     price: 6500,
     image:
@@ -659,7 +659,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 54,
-    name: "JUGO NATURAL FRESA EN LECHE",
+    name: "jugo natural fresa en leche",
     description: "JUGO NATURAL FRESA EN LECHE",
     price: 7500,
     image: "https://www.clarin.com/img/2018/11/19/1moJNpDSB_1200x630__1.jpg",
@@ -668,7 +668,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 55,
-    name: "JUGO NATURAL MARACUYA EN AGUA",
+    name: "jugo natural maracuya en agua",
     description: "JUGO NATURAL MARACUYA EN AGUA",
     price: 6500,
     image:
@@ -678,7 +678,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 56,
-    name: "JUGO NATURAL MARACUYA EN LECHE",
+    name: "jugo natural maracuya en leche",
     description: "JUGO NATURAL MARACUYA EN LECHE",
     price: 7500,
     image: "https://i.ytimg.com/vi/mcjoCvtVPpo/sddefault.jpg",
@@ -687,7 +687,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 57,
-    name: "JUGO NATURAL MANGO EN AGUA",
+    name: "jugo natural mango en agua",
     description: "JUGO NATURAL MANGO EN AGUA",
     price: 6500,
     image:
@@ -697,7 +697,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 58,
-    name: "JUGO NATURAL MANGO EN LECHE",
+    name: "jugo natural mango en leche",
     description: "JUGO NATURAL MANGO EN LECHE",
     price: 7500,
     image:
@@ -707,7 +707,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 59,
-    name: "JUGO NATURAL LULO EN AGUA",
+    name: "jugo natural lulo en agua",
     description: "JUGO NATURAL LULO EN AGUA",
     price: 6500,
     image:
@@ -717,7 +717,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 60,
-    name: "JUGO NATURAL LULO EN LECHE",
+    name: "jugo natural lulo en leche",
     description: "JUGO NATURAL LULO EN LECHE",
     price: 7500,
     image:
@@ -727,7 +727,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 61,
-    name: "JUGO NATURAL GUANABANA EN AGUA",
+    name: "jugo natural guanabana en agua",
     description: "JUGO NATURAL GUANABANA EN AGUA",
     price: 6500,
     image:
@@ -737,7 +737,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 62,
-    name: "JUGO NATURAL GUANABANA EN LECHE",
+    name: "jugo natural guanabana en leche",
     description: "JUGO NATURAL GUANABANA EN LECHE",
     price: 7500,
     image:
@@ -747,7 +747,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 63,
-    name: "MALTEDA COOKIES AND CREAM",
+    name: "malteada cookies and cream",
     description: "MALTEADA",
     price: 13000,
     image:
@@ -757,7 +757,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 64,
-    name: "TE HELADO DE LIMON",
+    name: "te helado de limon",
     description: "TE HELADO DE LIMON",
     price: 6000,
     image:
@@ -767,7 +767,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 65,
-    name: "CERVEZA POKER",
+    name: "cerveza poker",
     description: "NACIONALES",
     price: 7000,
     image:
@@ -777,7 +777,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 66,
-    name: "CERVEZA CLUB DORADA",
+    name: "cerveza club dorada",
     description: "NACIONALES",
     price: 9000,
     image:
@@ -788,22 +788,22 @@ export const menuItems: MenuItem[] = [
 ];
 
 export const customizationOptions: CustomizationOption[] = [
-  { id: 1, name: "AD CHORIZO", price: 4000 },
-  { id: 2, name: "AD TOCINETA", price: 4000 },
-  { id: 3, name: "AD CARNE", price: 8000 },
-  { id: 4, name: "AD CARNE CERTIFIED ANGUS BEEF", price: 13000 },
-  { id: 5, name: "AD PIÑA ASADA", price: 2500 },
-  { id: 6, name: "AD CEBOLLA CARAMELIZADA", price: 3000 },
-  { id: 7, name: "AD QUESO FUNDIDO", price: 3000 },
-  { id: 8, name: "AD QUESO CHEDDAR", price: 4000 },
-  { id: 9, name: "AD QUESO COLBY JACK", price: 4000 },
-  { id: 10, name: "AD QUESO SABANA", price: 4000 },
-  { id: 11, name: "AD AROS DE CEBOLLA APANADOS", price: 4500 },
-  { id: 12, name: "AD CEBOLLA CRUNCH", price: 3000 },
-  { id: 13, name: "AD PEPINILLOS", price: 3000 },
-  { id: 14, name: "AD JALAPEÑOS", price: 3000 },
-  { id: 15, name: "AD QUESO LIQUIDO Y TIERRA DE TOCINETA", price: 7000 },
-  { id: 16, name: "AD RIPIO DE PAPA CROCANTE", price: 1000 },
+  { id: 1, name: "ad chorizo", price: 4000 },
+  { id: 2, name: "ad tocineta", price: 4000 },
+  { id: 3, name: "ad carne", price: 8000 },
+  { id: 4, name: "ad carne certified angus beef", price: 13000 },
+  { id: 5, name: "ad piña asada", price: 2500 },
+  { id: 6, name: "ad cebolla caramelizada", price: 3000 },
+  { id: 7, name: "ad queso fundido", price: 3000 },
+  { id: 8, name: "ad queso cheddar", price: 4000 },
+  { id: 9, name: "ad queso colby jack", price: 4000 },
+  { id: 10, name: "ad queso sabana", price: 4000 },
+  { id: 11, name: "ad aros de cebolla apanados", price: 4500 },
+  { id: 12, name: "ad cebolla crunch", price: 3000 },
+  { id: 13, name: "ad pepinillos", price: 3000 },
+  { id: 14, name: "ad jalapeños", price: 3000 },
+  { id: 15, name: "ad queso liquido y tierra de tocineta", price: 7000 },
+  { id: 16, name: "ad ripio de papa crocante", price: 1000 },
 ];
 
 export const categorizedSides = {
