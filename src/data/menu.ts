@@ -14,6 +14,8 @@ import DELUXE from "../assets/deluxe.jpeg";
 import VOLCANICA1 from "../assets/volcanica1.jpg";
 import POP from "../assets/POP.jpeg";
 import POLLOGRILL from "../assets/pollogrill.jpg";
+import PAPASCASA from "../assets/PAPASDELACASA.png";
+import CHESSEANDFRIES from "../assets/chesseandfries.png";
 
 export const categories: Category[] = [
   { id: "burgers", name: "Hamburguesas", icon: "beef" },
@@ -316,8 +318,7 @@ export const menuItems: MenuItem[] = [
     description:
       "PAPAS RUSTICAS, TROCITOS DE PECHUGA A LA PARRILLA, TROCITOS DE CHORIZO, TOCINETA Y SALSAS DE LA CASA. (APROX 600 GR)",
     price: 18000,
-    image:
-      "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: PAPASCASA,
     category: "fries",
     customizable: false,
   },
@@ -327,8 +328,7 @@ export const menuItems: MenuItem[] = [
     description:
       "PAPAS RUSTICAS BAÑADAS EN QUESO CHEEDAR Y TIERRA DE TOCINETA.",
     price: 16000,
-    image:
-      "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    image: CHESSEANDFRIES,
     category: "fries",
     customizable: false,
   },
