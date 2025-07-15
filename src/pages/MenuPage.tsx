@@ -8,7 +8,12 @@ import CategorySelector from "../components/CategorySelector";
 import MenuCard from "../components/MenuCard";
 import SearchBar from "../components/SearchBar";
 import TourButton from "../components/TourButton";
-import { categories, menuItems, customizationOptions } from "../data/menu";
+import {
+  categories,
+  menuItems,
+  customizationOptions,
+  categorizedSides,
+} from "../data/menu";
 import { useOrder } from "../context/OrderContext";
 import { useDriverTour, menuTourSteps } from "../hooks/useDriverTour";
 
@@ -18,7 +23,8 @@ gsap.registerPlugin(ScrollTrigger);
 const MenuPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart } = useOrder();
-  const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
+  const [selectedCategory, setSelectedCategory] = useState("classic-burgers");
+  const [selectedSidesFilter, setSelectedSidesFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showTourButton, setShowTourButton] = useState(true);
 
@@ -92,6 +98,22 @@ const MenuPage: React.FC = () => {
           !itemName.includes("cerveza")
         );
       });
+    } else if (selectedCategory === "sides") {
+      // Handle sides subcategories
+      items = menuItems.filter((item) => item.category === "sides");
+
+      if (selectedSidesFilter !== "all") {
+        const categoryItems =
+          categorizedSides[
+            selectedSidesFilter as keyof typeof categorizedSides
+          ];
+        if (categoryItems) {
+          const categoryIds = categoryItems
+            .map((item) => item?.id)
+            .filter(Boolean);
+          items = items.filter((item) => categoryIds.includes(item.id));
+        }
+      }
     } else {
       // Default filtering by category
       items = menuItems.filter((item) => item.category === selectedCategory);
@@ -107,7 +129,7 @@ const MenuPage: React.FC = () => {
     }
 
     return items;
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, selectedSidesFilter, searchQuery]);
 
   // Global search across all items - MOVED BEFORE useEffect
   const globalSearchResults = useMemo(() => {
@@ -251,35 +273,9 @@ const MenuPage: React.FC = () => {
     };
   }, [filteredItems]);
 
-  // Animación del botón del carrito
+  // Efecto simple para mostrar el botón del carrito
   useEffect(() => {
-    if (cartButtonRef.current && cart.length > 0) {
-      // Animación de entrada del botón del carrito
-      gsap.fromTo(
-        cartButtonRef.current,
-        {
-          scale: 0,
-          rotation: -180,
-          opacity: 0,
-        },
-        {
-          scale: 1,
-          rotation: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "back.out(1.7)",
-        }
-      );
-
-      // Animación de pulso continuo
-      gsap.to(cartButtonRef.current, {
-        scale: 1.1,
-        duration: 1,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-    }
+    // Solo para mantener la referencia, sin animaciones
   }, [cart.length]);
 
   const handleSearch = (query: string) => {
@@ -292,6 +288,8 @@ const MenuPage: React.FC = () => {
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
+    // Reset sides filter when changing category
+    setSelectedSidesFilter("all");
 
     // Animación suave al cambiar categoría
     if (menuGridRef.current) {
@@ -386,6 +384,42 @@ const MenuPage: React.FC = () => {
           </div>
         )}
 
+        {/* Sides Filter - only show when sides category is selected and not searching */}
+        {showCategorySelector && selectedCategory === "sides" && (
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="menu-card-enhanced rounded-xl p-6">
+              <h3 className="text-lg font-bold text-gray-800 mb-4">
+                Filtrar Acompañamientos
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => setSelectedSidesFilter("all")}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    selectedSidesFilter === "all"
+                      ? "bg-[#FF8C00] text-white shadow-md"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  Todos
+                </button>
+                {Object.keys(categorizedSides).map((filterKey) => (
+                  <button
+                    key={filterKey}
+                    onClick={() => setSelectedSidesFilter(filterKey)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                      selectedSidesFilter === filterKey
+                        ? "bg-[#FF8C00] text-white shadow-md"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    {filterKey}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Search Results Header */}
         {searchQuery.trim() && (
           <div className="max-w-4xl mx-auto mb-8">
@@ -406,7 +440,7 @@ const MenuPage: React.FC = () => {
         {itemsToShow.length > 0 ? (
           <div
             ref={menuGridRef}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
             data-tour="menu-grid"
           >
             {itemsToShow.map((item, index) => (

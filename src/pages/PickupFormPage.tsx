@@ -339,75 +339,60 @@ ${cartDetails}
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-6 border border-orange-200">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex items-center mb-4">
             <button
               onClick={() => navigate("/order-type")}
-              className="mr-4 p-2 bg-orange-100 rounded-full hover:bg-orange-200 transition-colors"
+              className="mr-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
             >
-              <ArrowLeft size={20} className="text-black" />
+              <ArrowLeft size={20} />
             </button>
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-black flex items-center">
-                <MapPin size={28} className="mr-2 text-orange-600" />
+              <h1 className="text-2xl font-bold text-gray-800 flex items-center">
+                <MapPin size={28} className="mr-2 text-[#FF8C00]" />
                 Recogida en Sede
               </h1>
-              <p className="text-gray-600 text-sm sm:text-base">
+              <p className="text-gray-600">
                 {currentStep === "location"
-                  ? "Selecciona tu sede preferida"
+                  ? "Selecciona tu sede preferida para recoger tu pedido"
                   : "Completa tus datos personales"}
               </p>
             </div>
           </div>
 
-          {/* Progress Steps */}
-          <div className="flex items-center justify-center space-x-4 mt-4">
-            <div
-              className={`flex items-center ${
-                currentStep === "location"
-                  ? "text-orange-600"
-                  : selectedLocation
-                  ? "text-orange-600"
-                  : "text-gray-400"
-              }`}
-            >
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                  selectedLocation
-                    ? "bg-orange-600 text-white"
-                    : currentStep === "location"
-                    ? "bg-orange-100 text-orange-600"
-                    : "bg-gray-200 text-gray-400"
-                }`}
-              >
-                1
-              </div>
-              <span className="ml-2 font-medium hidden sm:inline text-black">
-                Seleccionar Sede
-              </span>
+          {currentStep === "location" && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p className="text-sm text-blue-800">
+                <strong>⏰ Tiempo de preparación:</strong> 15-20 minutos aproximadamente<br />
+                <strong>📍 Recogida:</strong> Dirígete a la sede seleccionada una vez confirmado tu pedido
+              </p>
             </div>
+          )}
 
-            <ChevronRight size={20} className="text-gray-400" />
-
-            <div
-              className={`flex items-center ${
-                currentStep === "form" ? "text-orange-600" : "text-gray-400"
-              }`}
-            >
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                  currentStep === "form"
-                    ? "bg-orange-100 text-orange-600"
-                    : "bg-gray-200 text-gray-400"
-                }`}
-              >
-                2
+          {currentStep === "form" && (
+            /* Progress Steps */
+            <div className="flex items-center justify-center space-x-4 mt-4">
+              <div className="flex items-center text-[#FF8C00]">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-[#FF8C00] text-white">
+                  1
+                </div>
+                <span className="ml-2 font-medium hidden sm:inline text-gray-800">
+                  Sede Seleccionada
+                </span>
               </div>
-              <span className="ml-2 font-medium hidden sm:inline text-black">
-                Datos Personales
-              </span>
+
+              <ChevronRight size={20} className="text-gray-400" />
+
+              <div className="flex items-center text-[#FF8C00]">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-orange-100 text-[#FF8C00]">
+                  2
+                </div>
+                <span className="ml-2 font-medium hidden sm:inline text-gray-800">
+                  Datos Personales
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -415,46 +400,105 @@ ${cartDetails}
           <div className="lg:col-span-2">
             {currentStep === "location" ? (
               /* Location Selection Step */
-              <div className="bg-white rounded-lg shadow-md p-6 border border-orange-200">
-                <h2 className="text-xl font-bold mb-6 text-black flex items-center">
-                  <MapPin size={24} className="mr-2 text-orange-600" />
-                  Selecciona tu Sede
+              <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 className="text-xl font-bold mb-6 text-gray-800 flex items-center">
+                  <MapPin size={24} className="mr-2 text-[#FF8C00]" />
+                  Nuestras Sedes Disponibles
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-6">
                   {locations.map((location) => (
                     <div
                       key={location.id}
                       onClick={() => handleLocationSelect(location)}
-                      className={`p-4 border-2 rounded-lg cursor-pointer transition-all hover:shadow-lg ${
+                      className={`p-6 rounded-xl border-2 cursor-pointer transition-all hover:shadow-lg transform hover:scale-[1.02] ${
                         selectedLocation?.id === location.id
-                          ? "border-orange-500 bg-orange-50"
-                          : "border-gray-200 hover:border-orange-300"
+                          ? "border-[#FF8C00] bg-orange-50 shadow-lg scale-[1.02]"
+                          : "border-gray-200 hover:border-gray-300 bg-white"
                       }`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h3 className="font-bold text-black mb-2">
-                            {location.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 mb-2">
-                            {location.address}
-                          </p>
-                          <p className="text-sm text-gray-500 mb-2">
-                            {location.neighborhood}
-                          </p>
-                          <div className="flex items-center text-sm text-gray-600">
-                            <Phone size={14} className="mr-1" />
-                            {location.phone}
+                          <div className="flex items-center mb-3">
+                            <h3 className="font-bold text-xl text-gray-800 mr-3 font-heavyrust-primary">
+                              {location.name}
+                            </h3>
+                            {selectedLocation?.id === location.id && (
+                              <div className="flex items-center bg-[#FF8C00] text-white px-3 py-1 rounded-full text-sm font-medium">
+                                <CheckCircle size={16} className="mr-1" />
+                                Seleccionada
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="space-y-3">
+                            <div className="flex items-center text-gray-600">
+                              <MapPin
+                                size={18}
+                                className="mr-3 text-[#FF8C00] flex-shrink-0"
+                              />
+                              <span className="text-base">{location.address}</span>
+                            </div>
+
+                            <div className="flex items-center text-gray-600">
+                              <Phone
+                                size={18}
+                                className="mr-3 text-[#FF8C00] flex-shrink-0"
+                              />
+                              <span className="text-base">{location.phone}</span>
+                            </div>
+
+                            {location.deliveryZones && location.deliveryZones.length > 0 && (
+                              <div className="flex items-start text-gray-600">
+                                <MapPin
+                                  size={18}
+                                  className="mr-3 text-[#FF8C00] flex-shrink-0 mt-0.5"
+                                />
+                                <div className="text-base">
+                                  <span className="font-medium text-gray-700">Zona:</span>
+                                  <div className="mt-2 flex flex-wrap gap-2">
+                                    {location.deliveryZones.map((zone, index) => (
+                                      <span
+                                        key={index}
+                                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                          selectedLocation?.id === location.id
+                                            ? "bg-[#FF8C00] text-white"
+                                            : "bg-gray-100 text-gray-700"
+                                        }`}
+                                      >
+                                        {zone}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
-                        <ChevronRight
-                          size={20}
-                          className="text-orange-400 mt-2"
-                        />
+
+                        {selectedLocation?.id === location.id && (
+                          <div className="ml-6">
+                            <div className="w-8 h-8 bg-[#FF8C00] rounded-full flex items-center justify-center">
+                              <CheckCircle size={20} className="text-white" />
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
+                </div>
+
+                {/* Instructions */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center mt-6">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="bg-blue-100 rounded-full p-3 mr-3">
+                      <span className="text-2xl">👆</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-blue-800">¡Selecciona tu sede preferida!</h3>
+                  </div>
+                  <p className="text-blue-700">
+                    Haz clic en cualquiera de las sedes de arriba para continuar automáticamente con el formulario
+                  </p>
                 </div>
               </div>
             ) : (

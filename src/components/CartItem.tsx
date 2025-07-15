@@ -28,60 +28,67 @@ const CartItem: React.FC<CartItemProps> = ({ item, readOnly = false }) => {
     return ' + Papas'; // fallback
   };
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 mb-3">
-      <div className="flex justify-between items-start">
-        <div className="flex items-center">
-          <div className="w-16 h-16 rounded-md overflow-hidden mr-4">
+    <div className="bg-white rounded-xl shadow-md border border-gray-100 p-5 mb-4">
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex items-start flex-1">
+          <div className="w-20 h-20 rounded-xl overflow-hidden mr-4 flex-shrink-0">
             <img
               src={menuItem.image}
               alt={menuItem.name}
               className="w-full h-full object-cover"
             />
           </div>
-          <div>
-            <h3 className="font-bold text-gray-800">
+          <div className="flex-1 min-w-0">
+            <h3 className="font-bold text-gray-900 text-lg leading-tight">
               {menuItem.name}
               {getFriesText()}
             </h3>
             {customizations.length > 0 && (
-              <div className="mt-1">
-                <p className="text-sm text-gray-600">
+              <div className="mt-2">
+                <p className="text-sm text-gray-600 bg-gray-50 px-3 py-1 rounded-lg inline-block">
                   {customizations.map((c) => c.name).join(', ')}
                 </p>
               </div>
             )}
             {specialInstructions && (
-              <p className="text-xs italic text-gray-500 mt-1">
-                {specialInstructions}
+              <p className="text-sm italic text-gray-600 mt-2 bg-yellow-50 px-3 py-2 rounded-lg border-l-4 border-yellow-400">
+                <span className="font-medium">Instrucciones:</span> {specialInstructions}
               </p>
             )}
           </div>
         </div>
-        <span className="font-bold text-[#FF8C00]">${Math.round(itemTotal).toLocaleString()}</span>
+        <div className="text-right ml-4">
+          <span className="font-bold text-[#FF8C00] text-xl">${Math.round(itemTotal).toLocaleString()}</span>
+          <p className="text-sm text-gray-500">Total</p>
+        </div>
       </div>
 
       {!readOnly && (
-        <div className="flex justify-between items-center mt-3">
+        <div className="flex justify-between items-center pt-4 border-t border-gray-100">
           <button
             onClick={() => removeFromCart(item.id)}
-            className="text-gray-500 hover:text-red-600 transition-colors"
+            className="flex items-center text-red-500 bg-red-50 px-4 py-2 rounded-lg font-medium"
           >
-            <Trash2 size={20} />
+            <Trash2 size={18} className="mr-2" />
+            Eliminar
           </button>
 
-          <div className="flex items-center bg-gray-100 rounded-md">
+          <div className="flex items-center bg-gray-50 rounded-xl border border-gray-200">
             <button
               onClick={() => updateQuantity(item.id, quantity - 1)}
-              className="p-2 hover:bg-gray-200 rounded-l-md"
+              className="p-3 text-gray-600 rounded-l-xl"
+              disabled={quantity <= 1}
             >
-              <Minus size={18} />
+              <Minus size={20} />
             </button>
-            <span className="px-4 py-1 font-semibold">{quantity}</span>
+            <span className="px-6 py-3 font-bold text-lg text-gray-900 bg-white border-x border-gray-200">
+              {quantity}
+            </span>
             <button
               onClick={() => updateQuantity(item.id, quantity + 1)}
-              className="p-2 hover:bg-gray-200 rounded-r-md"
+              className="p-3 text-gray-600 rounded-r-xl"
             >
-              <Plus size={18} />
+              <Plus size={20} />
             </button>
           </div>
         </div>
