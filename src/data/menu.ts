@@ -371,7 +371,7 @@ export const menuItems: MenuItem[] = [
     description: "CHORIZO",
     price: 4000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://meatmaster.pe/wp-content/uploads/2024/05/chorizo-a-la-parrilla.png",
     category: "sides",
     customizable: false,
   },
@@ -381,7 +381,7 @@ export const menuItems: MenuItem[] = [
     description: "TOCINETA",
     price: 4000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://previews.123rf.com/images/breakingthewalls/breakingthewalls1606/breakingthewalls160600145/60874220-seceral-crispy-smoked-grilled-barbecue-bacon-slices-cooked-on-bbq-smoke-grill-close-up.jpg",
     category: "sides",
     customizable: false,
   },
@@ -391,7 +391,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE CARNE",
     price: 6000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://mastropiero.co/web/image/product.template/6709/image",
     category: "sides",
     customizable: false,
   },
@@ -401,7 +401,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE CARNE CERTIFIED ANGUS BEEF",
     price: 13000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://tienda.atlantic.la/cdn/shop/files/MOLIDA_DELUXE-min.jpg?v=1744057443",
     category: "sides",
     customizable: false,
   },
@@ -411,7 +411,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE PIÑA ASADA",
     price: 2500,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://okdiario.com/img/recetas/2017/11/25/1-1.jpg",
     category: "sides",
     customizable: false,
   },
@@ -421,7 +421,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE CEBOLLA CARAMELIZADA",
     price: 3000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://www.infobae.com/new-resizer/-CXhVnJD5Gasa90T2xVRnUw98II=/arc-anglerfish-arc2-prod-infobae/public/INQNYIRPHREWJIOMQTU32XM5KI.jpg",
     category: "sides",
     customizable: false,
   },
@@ -431,7 +431,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE QUESO FUNDIDO",
     price: 3000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://res.cloudinary.com/hksqkdlah/image/upload/33579_sfs-queso-fundido-12.jpg",
     category: "sides",
     customizable: false,
   },
@@ -441,7 +441,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE QUESO CHEDDAR",
     price: 4000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGZ6YgiRNr1-wKyKSfDihMc_Z4fEIXJUez5A&s",
     category: "sides",
     customizable: false,
   },
@@ -451,7 +451,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE QUESO COLBY JACK",
     price: 4000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://laquesie.com/images/quesoColbyJack.jpg",
     category: "sides",
     customizable: false,
   },
@@ -461,7 +461,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE QUESO SABANA",
     price: 4000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://laquesie.com/images/quesoSabana.jpg",
     category: "sides",
     customizable: false,
   },
@@ -471,7 +471,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE AROS DE CEBOLLA (3 UN)",
     price: 4500,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-1024x693.jpg",
     category: "sides",
     customizable: false,
   },
@@ -481,7 +481,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE CEBOLLA CRUNCH",
     price: 3000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJMwcd13CoeeCivhjCwg8UZ9DQFhD3fqvNdg&s",
     category: "sides",
     customizable: false,
   },
@@ -491,7 +491,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE CEBOLLA CARAMELIZADA",
     price: 13000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRdBT0pGYWMrwK4jNAJcK4xkNDKgb3NnQKYA&s",
     category: "sides",
     customizable: false,
   },
@@ -501,7 +501,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE JALAPEÑOS",
     price: 3000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR72j1g-Px7ENQWJ15rsZQDOF3c6gU2-bPoDw&s",
     category: "sides",
     customizable: false,
   },
@@ -511,7 +511,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE QUESO CHEDAR Y TOCINETA",
     price: 7000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://img0.didiglobal.com/static/soda_public/img_0b354251bc5df243fd442d4f87e9257a.jpg",
     category: "sides",
     customizable: false,
   },
@@ -521,7 +521,7 @@ export const menuItems: MenuItem[] = [
     description: "ADICION DE RIPIO DE PAPA",
     price: 1000,
     image:
-      "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "https://http2.mlstatic.com/D_NQ_NP_920064-MCO82587199233_022025-O.webp",
     category: "sides",
     customizable: false,
   },
