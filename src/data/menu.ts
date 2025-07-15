@@ -1,19 +1,19 @@
 import { MenuItem, Category, CustomizationOption } from '../types';
-import CHICKEN from '../../src/assets/CHICKEN.png'
-import SUPER from '../../src/assets/SUPER.png'
-import VOLCANICA2 from '../../src/assets/VOLCANICA2.png'
-import MERO from '../../src/assets/MERO.png'
-import ROLLY from '../../src/assets/ROLLY.png'
-import RANCHERA from '../../src/assets/RANCHERA.jpg'
-import BACONCHESE from '../../src/assets/BACONCHESSE.jpg'
-import BIGMONSTER from '../../src/assets/BIGMONSTER.jpg'
-import HOTESPECIAL from '../../src/assets/HOTESPECIAL.jpg'
-import HOTCLASICO from '../../src/assets/HOTCLASICO.jpg'
-import SENCILLA from '../../src/assets/SENCILLA.jpeg'
-import DELUXE from '../../src/assets/DELUXE.jpeg'
-import VOLCANICA1 from '../../src/assets/VOLCANICA1.jpg'
-import POP from '../../src/assets/POP.jpeg'
-import POLLOGRILL from '../../src/assets/POLLOGRILL.jpg'
+import CHICKEN from '../../src/assets/CHICKEN.png';
+import SUPER from '../../src/assets/SUPER.png';
+import VOLCANICA2 from '../../src/assets/VOLCANICA2.png';
+import MERO from '../../src/assets/MERO.png';
+import ROLLY from '../../src/assets/ROLLY.png';
+import RANCHERA from '../../src/assets/RANCHERA.jpg';
+import BACONCHESE from '../../src/assets/BACONCHESSE.jpg';
+import BIGMONSTER from '../../src/assets/BIGMONSTER.jpg';
+import HOTESPECIAL from '../../src/assets/HOTESPECIAL.jpg';
+import HOTCLASICO from '../../src/assets/HOTCLASICO.jpg';
+import SENCILLA from '../../src/assets/SENCILLA.jpeg';
+import DELUXE from '../../src/assets/DELUXE.jpeg';
+import VOLCANICA1 from '../../src/assets/VOLCANICA1.jpg';
+import POP from '../../src/assets/POP.jpeg';
+import POLLOGRILL from '../../src/assets/POLLOGRILL.jpg';
 
 
 export const categories: Category[] = [
