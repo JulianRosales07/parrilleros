@@ -89,7 +89,7 @@ const DeliveryForm: React.FC<DeliveryFormProps> = () => {
     'Efectivo',
     'Bancolombia',
     'Nequi',
-    'Daviplata'
+
   ];
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -189,12 +189,12 @@ ${cartDetails}
 💰 DESGLOSE DE COSTOS
 • Subtotal: $${Math.round(subtotal).toLocaleString()}
 • INC (8%): $${Math.round(inc).toLocaleString()}
-• TOTAL: $${Math.round(total).toLocaleString()}
+• TOTAL: $${Math.round(total).toLocaleString()} + domicilio (De 6.000 a 8.000 dependiendo del lugar)
 
 💳 Forma de pago: ${formData.paymentMethod}
 ⏰ Tiempo estimado: 45-60 minutos
 
-¡PROCESAR INMEDIATAMENTE!
+¡Pedido confirmado! Gracias, quedo atento. 👌
 
 📍 ${selectedLocation?.name} | ${selectedLocation?.phone}`;
   };
