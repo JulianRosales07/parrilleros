@@ -18,7 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 const MenuPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart } = useOrder();
-  const [selectedCategory, setSelectedCategory] = useState('classic-burgers'); // Start with classic burgers
+  const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
   const [searchQuery, setSearchQuery] = useState('');
   const [showTourButton, setShowTourButton] = useState(true);
   
@@ -43,7 +43,48 @@ const MenuPage: React.FC = () => {
 
   // Filter items based on category and search query - MOVED BEFORE useEffect
   const filteredItems = useMemo(() => {
-    let items = menuItems.filter((item) => item.category === selectedCategory);
+    let items;
+    
+    // Handle drink subcategories
+    if (selectedCategory === 'gaseosas') {
+      items = menuItems.filter(item => 
+        item.category === 'drinks' && (
+          item.name.includes('GASEOSA') || 
+          item.name.includes('COCA') ||
+          item.name.includes('FUZE')
+        )
+      );
+    } else if (selectedCategory === 'limonadas') {
+      items = menuItems.filter(item => 
+        item.category === 'drinks' && item.name.includes('LIMONADA')
+      );
+    } else if (selectedCategory === 'jugos-naturales') {
+      items = menuItems.filter(item => 
+        item.category === 'drinks' && item.name.includes('JUGO NATURAL')
+      );
+    } else if (selectedCategory === 'malteadas') {
+      items = menuItems.filter(item => 
+        item.category === 'drinks' && item.name.includes('MALTEDA')
+      );
+    } else if (selectedCategory === 'cervezas') {
+      items = menuItems.filter(item => 
+        item.category === 'drinks' && item.name.includes('CERVEZA')
+      );
+    } else if (selectedCategory === 'otras-bebidas') {
+      items = menuItems.filter(item => 
+        item.category === 'drinks' && 
+        !item.name.includes('GASEOSA') && 
+        !item.name.includes('COCA') &&
+        !item.name.includes('FUZE') &&
+        !item.name.includes('LIMONADA') &&
+        !item.name.includes('JUGO NATURAL') &&
+        !item.name.includes('MALTEDA') &&
+        !item.name.includes('CERVEZA')
+      );
+    } else {
+      // Default filtering by category
+      items = menuItems.filter((item) => item.category === selectedCategory);
+    }
     
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase().trim();
@@ -281,20 +322,17 @@ const MenuPage: React.FC = () => {
             <span className="text-sm sm:text-base">Volver al inicio</span>
           </button>
         </div>
-
         {/* Search Bar */}
-        <div ref={searchBarRef} className="max-w-4xl mx-auto mb-8" data-tour="search-bar">
-          <div className="menu-search-enhanced rounded-2xl p-1">
-            <SearchBar 
-              onSearch={handleSearch}
-              placeholder="Buscar hamburguesas, bebidas, acompañamientos..."
-            />
-          </div>
+        <div ref={searchBarRef} className="max-w-6xl mx-auto mb-8" data-tour="search-bar">
+          <SearchBar 
+            onSearch={handleSearch}
+            placeholder="Buscar burguer, gaseosa, acompañamientos..."
+          />
         </div>
 
         {/* Category Selector - only show when not searching */}
         {showCategorySelector && (
-          <div ref={categorySelectorRef} className="max-w-4xl mx-auto mb-12" data-tour="category-selector">
+          <div ref={categorySelectorRef} className="max-w-4xl mx-auto mb-12 mt-16" data-tour="category-selector">
             <div className="menu-category-enhanced rounded-2xl">
               <CategorySelector
                 categories={categories}
@@ -321,14 +359,14 @@ const MenuPage: React.FC = () => {
 
         {/* Menu Grid */}
         {itemsToShow.length > 0 ? (
-          <div ref={menuGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto" data-tour="menu-grid">
+          <div ref={menuGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto" data-tour="menu-grid">
             {itemsToShow.map((item, index) => (
               <div
                 key={item.id}
                 ref={el => menuCardsRefs.current[index] = el}
-                className="menu-card-container"
+                className="menu-card-container transform transition-all duration-300"
               >
-                <div className="menu-card-enhanced rounded-2xl">
+                <div className="menu-card-enhanced rounded-3xl overflow-hidden">
                   <MenuCard item={item} />
                 </div>
               </div>
@@ -337,9 +375,7 @@ const MenuPage: React.FC = () => {
         ) : searchQuery.trim() ? (
           <div className="max-w-4xl mx-auto">
             <div className="menu-card-enhanced rounded-lg shadow-sm p-8 text-center">
-              <div className="text-gray-400 mb-4">
-                <SearchBar onSearch={() => {}} placeholder="" />
-              </div>
+
               <h3 className="text-xl font-bold text-gray-800 mb-2">
                 No se encontraron productos
               </h3>

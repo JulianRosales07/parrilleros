@@ -1,7 +1,6 @@
 import React from 'react';
-import { Beef, Drumstick, GlassWater, IceCream, Salad } from 'lucide-react';
+import { Beef, Coffee, IceCream, Salad } from 'lucide-react';
 import { Category } from '../types';
-import { FaHotdog } from 'react-icons/fa';
 
 interface CategorySelectorProps {
   categories: Category[];
@@ -14,16 +13,14 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
   selectedCategory,
   onSelectCategory,
 }) => {
-  const getIconForCategory = (iconName: string, selected: boolean) => {
+  const getIconForCategory = (iconName: string) => {
     switch (iconName) {
       case 'beef':
         return <Beef size={24} />;
-      case 'hot-dog':
-        return <FaHotdog size={24} color={selected ? '#FFFFFF' : '#FF8C00'} />;
       case 'french-fries':
         return <Salad size={24} />;
       case 'cup-soda':
-        return <GlassWater size={24} />;
+        return <Coffee size={24} />;
       case 'ice-cream':
         return <IceCream size={24} />;
       default:
@@ -41,54 +38,98 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
     cat => cat.id.includes('burgers') && cat.id !== 'burgers'
   );
 
-  // Auto-select classic burgers if no category is selected or if 'burgers' is selected
-  React.useEffect(() => {
-    if (selectedCategory === 'burgers' || selectedCategory === categories[0]?.id) {
-      onSelectCategory('classic-burgers');
-    }
-  }, [selectedCategory, onSelectCategory, categories]);
+  // Drink subcategories
+  const drinkSubcategories = [
+    { id: 'gaseosas', name: 'Gaseosas', icon: '🥤' },
+    { id: 'limonadas', name: 'Limonadas', icon: '🍋' },
+    { id: 'jugos-naturales', name: 'Jugos Naturales', icon: '🧃' },
+    { id: 'malteadas', name: 'Malteadas', icon: '🥤' },
+    { id: 'cervezas', name: 'Cervezas', icon: '🍺' },
+    { id: 'otras-bebidas', name: 'Otras Bebidas', icon: '☕' }
+  ];
+
+  // Check if we're in burger context (main burgers category or any burger subcategory)
+  const isInBurgerContext = selectedCategory === 'burgers' || 
+                           selectedCategory === 'classic-burgers' || 
+                           selectedCategory === 'deluxe-burgers' || 
+                           selectedCategory === 'contest-burgers';
+
+  // Check if we're in drinks context (main drinks category or any drink subcategory)
+  const isInDrinksContext = selectedCategory === 'drinks' || 
+                           selectedCategory === 'gaseosas' || 
+                           selectedCategory === 'limonadas' || 
+                           selectedCategory === 'jugos-naturales' || 
+                           selectedCategory === 'malteadas' || 
+                           selectedCategory === 'cervezas' || 
+                           selectedCategory === 'otras-bebidas';
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 mt-18">
       {/* Main categories */}
       <div className="flex space-x-4 overflow-x-auto px-2 pb-4">
-        {nonBurgerCategories.map((category) => {
-          const isSelected = selectedCategory === category.id || (category.id === 'burgers' && selectedCategory.includes('burgers'));
-          return (
-            <button
-              key={category.id}
-              onClick={() => onSelectCategory(category.id)}
-              className={`flex flex-col items-center px-6 py-3 rounded-xl transition-all transform hover:scale-105 ${
-                isSelected
-                  ? 'bg-[#FF8C00] text-white shadow-lg scale-105'
-                  : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <div className={`mb-2 ${isSelected ? 'text-white' : 'text-[#FF8C00]'}`}>
-                {getIconForCategory(category.icon, isSelected)}
-              </div>
-              <span className="text-sm font-medium whitespace-nowrap">{category.name}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Burger subcategories - always visible */}
-      <div className="grid grid-cols-3 gap-3 mt-4">
-        {burgerCategories.map((category) => (
+        {nonBurgerCategories.map((category) => (
           <button
             key={category.id}
             onClick={() => onSelectCategory(category.id)}
-            className={`py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-              selectedCategory === category.id
-                ? 'bg-[#FF8C00] text-white shadow-md'
-                : 'bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white'
+            className={`flex flex-col items-center px-6 py-3 rounded-xl transition-all transform hover:scale-105 ${
+              selectedCategory === category.id || 
+              (category.id === 'burgers' && isInBurgerContext) ||
+              (category.id === 'drinks' && isInDrinksContext)
+                ? 'bg-[#FF8C00] text-white shadow-lg scale-105'
+                : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
             }`}
           >
-            {category.name.replace('Hamburguesas ', '')}
+            <div className={`mb-2 ${
+              selectedCategory === category.id || 
+              (category.id === 'burgers' && isInBurgerContext) ||
+              (category.id === 'drinks' && isInDrinksContext)
+                ? 'text-white' : 'text-[#FF8C00]'
+            }`}>
+              {getIconForCategory(category.icon)}
+            </div>
+            <span className="text-sm font-medium whitespace-nowrap">{category.name}</span>
           </button>
         ))}
       </div>
+
+      {/* Burger subcategories - show when in burger context */}
+      {isInBurgerContext && (
+        <div className="grid grid-cols-3 gap-3 mt-4">
+          {burgerCategories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => onSelectCategory(category.id)}
+              className={`py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                selectedCategory === category.id
+                  ? 'bg-[#FF8C00] text-white shadow-md'
+                  : 'bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white'
+              }`}
+            >
+              {category.name.replace('Hamburguesas ', '')}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Drink subcategories - show when in drinks context */}
+      {isInDrinksContext && (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+          {drinkSubcategories.map((subcategory) => (
+            <button
+              key={subcategory.id}
+              onClick={() => onSelectCategory(subcategory.id)}
+              className={`flex items-center justify-center py-3 px-4 rounded-lg text-sm font-medium transition-all ${
+                selectedCategory === subcategory.id
+                  ? 'bg-[#FF8C00] text-white shadow-md'
+                  : 'bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white'
+              }`}
+            >
+              <span className="mr-2 text-lg">{subcategory.icon}</span>
+              {subcategory.name}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
