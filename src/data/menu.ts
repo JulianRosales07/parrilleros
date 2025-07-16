@@ -32,7 +32,7 @@ export const menuItems: MenuItem[] = [
   // Hamburguesas Clásicas
   {
     id: 1,
-    name: "Burguer parrillera sencilla",
+    name: "Burger parrillera sencilla",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso doble crema, vegetales frescos, papitas crocantes, mayonesa de ajo y salsa BBQ",
     price: 15000,
@@ -47,7 +47,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 2,
-    name: " Burguer parrillera ranchera",
+    name: " Burger parrillera ranchera",
     description:
       "Pan artesanal sellado en mantequilla, queso doble crema, trocitos de chorizo en nuestra salsa BBQ Johnnie Walker, vegetales frescos, mayonesa de ajo",
     price: 17000,
@@ -62,7 +62,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 3,
-    name: "Burguer parrillera beacon-chese",
+    name: "Burger parrillera beacon-chese",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso cheddar, tocineta ahumada, vegetales frescos, mayonesa de ajo, mostaza, y nuestra BBQ Johnnie Walker",
     price: 17000,
@@ -77,7 +77,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 4,
-    name: "Burguer parrillera pollo grill",
+    name: "Burger parrillera pollo grill",
     description:
       "130 GR DE PECHUGA DE POLLO A LA PARRILLA, pan artesanal sellado en mantequilla, queso fundido, tocineta, cebolla caramelizada, pimientos asados, vegetales frescos (lechuga, tomate), mayonesa de ajo y nuestra salsa BBQ.",
     price: 17000,
@@ -93,7 +93,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 5,
-    name: "Burguer parrillera chicken crunch",
+    name: "Burger parrillera chicken crunch",
     description:
       "130 GR DE PECHUGA APANADA AL ESTILO AMERICANO, pan artesanal sellado en mantequilla, queso colby jack, pepinillos agridulces, cebolla crunch, lechuga y nuestra salsa especial New York.",
     price: 17000,
@@ -102,6 +102,7 @@ export const menuItems: MenuItem[] = [
     image: CHICKEN,
     category: "deluxe-burgers",
     customizable: true,
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -110,7 +111,7 @@ export const menuItems: MenuItem[] = [
   // Hamburguesas Deluxe
   {
     id: 6,
-    name: "Burguer parrillera especial",
+    name: "Burger parrillera especial",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal, queso fundido, queso cheddar, piña asada, tocineta ahumada, lechuga fresca, papitas crocantes, mayonesa de ajo.",
     price: 18000,
@@ -125,7 +126,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 7,
-    name: "Burguer parrillera argentina",
+    name: "Burger parrillera argentina",
     description:
       "150 GR de carne de res y chorizo marinados en cerveza, pan artesanal sellado en mantequilla, queso doble crema, salsa criolla (pimentón, cebolla, especias), vegetales frescos (lechuga, tomate), mayonesa de ajo.",
     price: 19000,
@@ -140,7 +141,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 8,
-    name: "Burguer parrillera doble carne",
+    name: "Burger parrillera doble carne",
     description:
       "270 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso doble crema, queso cheddar, tocineta ahumada, cebolla caramelizada, vegetales frescos (lechuga, tomate), mayonesa de ajo, mostaza y nuestra salsa Johnnie Walker.",
     price: 27000,
@@ -157,7 +158,7 @@ export const menuItems: MenuItem[] = [
   // Hamburguesas Burger Master (anteriormente de Concurso)
   {
     id: 9,
-    name: "Burguer parrillera rolly burguer",
+    name: "Burger parrillera rolly burger",
     description:
       "150 GR DE CARNE DE RES A LA PARRILLA ACOMPAÑADA DE PAN ARTESANAL, QUESO CHEEDAR, SOUR CREAM, TOCINETA AHUMADA CROCANTE Y NUESTRA SALSA BBQ ROLLY CON UNOS TONOS DULCES Y PIMIENTA.",
     price: 24000,
@@ -172,7 +173,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 10,
-    name: "Burguer parrillera volcanica 2.0",
+    name: "Burger parrillera volcanica 2.0",
     description:
       "150 GR DE CARNE DE RES A LA PARRILLA, ACOMPAÑADA DE PAN ARTESANAL, QUESO SABANA, TROCITOS DE CHILACUAN, TOCINETA AHUMADA, CUAJADA ASADA, UN ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
     price: 24000,
@@ -202,7 +203,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 12,
-    name: "Burguer Parrillera mero flow",
+    name: "Burger Parrillera mero flow",
     description:
       "150 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO MOZARELA. MERMELADA DE TOCINETA AHUMADA Y MANZANA VERDE, SOUR CREAM CON TONOS DE QUESO AZUL, CEBOLLA CRISPY Y SALSA DE LA CASA.",
     price: 24000,
@@ -217,7 +218,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 13,
-    name: "Burguer Parrillera bacon deluxe",
+    name: "Burger Parrillera bacon deluxe",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO CHEDDAR, TOCINETA EN REDUCCION DE VINO TINTO, CEBOLLA CARAMELIZADA, RUGULA, MAYONESA DE AJO Y SALSA CHIPOTLE.",
     price: 19000,
@@ -232,7 +233,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 14,
-    name: "Burguer Parrillera volcanica",
+    name: "Burger Parrillera volcanica",
     description:
       "180 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, DOBLE QUESO SABANA, TOCINETA AHUMADA, CHUTNEY DE MANGO, ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
     price: 26000,
@@ -248,7 +249,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 15,
-    name: "Burguer Parrillera beef master",
+    name: "Burger Parrillera beef master",
     description:
       "180 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, DOBLE QUESO SABANA, DOBLE TOCINETA AHUMADA EN REDUCCION DE VINO TINTO, RUGULA, MAYONESA DE AJO.",
     price: 26000,
@@ -264,7 +265,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 16,
-    name: "Burguer Parrillera super meat",
+    name: "Burger Parrillera super meat",
     description:
       "LA MAS SALVAJE DEL BARRIO, DOS CARNES DE 80 GR QUE RUGEN EN CADA MORDIDA, PAN BRIOCHE SELLADO EN MANTEQUILLA, QUESO DOBLE CREMA Y UN CHEDDAR CREMOSOQUE SE DESBORDASIN PEDIR PERMISO, LA MAYOCHIRRI LE METE TODO EL POWER CALLEJERO, LAS TOCINETAS CARAMELIZADAS EN REDUCCION DE CERVEZA ESTAN BIEN LOCAS Y CRIJIENTES, TE ATREVES A PROBARLA?",
     price: 24000,
