@@ -56,31 +56,62 @@ const SuggestionsPage: React.FC = () => {
   // Get popular sides (first few items)
   const popularSides = sides.slice(0, 4);
 
-  // Categorize drinks
-  const gaseosas = drinks.filter(
-    (drink) => drink.name.includes("gaseosa") || drink.name.includes("coca")
-  );
+  // Categorize drinks with case-insensitive filtering
+  const gaseosas = drinks.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return (
+      name.includes("gaseosa") || name.includes("coca") || name.includes("fuze")
+    );
+  });
 
-  const limonadas = drinks.filter((drink) => drink.name.includes("limonada"));
+  const limonadas = drinks.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return name.includes("limonada");
+  });
 
-  const jugosNaturales = drinks.filter((drink) =>
-    drink.name.includes("jugo natural")
-  );
+  const jugosNaturales = drinks.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return name.includes("jugo natural");
+  });
 
   // Separate natural juices by water and milk
-  const jugosEnAgua = jugosNaturales.filter((drink) =>
-    drink.name.includes("en agua")
-  );
+  const jugosEnAgua = jugosNaturales.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return name.includes("en agua");
+  });
 
-  const jugosEnLeche = jugosNaturales.filter((drink) =>
-    drink.name.includes("en leche")
-  );
+  const jugosEnLeche = jugosNaturales.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return name.includes("en leche");
+  });
+
+  const aguas = drinks.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return name.includes("agua") && !name.includes("jugo");
+  });
+
+  const teYCerveza = drinks.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return (
+      name.includes("te") ||
+      name.includes("cerveza") ||
+      name.includes("malteada")
+    );
+  });
+
+  const jugosDelValle = drinks.filter((drink) => {
+    const name = drink.name.toLowerCase();
+    return name.includes("jugo del valle");
+  });
 
   const otherDrinks = drinks.filter(
     (drink) =>
       !gaseosas.includes(drink) &&
       !limonadas.includes(drink) &&
-      !jugosNaturales.includes(drink)
+      !jugosNaturales.includes(drink) &&
+      !aguas.includes(drink) &&
+      !teYCerveza.includes(drink) &&
+      !jugosDelValle.includes(drink)
   );
 
   const ProductCard = ({ item }: { item: MenuItem }) => (
@@ -239,9 +270,15 @@ const SuggestionsPage: React.FC = () => {
           <div className="space-y-4">
             <DrinkCategory
               id="gaseosas"
-              title="Gaseosas"
+              title="Gaseosas y Tés"
               drinks={gaseosas}
               icon="🥤"
+            />
+            <DrinkCategory
+              id="jugos-valle"
+              title="Jugos del Valle"
+              drinks={jugosDelValle}
+              icon="🧃"
             />
             <DrinkCategory
               id="limonadas"
@@ -260,6 +297,13 @@ const SuggestionsPage: React.FC = () => {
               title="Jugos Naturales en Leche"
               drinks={jugosEnLeche}
               icon="🥛"
+            />
+            <DrinkCategory id="aguas" title="Aguas" drinks={aguas} icon="💧" />
+            <DrinkCategory
+              id="te-cerveza"
+              title="Té, Malteadas y Cervezas"
+              drinks={teYCerveza}
+              icon="🍺"
             />
             {otherDrinks.length > 0 && (
               <DrinkCategory
