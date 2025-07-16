@@ -102,7 +102,6 @@ export const menuItems: MenuItem[] = [
     image: CHICKEN,
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
