@@ -1,7 +1,7 @@
-import React from 'react';
-import { MenuItem } from '../types';
-import { useOrder } from '../context/OrderContext';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { MenuItem } from "../types";
+import { useOrder } from "../context/OrderContext";
+import { useNavigate } from "react-router-dom";
 
 interface MenuCardProps {
   item: MenuItem;
@@ -13,26 +13,28 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (category === 'sides' || category === 'drinks') {
-      addToCart(item, 1, [], false, '');
+    if (category === "sides" || category === "drinks") {
+      addToCart(item, 1, [], false, "");
     } else {
       // Navigate to customization page with item data
-      navigate('/customize', { 
-        state: { 
-          menuItem: item, 
-          options: [] // You can pass customization options here
-        } 
+      navigate("/customize", {
+        state: {
+          menuItem: item,
+          options: [], // You can pass customization options here
+        },
       });
     }
   };
 
-  const isBurger = category.includes('burgers');
-  const isAddition = name.startsWith('AD ');
+  const isBurger = category.includes("burgers");
+  const isAddition = name.startsWith("AD ");
 
   return (
-    <div 
+    <div
       className={`group relative bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl cursor-pointer border-2 ${
-        isAddition ? 'border-transparent' : 'border-gray-100 hover:border-[#FF8C00]/20'
+        isAddition
+          ? "border-transparent"
+          : "border-gray-100 hover:border-[#FF8C00]/20"
       } hover:scale-[1.02] active:scale-[0.98]`}
       onClick={handleClick}
     >
@@ -40,12 +42,8 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
       <div className="relative h-80 w-full overflow-hidden">
         {/* Subtle gradient overlay for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
-        
-        <img 
-          src={image} 
-          alt={name} 
-          className="w-full h-full object-cover" 
-        />
+
+        <img src={image} alt={name} className="w-full h-full object-cover" />
         {/* Price Tag */}
         <div className="absolute top-4 right-4 z-20">
           <div className="bg-[#FF8C00] text-white px-4 py-2 rounded-full font-bold shadow-lg">
@@ -62,9 +60,23 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
         {isBurger && (
           <div className="absolute top-4 left-4 z-20">
             <div className="bg-black/80 text-white text-xs px-3 py-2 rounded-full font-medium backdrop-blur-sm">
-              {category === 'classic-burgers' ? '🍔 Clásica' : 
-               category === 'deluxe-burgers' ? '👑 Deluxe' : 
-               '🏆 Burger Master'}
+              {category === "classic-burgers"
+                ? "🍔 Clásica"
+                : category === "deluxe-burgers"
+                ? "👑 Deluxe"
+                : "🏆 Burger Master"}
+            </div>
+          </div>
+        )}
+
+        {/* Tamasagra Only Badge */}
+        {item.availableAt === "tamasagra-only" && (
+          <div
+            className="absolute top-4 left-4 z-20"
+            style={{ marginTop: isBurger ? "3rem" : "0" }}
+          >
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs px-3 py-2 rounded-full font-bold shadow-lg backdrop-blur-sm animate-pulse">
+              📍 Solo Tamasagra
             </div>
           </div>
         )}

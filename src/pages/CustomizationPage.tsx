@@ -242,6 +242,27 @@ const CustomizationPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Tamasagra Only Alert */}
+      {menuItem.availableAt === 'tamasagra-only' && (
+        <div className="max-w-6xl mx-auto px-4 pb-4">
+          <div className="bg-gradient-to-r from-purple-100 to-purple-50 border-l-4 border-purple-600 p-4 rounded-lg shadow-md">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <span className="text-2xl">📍</span>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-purple-800">
+                  <strong>Producto exclusivo de Tamasagra</strong>
+                </p>
+                <p className="text-sm text-purple-700 mt-1">
+                  Este delicioso producto solo está disponible en nuestra sede de Tamasagra. ¡Visítanos para disfrutarlo!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-6xl mx-auto p-4">
         {/* Product Header */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6 border border-gray-200">

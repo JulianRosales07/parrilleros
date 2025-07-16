@@ -86,6 +86,7 @@ export const menuItems: MenuItem[] = [
     image: POLLOGRILL,
     category: "deluxe-burgers",
     customizable: true,
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -240,6 +241,7 @@ export const menuItems: MenuItem[] = [
     image: VOLCANICA1,
     category: "deluxe-burgers",
     customizable: true,
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -255,6 +257,7 @@ export const menuItems: MenuItem[] = [
     image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
     category: "deluxe-burgers",
     customizable: true,
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -754,6 +757,7 @@ export const menuItems: MenuItem[] = [
       "https://revistasociosams.com/wp-content/uploads/2021/04/postres-con-helado-cc1.jpg",
     category: "drinks",
     customizable: false,
+    availableAt: "tamasagra-only",
   },
   {
     id: 64,

@@ -129,12 +129,17 @@ const SuggestionsPage: React.FC = () => {
         </div>
       )}
 
-      <div className="h-32 overflow-hidden">
+      <div className="h-32 overflow-hidden relative">
         <img
           src={item.image}
           alt={item.name}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
+        {item.availableAt === 'tamasagra-only' && (
+          <div className="absolute top-2 left-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg animate-pulse">
+            📍 Solo Tamasagra
+          </div>
+        )}
       </div>
 
       <div className="p-4">
