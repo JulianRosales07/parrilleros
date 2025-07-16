@@ -77,7 +77,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 4,
-    name: "Burger parrillera pollo grill",
+    name: "Burger parrillera chicken grill",
     description:
       "130 GR DE PECHUGA DE POLLO A LA PARRILLA, pan artesanal sellado en mantequilla, queso fundido, tocineta, cebolla caramelizada, pimientos asados, vegetales frescos (lechuga, tomate), mayonesa de ajo y nuestra salsa BBQ.",
     price: 17000,
