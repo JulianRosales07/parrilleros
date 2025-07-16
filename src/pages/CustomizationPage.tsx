@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Plus, Minus, ChevronDown, ChevronUp } from 'lucide-react';
-import { MenuItem, CustomizationOption } from '../types';
-import { useOrder } from '../context/OrderContext';
-import { customizationOptions } from '../data/menu';
-import FONDO from '../assets/fondo.png';
-
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { ArrowLeft, Plus, Minus, ChevronDown, ChevronUp } from "lucide-react";
+import { MenuItem, CustomizationOption } from "../types";
+import { useOrder } from "../context/OrderContext";
+import { customizationOptions } from "../data/menu";
+import FONDO from "../assets/fondo.png";
 
 const CustomizationPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { menuItem } = location.state as { menuItem: MenuItem };
-  
+
   const [quantity, setQuantity] = useState(1);
-  const [selectedOptions, setSelectedOptions] = useState<CustomizationOption[]>([]);
-  const [specialInstructions, setSpecialInstructions] = useState('');
-  const [withFries, setWithFries] = useState(false);
-  const [friesType, setFriesType] = useState<'none' | 'french' | 'rustic'>('none');
-  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['proteinas'])); // Proteínas expanded by default
+  const [selectedOptions, setSelectedOptions] = useState<CustomizationOption[]>(
+    []
+  );
+  const [specialInstructions, setSpecialInstructions] = useState("");
+
+  const [friesType, setFriesType] = useState<"none" | "french" | "rustic">(
+    "none"
+  );
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
+    new Set(["proteinas"])
+  ); // Proteínas expanded by default
   const { addToCart } = useOrder();
 
   // Get all available customization options for hamburgers
@@ -35,7 +40,7 @@ const CustomizationPage: React.FC = () => {
   };
 
   const toggleCategory = (categoryId: string) => {
-    setExpandedCategories(prev => {
+    setExpandedCategories((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(categoryId)) {
         newSet.delete(categoryId);
@@ -47,63 +52,88 @@ const CustomizationPage: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    const hasFries = friesType !== 'none';
-    // Crear un item temporal para pasar el tipo de papas
-    const tempItem = {
-      ...menuItem,
-      friesType: friesType !== 'none' ? friesType : undefined
-    };
-    addToCart(menuItem, quantity, selectedOptions, hasFries, specialInstructions, friesType !== 'none' ? friesType : undefined);
-    
+    const hasFries = friesType !== "none";
+    addToCart(
+      menuItem,
+      quantity,
+      selectedOptions,
+      hasFries,
+      specialInstructions,
+      friesType !== "none" ? friesType : undefined
+    );
+
     // Check if it's a burger to show suggestions
-    const isBurgerCategory = menuItem.category.includes('burger');
+    const isBurgerCategory = menuItem.category.includes("burger");
     if (isBurgerCategory) {
-      navigate('/suggestions');
+      navigate("/suggestions");
     } else {
-      navigate('/menu');
+      navigate("/menu");
     }
   };
 
-  const basePrice = friesType !== 'none' ? (menuItem.priceWithFries || menuItem.price) : menuItem.price;
-  const optionsPrice = selectedOptions.reduce((sum, option) => sum + option.price, 0);
+  const basePrice =
+    friesType !== "none"
+      ? menuItem.priceWithFries || menuItem.price
+      : menuItem.price;
+  const optionsPrice = selectedOptions.reduce(
+    (sum, option) => sum + option.price,
+    0
+  );
   const totalPrice = (basePrice + optionsPrice) * quantity;
 
   // Group options by type for better organization
-  const proteinOptions = availableOptions.filter(opt => 
-    opt.name.includes('CARNE') || opt.name.includes('CHORIZO') || opt.name.includes('TOCINETA')
-  );
-  
-  const cheeseOptions = availableOptions.filter(opt => 
-    opt.name.includes('QUESO')
-  );
-  
-  const vegetableOptions = availableOptions.filter(opt => 
-    opt.name.includes('CEBOLLA') || opt.name.includes('PIÑA') || opt.name.includes('PEPINILLOS') || 
-    opt.name.includes('JALAPEÑOS') || opt.name.includes('AROS')
-  );
-  
-  const otherOptions = availableOptions.filter(opt => 
-    !proteinOptions.includes(opt) && !cheeseOptions.includes(opt) && !vegetableOptions.includes(opt)
+  const proteinOptions = availableOptions.filter((opt) => {
+    const name = opt.name.toUpperCase();
+    return (
+      name.includes("CARNE") ||
+      name.includes("CHORIZO") ||
+      name.includes("TOCINETA")
+    );
+  });
+
+  const cheeseOptions = availableOptions.filter((opt) => {
+    const name = opt.name.toUpperCase();
+    return name.includes("QUESO");
+  });
+
+  const vegetableOptions = availableOptions.filter((opt) => {
+    const name = opt.name.toUpperCase();
+    return (
+      name.includes("CEBOLLA") ||
+      name.includes("PIÑA") ||
+      name.includes("PEPINILLOS") ||
+      name.includes("JALAPEÑOS") ||
+      name.includes("AROS")
+    );
+  });
+
+  const otherOptions = availableOptions.filter(
+    (opt) =>
+      !proteinOptions.includes(opt) &&
+      !cheeseOptions.includes(opt) &&
+      !vegetableOptions.includes(opt)
   );
 
-  const OptionGroup = ({ 
+  const OptionGroup = ({
     id,
-    title, 
-    options, 
+    title,
+    options,
     icon,
-    description 
-  }: { 
+    description,
+  }: {
     id: string;
-    title: string; 
-    options: CustomizationOption[]; 
+    title: string;
+    options: CustomizationOption[];
     icon: string;
     description?: string;
   }) => {
     if (options.length === 0) return null;
-    
+
     const isExpanded = expandedCategories.has(id);
-    const selectedCount = options.filter(opt => selectedOptions.some(selected => selected.id === opt.id)).length;
-    
+    const selectedCount = options.filter((opt) =>
+      selectedOptions.some((selected) => selected.id === opt.id)
+    ).length;
+
     return (
       <div className="bg-white rounded-xl shadow-md overflow-hidden mb-4 border border-gray-200">
         <button
@@ -119,7 +149,7 @@ const CustomizationPage: React.FC = () => {
                 {title}
                 {selectedCount > 0 && (
                   <span className="ml-3 bg-[#FF8C00] text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {selectedCount} seleccionado{selectedCount > 1 ? 's' : ''}
+                    {selectedCount} seleccionado{selectedCount > 1 ? "s" : ""}
                   </span>
                 )}
               </h4>
@@ -141,29 +171,31 @@ const CustomizationPage: React.FC = () => {
             )}
           </div>
         </button>
-        
+
         {isExpanded && (
           <div className="border-t border-gray-100 bg-gray-50">
             <div className="p-6 pt-4">
               <div className="grid grid-cols-1 gap-3">
                 {options.map((option) => (
-                  <label 
-                    key={option.id} 
+                  <label
+                    key={option.id}
                     className={`flex items-center justify-between p-4 rounded-lg border-2 transition-all cursor-pointer hover:shadow-sm ${
-  selectedOptions.some(opt => opt.id === option.id)
-    ? 'border-[#FF8C00] bg-orange-50 shadow-sm'
-    : 'border-gray-200 bg-white hover:border-gray-300'
-}`}
+                      selectedOptions.some((opt) => opt.id === option.id)
+                        ? "border-[#FF8C00] bg-orange-50 shadow-sm"
+                        : "border-gray-200 bg-white hover:border-gray-300"
+                    }`}
                   >
                     <div className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={selectedOptions.some(opt => opt.id === option.id)}
+                        checked={selectedOptions.some(
+                          (opt) => opt.id === option.id
+                        )}
                         onChange={() => toggleOption(option)}
                         className="w-5 h-5 accent-[#FF8C00] mr-4"
                       />
                       <span className="text-gray-800 font-medium">
-                        {option.name.replace('AD ', '')}
+                        {option.name.replace("AD ", "")}
                       </span>
                     </div>
                     {option.price > 0 && (
@@ -182,98 +214,102 @@ const CustomizationPage: React.FC = () => {
   };
 
   return (
-<div
-  className="min-h-screen"
-  style={{
-    backgroundImage: `url(${FONDO})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  }}
->
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url(${FONDO})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       {/* Header */}
       <div className="bg-transparet shadow-md p-4">
         <div className="max-w-6xl mx-auto flex items-center">
           <button
-            onClick={() => navigate('/menu')}
+            onClick={() => navigate("/menu")}
             className="mr-4 p-2 bg-transparent-100 rounded-full hover:bg-gray-200 transition-colors"
           >
             <ArrowLeft size={20} />
           </button>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">Personalizar Producto</h1>
+            <h1 className="text-xl font-bold text-gray-800">
+              Personalizar Producto
+            </h1>
             <p className="text-gray-600">Agrega tus ingredientes favoritos</p>
           </div>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto p-4">
-{/* Product Header */}
-<div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6 border border-gray-200">
-  <div className="grid grid-cols-1 lg:grid-cols-2">
+        {/* Product Header */}
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6 border border-gray-200">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Image Section */}
+            <div className="relative h-full lg:h-full overflow-hidden rounded-l-xl">
+              <img
+                src={menuItem.image}
+                alt={menuItem.name}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+              <div className="absolute top-4 right-4 bg-white text-[#FF8C00] text-sm font-semibold px-3 py-1 rounded-full shadow-md">
+                ${menuItem.price.toLocaleString()}
+              </div>
+            </div>
 
-    {/* Image Section */}
-    <div className="relative h-full lg:h-full overflow-hidden rounded-l-xl">
-      <img
-        src={menuItem.image}
-        alt={menuItem.name}
-        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-      />
-      <div className="absolute top-4 right-4 bg-white text-[#FF8C00] text-sm font-semibold px-3 py-1 rounded-full shadow-md">
-        ${menuItem.price.toLocaleString()}
-      </div>
-    </div>
+            {/* Information Section */}
+            <div className="p-6 flex flex-col justify-center bg-white">
+              {/* Categoría */}
+              <span className="text-sm text-[#FF8C00] uppercase font-semibold tracking-wider mb-2">
+                {menuItem.category.includes("classic")
+                  ? "Clásica"
+                  : menuItem.category.includes("deluxe")
+                  ? "Deluxe"
+                  : menuItem.category.includes("contest")
+                  ? "Burger Master"
+                  : "Hamburguesa"}
+              </span>
 
+              {/* Nombre del producto */}
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+                {menuItem.name}
+              </h2>
 
-    {/* Information Section */}
-    <div className="p-6 flex flex-col justify-center bg-white">
-      {/* Categoría */}
-      <span className="text-sm text-[#FF8C00] uppercase font-semibold tracking-wider mb-2">
-        {menuItem.category.includes('classic') ? 'Clásica' :
-         menuItem.category.includes('deluxe') ? 'Deluxe' :
-         menuItem.category.includes('contest') ? 'Burger Master' : 'Hamburguesa'}
-      </span>
+              {/* Descripción */}
+              <p className="text-base text-gray-700 leading-relaxed">
+                {menuItem.description}
+              </p>
 
-      {/* Nombre del producto */}
-      <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
-        {menuItem.name}
-      </h2>
-
-      {/* Descripción */}
-      <p className="text-base text-gray-700 leading-relaxed">
-        {menuItem.description}
-      </p>
-
-      {/* Precio con papas */}
-      {menuItem.priceWithFries && (
-        <div className="mt-4 border border-gray-200 rounded-lg p-3 bg-gray-50">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-800 font-medium">🍟 Con papas francesas:</span>
-            <span className="text-[#FF8C00] font-bold">
-              ${menuItem.priceWithFries.toLocaleString()}
-            </span>
+              {/* Precio con papas */}
+              {menuItem.priceWithFries && (
+                <div className="mt-4 border border-gray-200 rounded-lg p-3 bg-gray-50">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-800 font-medium">
+                      🍟 Con papas francesas:
+                    </span>
+                    <span className="text-[#FF8C00] font-bold">
+                      ${menuItem.priceWithFries.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {/* Precio con papas */}
+              {menuItem.priceWithFries && (
+                <div className="mt-4 border border-gray-200 rounded-lg p-3 bg-gray-50">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-800 font-medium">
+                      🍟 Con papas rusticas:
+                    </span>
+                    <span className="text-[#FF8C00] font-bold">
+                      ${menuItem.priceWithFries.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      )}
-            {/* Precio con papas */}
-      {menuItem.priceWithFries && (
-        <div className="mt-4 border border-gray-200 rounded-lg p-3 bg-gray-50">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-800 font-medium">🍟 Con papas rusticas:</span>
-            <span className="text-[#FF8C00] font-bold">
-              ${menuItem.priceWithFries.toLocaleString()}
-            </span>
-          </div>
-        </div>
-      )}
-    </div>
-  </div>
-</div>
-
-
-
-
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Customization Options */}
@@ -289,96 +325,123 @@ const CustomizationPage: React.FC = () => {
                   {/* Opción 1: Papas Francesas */}
                   <label
                     className={`flex items-center justify-between p-4 rounded-lg border-2 transition-all cursor-pointer hover:shadow-sm ${
-                      friesType === 'french'
-                        ? 'border-[#FF8C00] bg-orange-50 shadow-md scale-[1.01]'
-                        : 'border-gray-200 bg-white hover:border-gray-300'
+                      friesType === "french"
+                        ? "border-[#FF8C00] bg-orange-50 shadow-md scale-[1.01]"
+                        : "border-gray-200 bg-white hover:border-gray-300"
                     } transition-transform duration-200 ease-in-out`}
                   >
                     <div className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={friesType === 'french'}
-                        onChange={() => setFriesType(friesType === 'french' ? 'none' : 'french')}
+                        checked={friesType === "french"}
+                        onChange={() =>
+                          setFriesType(
+                            friesType === "french" ? "none" : "french"
+                          )
+                        }
                         className="w-5 h-5 accent-[#FF8C00] mr-4"
                       />
                       <div>
-                        <span className="text-lg font-bold text-gray-800">Papas Francesas</span>
-                        <p className="text-sm text-gray-600">Crujientes, doradas y clásicas</p>
+                        <span className="text-lg font-bold text-gray-800">
+                          Papas Francesas
+                        </span>
+                        <p className="text-sm text-gray-600">
+                          Crujientes, doradas y clásicas
+                        </p>
                       </div>
                     </div>
                     <span className="font-bold text-[#FF8C00] text-lg">
-                      +${((menuItem.priceWithFries || menuItem.price) - menuItem.price).toLocaleString()}
+                      +$
+                      {(
+                        (menuItem.priceWithFries || menuItem.price) -
+                        menuItem.price
+                      ).toLocaleString()}
                     </span>
                   </label>
 
                   {/* Opción 2: Papas Rústicas */}
                   <label
                     className={`flex items-center justify-between p-4 rounded-lg border-2 transition-all cursor-pointer hover:shadow-sm ${
-                      friesType === 'rustic'
-                        ? 'border-[#FF8C00] bg-orange-50 shadow-md scale-[1.01]'
-                        : 'border-gray-200 bg-white hover:border-gray-300'
+                      friesType === "rustic"
+                        ? "border-[#FF8C00] bg-orange-50 shadow-md scale-[1.01]"
+                        : "border-gray-200 bg-white hover:border-gray-300"
                     } transition-transform duration-200 ease-in-out mt-4`}
                   >
                     <div className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={friesType === 'rustic'}
-                        onChange={() => setFriesType(friesType === 'rustic' ? 'none' : 'rustic')}
+                        checked={friesType === "rustic"}
+                        onChange={() =>
+                          setFriesType(
+                            friesType === "rustic" ? "none" : "rustic"
+                          )
+                        }
                         className="w-5 h-5 accent-[#FF8C00] mr-4"
                       />
                       <div>
-                        <span className="text-lg font-bold text-gray-800">Papas Rústicas</span>
-                        <p className="text-sm text-gray-600">Más gruesas, doradas y con cáscara</p>
+                        <span className="text-lg font-bold text-gray-800">
+                          Papas Rústicas
+                        </span>
+                        <p className="text-sm text-gray-600">
+                          Más gruesas, doradas y con cáscara
+                        </p>
                       </div>
                     </div>
                     <span className="font-bold text-[#FF8C00] text-lg">
-                      +${((menuItem.priceWithFries || menuItem.price) - menuItem.price).toLocaleString()}
+                      +$
+                      {(
+                        (menuItem.priceWithFries || menuItem.price) -
+                        menuItem.price
+                      ).toLocaleString()}
                     </span>
                   </label>
-
                 </div>
               )}
 
               {/* Organized customization options with dropdowns */}
               <div className="space-y-4">
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Personaliza tu Hamburguesa</h3>
-                  <p className="text-gray-600">Selecciona los ingredientes adicionales que desees</p>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                    Personaliza tu Hamburguesa
+                  </h3>
+                  <p className="text-gray-600">
+                    Selecciona los ingredientes adicionales que desees
+                  </p>
                 </div>
 
-                <OptionGroup 
+                <OptionGroup
                   id="proteinas"
-                  title="Proteínas Adicionales" 
-                  options={proteinOptions} 
+                  title="Proteínas Adicionales"
+                  options={proteinOptions}
                   icon="🥩"
                   description="Agrega más proteína a tu hamburguesa"
                 />
-                
-                <OptionGroup 
+
+                <OptionGroup
                   id="quesos"
-                  title="Quesos Premium" 
-                  options={cheeseOptions} 
+                  title="Quesos Premium"
+                  options={cheeseOptions}
                   icon="🧀"
                   description="Diferentes tipos de queso para tu hamburguesa"
                 />
-                
-                <OptionGroup 
+
+                <OptionGroup
                   id="vegetales"
-                  title="Vegetales y Extras" 
-                  options={vegetableOptions} 
+                  title="Vegetales y Extras"
+                  options={vegetableOptions}
                   icon="🥬"
                   description="Vegetales frescos y extras crujientes"
                 />
-                
-                <OptionGroup 
+
+                <OptionGroup
                   id="otros"
-                  title="Otros Complementos" 
-                  options={otherOptions} 
+                  title="Otros Complementos"
+                  options={otherOptions}
                   icon="➕"
                   description="Complementos especiales para tu hamburguesa"
                 />
               </div>
-              
+
               {/* Special instructions */}
               <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
                 <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
@@ -401,57 +464,78 @@ const CustomizationPage: React.FC = () => {
           {/* Order Summary - Sticky */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-md p-6 sticky top-4 border border-gray-200">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">Resumen del Pedido</h3>
-              
+              <h3 className="text-xl font-bold mb-4 text-gray-800">
+                Resumen del Pedido
+              </h3>
+
               {/* Product image and name */}
               <div className="flex items-center mb-4 p-3 bg-gray-50 rounded-lg">
-                <img 
-                  src={menuItem.image} 
-                  alt={menuItem.name} 
+                <img
+                  src={menuItem.image}
+                  alt={menuItem.name}
                   className="w-16 h-16 object-cover rounded-lg mr-3"
                 />
                 <div>
                   <h4 className="font-bold text-gray-800">{menuItem.name}</h4>
-                  {friesType === 'french' && (
-                    <span className="text-sm text-[#FF8C00] font-medium">+ Papas Francesas</span>
+                  {friesType === "french" && (
+                    <span className="text-sm text-[#FF8C00] font-medium">
+                      + Papas Francesas
+                    </span>
                   )}
-                  {friesType === 'rustic' && (
-                    <span className="text-sm text-[#FF8C00] font-medium">+ Papas Rústicas</span>
+                  {friesType === "rustic" && (
+                    <span className="text-sm text-[#FF8C00] font-medium">
+                      + Papas Rústicas
+                    </span>
                   )}
                 </div>
               </div>
-              
+
               {/* Selected customizations */}
               {selectedOptions.length > 0 && (
                 <div className="mb-4">
-                  <h5 className="font-medium text-gray-700 mb-2">Extras seleccionados:</h5>
+                  <h5 className="font-medium text-gray-700 mb-2">
+                    Extras seleccionados:
+                  </h5>
                   <div className="space-y-1">
                     {selectedOptions.map((option) => (
-                      <div key={option.id} className="flex justify-between text-sm">
-                        <span className="text-gray-600">+ {option.name.replace('AD ', '')}</span>
-                        <span className="text-[#FF8C00] font-medium">+${option.price.toLocaleString()}</span>
+                      <div
+                        key={option.id}
+                        className="flex justify-between text-sm"
+                      >
+                        <span className="text-gray-600">
+                          + {option.name.replace("AD ", "")}
+                        </span>
+                        <span className="text-[#FF8C00] font-medium">
+                          +${option.price.toLocaleString()}
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
-              
+
               {/* Price breakdown */}
               <div className="space-y-3 mb-6 border-t pt-4">
                 <div className="flex justify-between">
                   <span>Precio base:</span>
-                  <span className="font-medium">${basePrice.toLocaleString()}</span>
+                  <span className="font-medium">
+                    ${basePrice.toLocaleString()}
+                  </span>
                 </div>
                 {optionsPrice > 0 && (
                   <div className="flex justify-between">
                     <span>Extras:</span>
-                    <span className="font-medium">+${optionsPrice.toLocaleString()}</span>
+                    <span className="font-medium">
+                      +${optionsPrice.toLocaleString()}
+                    </span>
                   </div>
                 )}
                 <div className="border-t pt-3">
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total:</span>
-                    <span className="text-[#FF8C00]">${Math.round(totalPrice).toLocaleString()}</span>
+                    <span className="text-[#FF8C00]">
+                      ${Math.round(totalPrice).toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -475,7 +559,7 @@ const CustomizationPage: React.FC = () => {
                   </button>
                 </div>
               </div>
-              
+
               <button
                 onClick={handleAddToCart}
                 className="w-full py-3 bg-[#FF8C00] text-white font-bold rounded-lg hover:bg-orange-600 transition-colors shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
