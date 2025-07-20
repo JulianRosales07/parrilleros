@@ -41,7 +41,6 @@ export const menuItems: MenuItem[] = [
     image: SENCILLA,
     category: "classic-burgers",
     customizable: true,
-    availableAt: ["sede-san-ignacio", "sede-tamasagra", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -57,7 +56,6 @@ export const menuItems: MenuItem[] = [
     image: RANCHERA,
     category: "classic-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-las-cuadras", "sede-san-ignacio"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -73,7 +71,6 @@ export const menuItems: MenuItem[] = [
     image: BACONCHESE,
     category: "classic-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -89,7 +86,7 @@ export const menuItems: MenuItem[] = [
     image: POLLOGRILL,
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra"],
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -105,7 +102,6 @@ export const menuItems: MenuItem[] = [
     image: CHICKEN,
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -123,7 +119,6 @@ export const menuItems: MenuItem[] = [
     image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
     category: "classic-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -139,7 +134,6 @@ export const menuItems: MenuItem[] = [
     image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -155,7 +149,6 @@ export const menuItems: MenuItem[] = [
     image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -173,7 +166,6 @@ export const menuItems: MenuItem[] = [
     image: ROLLY,
     category: "contest-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
     ],
@@ -189,7 +181,6 @@ export const menuItems: MenuItem[] = [
     image: VOLCANICA2,
     category: "contest-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
     ],
@@ -205,7 +196,6 @@ export const menuItems: MenuItem[] = [
     image: BIGMONSTER,
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -221,7 +211,6 @@ export const menuItems: MenuItem[] = [
     image: MERO,
     category: "contest-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
     ],
@@ -237,7 +226,6 @@ export const menuItems: MenuItem[] = [
     image: DELUXE,
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -253,7 +241,7 @@ export const menuItems: MenuItem[] = [
     image: VOLCANICA1,
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra"],
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -269,7 +257,7 @@ export const menuItems: MenuItem[] = [
     image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
     category: "deluxe-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra"],
+    availableAt: "tamasagra-only",
     badges: [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
@@ -285,7 +273,6 @@ export const menuItems: MenuItem[] = [
     image: SUPER,
     category: "contest-burgers",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
     badges: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
     ],
@@ -303,7 +290,6 @@ export const menuItems: MenuItem[] = [
     image: HOTCLASICO,
     category: "hotdogs",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 18,
@@ -316,7 +302,6 @@ export const menuItems: MenuItem[] = [
     image: HOTESPECIAL,
     category: "hotdogs",
     customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
 
   // Papas
@@ -329,7 +314,6 @@ export const menuItems: MenuItem[] = [
     image: POP,
     category: "fries",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 20,
@@ -340,7 +324,6 @@ export const menuItems: MenuItem[] = [
     image: PAPASCASA,
     category: "fries",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 21,
@@ -351,7 +334,6 @@ export const menuItems: MenuItem[] = [
     image: CHESSEANDFRIES,
     category: "fries",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
 
   //MENU DESPLEGABLE
@@ -365,7 +347,6 @@ export const menuItems: MenuItem[] = [
       "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 23,
@@ -376,7 +357,6 @@ export const menuItems: MenuItem[] = [
       "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 24,
@@ -387,7 +367,6 @@ export const menuItems: MenuItem[] = [
       "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 25,
@@ -398,7 +377,6 @@ export const menuItems: MenuItem[] = [
       "https://meatmaster.pe/wp-content/uploads/2024/05/chorizo-a-la-parrilla.png",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 26,
@@ -409,7 +387,6 @@ export const menuItems: MenuItem[] = [
       "https://previews.123rf.com/images/breakingthewalls/breakingthewalls1606/breakingthewalls160600145/60874220-seceral-crispy-smoked-grilled-barbecue-bacon-slices-cooked-on-bbq-smoke-grill-close-up.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 27,
@@ -420,7 +397,6 @@ export const menuItems: MenuItem[] = [
       "https://mastropiero.co/web/image/product.template/6709/image",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 28,
@@ -431,7 +407,6 @@ export const menuItems: MenuItem[] = [
       "https://tienda.atlantic.la/cdn/shop/files/MOLIDA_DELUXE-min.jpg?v=1744057443",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 29,
@@ -442,7 +417,6 @@ export const menuItems: MenuItem[] = [
       "https://okdiario.com/img/recetas/2017/11/25/1-1.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 30,
@@ -453,7 +427,6 @@ export const menuItems: MenuItem[] = [
       "https://www.infobae.com/new-resizer/-CXhVnJD5Gasa90T2xVRnUw98II=/arc-anglerfish-arc2-prod-infobae/public/INQNYIRPHREWJIOMQTU32XM5KI.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 31,
@@ -464,7 +437,6 @@ export const menuItems: MenuItem[] = [
       "https://res.cloudinary.com/hksqkdlah/image/upload/33579_sfs-queso-fundido-12.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 32,
@@ -475,7 +447,6 @@ export const menuItems: MenuItem[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGZ6YgiRNr1-wKyKSfDihMc_Z4fEIXJUez5A&s",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 33,
@@ -486,7 +457,6 @@ export const menuItems: MenuItem[] = [
       "https://laquesie.com/images/quesoColbyJack.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 34,
@@ -497,7 +467,6 @@ export const menuItems: MenuItem[] = [
       "https://laquesie.com/images/quesoSabana.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 35,
@@ -508,7 +477,6 @@ export const menuItems: MenuItem[] = [
       "https://mylatinatable.com/wp-content/uploads/2016/01/foto-heroe-1024x693.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 36,
@@ -519,29 +487,26 @@ export const menuItems: MenuItem[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJMwcd13CoeeCivhjCwg8UZ9DQFhD3fqvNdg&s",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 37,
     name: "Ad pepinillos",
-    description: "ADICION DE PEPINILLOS",
-    price: 3000,
+    description: "ADICION DE CEBOLLA CARAMELIZADA",
+    price: 13000,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRdBT0pGYWMrwK4jNAJcK4xkNDKgb3NnQKYA&s",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 38,
-    name: "Dunkin Donuts",
+    name: "Ad jalapeños",
     description: "ADICION DE JALAPEÑOS",
     price: 3000,
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR72j1g-Px7ENQWJ15rsZQDOF3c6gU2-bPoDw&s",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 39,
@@ -552,7 +517,6 @@ export const menuItems: MenuItem[] = [
       "https://img0.didiglobal.com/static/soda_public/img_0b354251bc5df243fd442d4f87e9257a.jpg",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 40,
@@ -563,7 +527,6 @@ export const menuItems: MenuItem[] = [
       "https://http2.mlstatic.com/D_NQ_NP_920064-MCO82587199233_022025-O.webp",
     category: "sides",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
 
   // Bebidas
@@ -576,7 +539,6 @@ export const menuItems: MenuItem[] = [
       "https://asociaciondec.org/wp-content/uploads/2018/12/logo-cocacola-1.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 42,
@@ -587,7 +549,6 @@ export const menuItems: MenuItem[] = [
       "https://www.drinksnewslatam.com/images/stories/2017/10_Octubre/te-coca-cola-fuze-tea.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 43,
@@ -598,7 +559,6 @@ export const menuItems: MenuItem[] = [
       "https://randys.com.co/wp-content/uploads/2025/02/Fuze-tea-Limon-400-ml.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 44,
@@ -609,29 +569,26 @@ export const menuItems: MenuItem[] = [
       "https://olimpica.vtexassets.com/arquivos/ids/1097339-800-450?v=638197813945100000&width=800&height=450&aspect=true",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 45,
     name: "Agua natural",
-    description: "AGUA NATURAL",
+    description: "AGUA",
     price: 3500,
     image:
       "https://mercaldas.vtexassets.com/arquivos/ids/1329381/Agua-CRISTAL-x600-ml_90686.jpg?v=638557802795830000",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 46,
     name: "Agua saborizada",
-    description: "AGUA SABORIZADA",
+    description: "AGUA",
     price: 3500,
     image:
       "https://megatiendas.vtexassets.com/arquivos/ids/172408/7702535013212.jpg?v=638634901881600000",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 47,
@@ -642,7 +599,6 @@ export const menuItems: MenuItem[] = [
       "https://burgerart.com.co/wp-content/uploads/2023/10/comidas-rapidas-en-palmira-.webp",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 48,
@@ -653,7 +609,6 @@ export const menuItems: MenuItem[] = [
       "https://marketalimentos.unisabana.edu.co/images/thumbs/0000539_limonada-cerezada_600.jpeg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 49,
@@ -664,7 +619,6 @@ export const menuItems: MenuItem[] = [
       "https://www.cinemaburger.com/wp-content/uploads/2017/04/bebida-limonada-fresa.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 50,
@@ -675,7 +629,6 @@ export const menuItems: MenuItem[] = [
       "https://i0.wp.com/www.pasionthermomix.co/wp-content/uploads/2022/05/captura-de-pantalla-2020-12-14-a-las-22-13-27_1.jpg?fit=1256%2C883&ssl=1",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 51,
@@ -686,7 +639,6 @@ export const menuItems: MenuItem[] = [
       "https://i.pinimg.com/736x/f3/14/c8/f314c86ef1705fbe0b1c63c8d71e7e8e.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 52,
@@ -697,7 +649,6 @@ export const menuItems: MenuItem[] = [
       "https://pesquerajaramillo.com/santa-barbara/wp-content/uploads/2022/07/jugo-leche.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 53,
@@ -708,7 +659,6 @@ export const menuItems: MenuItem[] = [
       "https://www.campoterra.com/wp-content/uploads/2021/03/receta-agua-de-fresa.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 54,
@@ -718,7 +668,6 @@ export const menuItems: MenuItem[] = [
     image: "https://www.clarin.com/img/2018/11/19/1moJNpDSB_1200x630__1.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 55,
@@ -729,7 +678,6 @@ export const menuItems: MenuItem[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReDVTS7cSoJmXMCt-FuuEFHFL_JRIS8xiK-Q&s",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 56,
@@ -739,7 +687,6 @@ export const menuItems: MenuItem[] = [
     image: "https://i.ytimg.com/vi/mcjoCvtVPpo/sddefault.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 57,
@@ -750,7 +697,6 @@ export const menuItems: MenuItem[] = [
       "https://alqueria.com.co/sites/default/files/styles/1327_612/public/licuado-cremoso-de-mango_2.jpg?h=2dfa7a18&itok=y0fZkmyx",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 58,
@@ -761,7 +707,6 @@ export const menuItems: MenuItem[] = [
       "https://alqueria.com.co/sites/default/files/styles/1327_612/public/licuado-cremoso-de-mango_2.jpg?h=2dfa7a18&itok=y0fZkmyx",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 59,
@@ -772,7 +717,6 @@ export const menuItems: MenuItem[] = [
       "https://thumbs.dreamstime.com/b/jugo-de-lulo-una-fruta-ex%C3%B3tica-colombiana-tradicional-131906700.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 60,
@@ -783,7 +727,6 @@ export const menuItems: MenuItem[] = [
       "https://thumbs.dreamstime.com/b/jugo-de-lulo-una-fruta-ex%C3%B3tica-colombiana-tradicional-131906700.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 61,
@@ -794,7 +737,6 @@ export const menuItems: MenuItem[] = [
       "https://recetasdecolombia.com/wp-content/uploads/2022/02/Receta-para-hacer-batido-de-guanabana-tradicional-colombiano-e1645564745710.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 62,
@@ -805,7 +747,6 @@ export const menuItems: MenuItem[] = [
       "https://recetasdecolombia.com/wp-content/uploads/2022/02/Receta-para-hacer-batido-de-guanabana-tradicional-colombiano-e1645564745710.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 63,
@@ -816,7 +757,7 @@ export const menuItems: MenuItem[] = [
       "https://revistasociosams.com/wp-content/uploads/2021/04/postres-con-helado-cc1.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra"],
+    availableAt: "tamasagra-only",
   },
   {
     id: 64,
@@ -827,7 +768,6 @@ export const menuItems: MenuItem[] = [
       "https://cdn0.uncomo.com/es/posts/5/8/3/como_preparar_te_helado_15385_orig.jpg",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 65,
@@ -838,7 +778,6 @@ export const menuItems: MenuItem[] = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvSjCY0YpJ7vMNSSNzohiK753Sri7HqWcrNA&s",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
   {
     id: 66,
@@ -849,7 +788,6 @@ export const menuItems: MenuItem[] = [
       "https://www.clubcolombia.com.co/sites/g/files/seuoyk481/files/2023-05/lata_dorada.png.webp",
     category: "drinks",
     customizable: false,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
   },
 ];
 
