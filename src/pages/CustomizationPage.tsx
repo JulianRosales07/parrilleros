@@ -243,7 +243,7 @@ const CustomizationPage: React.FC = () => {
       </div>
 
       {/* Tamasagra Only Alert */}
-      {menuItem.availableAt && menuItem.availableAt.length === 1 && menuItem.availableAt[0] === 'sede-tamasagra' && (
+      {menuItem.availableAt === 'tamasagra-only' && (
         <div className="max-w-6xl mx-auto px-4 pb-4">
           <div className="bg-gradient-to-r from-purple-100 to-purple-50 border-l-4 border-purple-600 p-4 rounded-lg shadow-md">
             <div className="flex items-center">
