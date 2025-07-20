@@ -70,7 +70,7 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
         )}
 
         {/* Tamasagra Only Badge */}
-        {item.availableAt && item.availableAt.length === 1 && item.availableAt[0] === "sede-tamasagra" && (
+        {item.availableAt === "tamasagra-only" && (
           <div
             className="absolute top-4 left-4 z-20"
             style={{ marginTop: isBurger ? "3rem" : "0" }}
