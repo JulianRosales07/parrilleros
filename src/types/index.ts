@@ -9,7 +9,7 @@ export interface MenuItem {
   category: string;
   customizable: boolean;
   badges?: string[];
-  availableAt?: 'all' | 'tamasagra-only';
+  availableAt?: string[];
 }
 
 export interface CustomizationOption {

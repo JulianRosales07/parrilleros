@@ -16,13 +16,14 @@ import {
 } from "../data/menu";
 import { useOrder } from "../context/OrderContext";
 import { useDriverTour, menuTourSteps } from "../hooks/useDriverTour";
+import { locations } from '../data/locations';
 
 // Registrar el plugin ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 const MenuPage: React.FC = () => {
   const navigate = useNavigate();
-  const { cart } = useOrder();
+  const { cart, selectedLocation } = useOrder();
   const [selectedCategory, setSelectedCategory] = useState("classic-burgers");
   const [selectedSidesFilter, setSelectedSidesFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,9 +52,17 @@ const MenuPage: React.FC = () => {
   const filteredItems = useMemo(() => {
     let items;
 
+    // First filter by selected location
+    let locationFilteredItems = menuItems;
+    if (selectedLocation) {
+      locationFilteredItems = menuItems.filter(item => 
+        !item.availableAt || item.availableAt.includes(selectedLocation.id)
+      );
+    }
+
     // Handle drink subcategories
     if (selectedCategory === "gaseosas") {
-      items = menuItems.filter(
+      items = locationFilteredItems.filter(
         (item) =>
           item.category === "drinks" &&
           (item.name.toLowerCase().includes("gaseosa") ||
@@ -61,31 +70,31 @@ const MenuPage: React.FC = () => {
             item.name.toLowerCase().includes("fuze"))
       );
     } else if (selectedCategory === "limonadas") {
-      items = menuItems.filter(
+      items = locationFilteredItems.filter(
         (item) =>
           item.category === "drinks" &&
           item.name.toLowerCase().includes("limonada")
       );
     } else if (selectedCategory === "jugos-naturales") {
-      items = menuItems.filter(
+      items = locationFilteredItems.filter(
         (item) =>
           item.category === "drinks" &&
           item.name.toLowerCase().includes("jugo natural")
       );
     } else if (selectedCategory === "malteadas") {
-      items = menuItems.filter(
+      items = locationFilteredItems.filter(
         (item) =>
           item.category === "drinks" &&
           item.name.toLowerCase().includes("malteada")
       );
     } else if (selectedCategory === "cervezas") {
-      items = menuItems.filter(
+      items = locationFilteredItems.filter(
         (item) =>
           item.category === "drinks" &&
           item.name.toLowerCase().includes("cerveza")
       );
     } else if (selectedCategory === "otras-bebidas") {
-      items = menuItems.filter((item) => {
+      items = locationFilteredItems.filter((item) => {
         const itemName = item.name.toLowerCase();
         return (
           item.category === "drinks" &&
@@ -100,7 +109,7 @@ const MenuPage: React.FC = () => {
       });
     } else if (selectedCategory === "sides") {
       // Handle sides subcategories
-      items = menuItems.filter((item) => item.category === "sides");
+      items = locationFilteredItems.filter((item) => item.category === "sides");
 
       if (selectedSidesFilter !== "all") {
         const categoryItems =
@@ -116,7 +125,7 @@ const MenuPage: React.FC = () => {
       }
     } else {
       // Default filtering by category
-      items = menuItems.filter((item) => item.category === selectedCategory);
+      items = locationFilteredItems.filter((item) => item.category === selectedCategory);
     }
 
     if (searchQuery.trim()) {
@@ -129,19 +138,34 @@ const MenuPage: React.FC = () => {
     }
 
     return items;
-  }, [selectedCategory, selectedSidesFilter, searchQuery]);
+  }, [selectedCategory, selectedSidesFilter, searchQuery, selectedLocation]);
 
   // Global search across all items - MOVED BEFORE useEffect
   const globalSearchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
 
+    // Filter by location first
+    let locationFilteredItems = menuItems;
+    if (selectedLocation) {
+      locationFilteredItems = menuItems.filter(item => 
+        !item.availableAt || item.availableAt.includes(selectedLocation.id)
+      );
+    }
+
     const query = searchQuery.toLowerCase().trim();
-    return menuItems.filter(
+    return locationFilteredItems.filter(
       (item) =>
         item.name.toLowerCase().includes(query) ||
         item.description.toLowerCase().includes(query)
     );
-  }, [searchQuery]);
+  }, [searchQuery, selectedLocation]);
+
+  // Redirect to location selection if no location is selected
+  useEffect(() => {
+    if (!selectedLocation) {
+      navigate('/location-selection');
+    }
+  }, [selectedLocation, navigate]);
 
   // Auto-start tour for first-time users
   useEffect(() => {
@@ -335,15 +359,41 @@ const MenuPage: React.FC = () => {
   const itemsToShow = searchQuery.trim() ? globalSearchResults : filteredItems;
   const showCategorySelector = !searchQuery.trim();
 
+  // Don't render if no location is selected
+  if (!selectedLocation) {
+    return null;
+  }
+
   return (
-    <Layout title="Menú" showCart={false}>
+    <Layout title={`Menú - ${selectedLocation.name}`} showCart={false}>
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {/* Location Info Banner */}
+        <div className="max-w-4xl mx-auto mb-6">
+          <div className="bg-white rounded-lg shadow-md p-4 border-l-4 border-[#FF8C00]">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <MapPin size={20} className="text-[#FF8C00] mr-2" />
+                <div>
+                  <span className="font-bold text-gray-800">Sede seleccionada: </span>
+                  <span className="font-heavyrust-primary text-[#FF8C00]">{selectedLocation.name}</span>
+                </div>
+              </div>
+              <button
+                onClick={() => navigate('/location-selection')}
+                className="text-sm text-[#FF8C00] hover:text-orange-600 font-medium"
+              >
+                Cambiar sede
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Enhanced Back Button */}
         <div className="max-w-4xl mx-auto mb-6">
           <button
             ref={backButtonRef}
             data-tour="back-button"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/location-selection")}
             onMouseEnter={handleBackButtonHover}
             onMouseLeave={handleBackButtonLeave}
             className="group flex items-center bg-white hover:bg-[#FF8C00] text-[#FF8C00] hover:text-white px-4 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-[#FF8C00] font-semibold menu-card-enhanced"
@@ -352,7 +402,7 @@ const MenuPage: React.FC = () => {
               size={20}
               className="mr-2 transition-transform duration-300 group-hover:-translate-x-1"
             />
-            <span className="text-sm sm:text-base">Volver al inicio</span>
+            <span className="text-sm sm:text-base">Cambiar sede</span>
           </button>
         </div>
         {/* Search Bar */}

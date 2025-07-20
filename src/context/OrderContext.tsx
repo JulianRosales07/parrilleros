@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CartItem, MenuItem, CustomizationOption, PaymentMethod, Order } from '../types';
+import { Location } from '../types';
 
 interface OrderContextType {
   cart: CartItem[];
@@ -13,6 +14,8 @@ interface OrderContextType {
   currentOrder: Order | null;
   completeOrder: () => void;
   orderNumber: number;
+  selectedLocation: Location | null;
+  setSelectedLocation: (location: Location | null) => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -22,6 +25,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [total, setTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
   const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   
   // Initialize orderNumber from localStorage with automatic increment
   const [orderNumber, setOrderNumber] = useState(() => {
@@ -127,6 +131,8 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     currentOrder,
     completeOrder,
     orderNumber,
+    selectedLocation,
+    setSelectedLocation,
   };
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;

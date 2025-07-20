@@ -11,10 +11,11 @@ import {
 import { MenuItem } from "../types";
 import { useOrder } from "../context/OrderContext";
 import { menuItems } from "../data/menu";
+import { useMemo } from "react";
 import FONDO from "../assets/fondo.png";
 
 const SuggestionsPage: React.FC = () => {
-  const { addToCart } = useOrder();
+  const { addToCart, selectedLocation } = useOrder();
   const navigate = useNavigate();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
@@ -22,7 +23,16 @@ const SuggestionsPage: React.FC = () => {
   ); // Gaseosas expanded by default
 
   const sides = menuItems.filter((item) => item.category === "sides");
-  const drinks = menuItems.filter((item) => item.category === "drinks");
+  
+  // Filter items by selected location
+  const locationFilteredItems = useMemo(() => {
+    if (!selectedLocation) return menuItems;
+    return menuItems.filter(item => 
+      !item.availableAt || item.availableAt.includes(selectedLocation.id)
+    );
+  }, [selectedLocation]);
+
+  const drinks = locationFilteredItems.filter((item) => item.category === "drinks");
 
   const handleAddItem = (item: MenuItem) => {
     addToCart(item, 1, [], false, "");
@@ -136,6 +146,7 @@ const SuggestionsPage: React.FC = () => {
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
         {item.availableAt === 'tamasagra-only' && (
+        {item.availableAt && item.availableAt.length === 1 && item.availableAt[0] === 'sede-tamasagra' && (
           <div className="absolute top-2 left-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg animate-pulse">
             📍 Solo Tamasagra
           </div>

@@ -26,7 +26,7 @@ const WelcomePage: React.FC = () => {
     onDestroyed: () => {
       // Auto-navigate to menu after welcome tour
       setTimeout(() => {
-        navigate('/menu');
+        navigate('/location-selection');
       }, 1000);
     }
   });
@@ -143,7 +143,7 @@ const WelcomePage: React.FC = () => {
   const handleStart = () => {
     // Animación de salida antes de navegar
     const tl = gsap.timeline({
-      onComplete: () => navigate('/menu')
+      onComplete: () => navigate('/location-selection')
     });
 
     tl.to([logoRef.current, titleRef.current, descriptionRef.current, buttonRef.current], {
