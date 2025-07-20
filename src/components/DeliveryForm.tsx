@@ -13,6 +13,9 @@ import {
   Truck,
   Receipt,
   ExternalLink,
+  Banknote,
+  Building2,
+  Smartphone,
 } from "lucide-react";
 import { useOrder } from "../context/OrderContext";
 import OrderSummary from "./OrderSummary";
@@ -21,7 +24,7 @@ import LocationSelectionPage from "../pages/LocationSelectionPage";
 import { Location } from "../types";
 import { useDriverTour } from "../hooks/useDriverTour";
 import { generateInvoicePDF } from "../utils/pdfGenerator";
-import FONDO from '../assets/fondo.png';
+import FONDO from "../assets/fondo.png";
 
 interface DeliveryFormProps {
   onBack: () => void;
@@ -113,7 +116,32 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
     }
   }, [startTour, showLocationSelection, selectedLocation]);
 
-  const paymentMethods = ["Efectivo", "Bancolombia", "Nequi"];
+  const paymentMethods = [
+    {
+      id: "efectivo",
+      name: "Efectivo",
+      icon: Banknote,
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
+    },
+    {
+      id: "bancolombia",
+      name: "Bancolombia",
+      icon: Building2,
+      color: "text-yellow-600",
+      bgColor: "bg-yellow-50",
+      borderColor: "border-yellow-200",
+    },
+    {
+      id: "nequi",
+      name: "Nequi",
+      icon: Smartphone,
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
+      borderColor: "border-purple-200",
+    },
+  ];
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({
@@ -804,16 +832,16 @@ ${cartDetails}
   }
 
   return (
-<div
-  className="min-h-screen"
-  style={{
-    backgroundImage: `url(${FONDO})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',
-  }}
->
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url(${FONDO})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -1020,24 +1048,58 @@ ${cartDetails}
 
                 {/* Payment Method */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-3">
                     <CreditCard size={16} className="inline mr-2" />
                     Forma de pago *
                   </label>
-                  <select
-                    value={formData.paymentMethod}
-                    onChange={(e) =>
-                      handleInputChange("paymentMethod", e.target.value)
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF8C00] focus:border-transparent"
-                  >
-                    <option value="">Selecciona forma de pago</option>
-                    {paymentMethods.map((method) => (
-                      <option key={method} value={method}>
-                        {method}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="grid grid-cols-3 gap-2">
+                    {paymentMethods.map((method) => {
+                      const IconComponent = method.icon;
+                      const isSelected = formData.paymentMethod === method.name;
+
+                      return (
+                        <button
+                          key={method.id}
+                          type="button"
+                          onClick={() =>
+                            handleInputChange("paymentMethod", method.name)
+                          }
+                          className={`p-3 border-2 rounded-lg transition-all duration-200 flex flex-col items-center space-y-2 hover:shadow-md relative ${
+                            isSelected
+                              ? `${method.borderColor} ${method.bgColor} border-opacity-100 shadow-md`
+                              : "border-gray-200 bg-white hover:border-gray-300"
+                          }`}
+                        >
+                          <div
+                            className={`p-2 rounded-full ${
+                              isSelected ? method.bgColor : "bg-gray-100"
+                            }`}
+                          >
+                            <IconComponent
+                              size={20}
+                              className={
+                                isSelected ? method.color : "text-gray-500"
+                              }
+                            />
+                          </div>
+                          <div className="text-center">
+                            <p
+                              className={`text-sm font-medium ${
+                                isSelected ? method.color : "text-gray-700"
+                              }`}
+                            >
+                              {method.name}
+                            </p>
+                          </div>
+                          {isSelected && (
+                            <div className="absolute top-1 right-1">
+                              <CheckCircle size={16} className={method.color} />
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Data Processing Authorization */}
