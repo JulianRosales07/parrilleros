@@ -1,8 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ShoppingCart, ArrowLeft } from "lucide-react";
-import { gsap } from "gsap";
 import { ShoppingCart, ArrowLeft, MapPin } from "lucide-react";
+import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Layout from "../components/Layout";
 import CategorySelector from "../components/CategorySelector";
