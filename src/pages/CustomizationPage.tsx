@@ -4,6 +4,7 @@ import { ArrowLeft, Plus, Minus, ChevronDown, ChevronUp } from "lucide-react";
 import { MenuItem, CustomizationOption } from "../types";
 import { useOrder } from "../context/OrderContext";
 import { customizationOptions } from "../data/menu";
+import { getAvailabilityMessage, isAvailableAtAllLocations } from "../utils/locationUtils";
 import FONDO from "../assets/fondo.png";
 
 const CustomizationPage: React.FC = () => {
@@ -242,26 +243,90 @@ const CustomizationPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Tamasagra Only Alert */}
-      {menuItem.availableAt === 'tamasagra-only' && (
-        <div className="max-w-6xl mx-auto px-4 pb-4">
-          <div className="bg-gradient-to-r from-purple-100 to-purple-50 border-l-4 border-purple-600 p-4 rounded-lg shadow-md">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <span className="text-2xl">📍</span>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-purple-800">
-                  <strong>Producto exclusivo de Tamasagra</strong>
-                </p>
-                <p className="text-sm text-purple-700 mt-1">
-                  Este delicioso producto solo está disponible en nuestra sede de Tamasagra. ¡Visítanos para disfrutarlo!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Product Availability Alert */}
+      <div className="max-w-6xl mx-auto px-4 pb-4">
+        {(() => {
+          const availability = getAvailabilityMessage(menuItem.availableAt);
+          
+          switch (availability.type) {
+            case 'all':
+              return (
+                <div className="bg-gradient-to-r from-green-100 to-green-50 border-l-4 border-green-600 p-4 rounded-lg shadow-md">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0">
+                      <span className="text-2xl">✅</span>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-green-800">
+                        <strong>{availability.message}</strong>
+                      </p>
+                      <p className="text-sm text-green-700 mt-1">
+                        Puedes disfrutar este producto en cualquiera de nuestras ubicaciones: {availability.locations.join(", ")}.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            
+            case 'single':
+              return (
+                <div className="bg-gradient-to-r from-purple-100 to-purple-50 border-l-4 border-purple-600 p-4 rounded-lg shadow-md">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0">
+                      <span className="text-2xl">📍</span>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-purple-800">
+                        <strong>Producto exclusivo</strong>
+                      </p>
+                      <p className="text-sm text-purple-700 mt-1">
+                        {availability.message}. ¡Visítanos para disfrutarlo!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            
+            case 'limited':
+              return (
+                <div className="bg-gradient-to-r from-blue-100 to-blue-50 border-l-4 border-blue-600 p-4 rounded-lg shadow-md">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0">
+                      <span className="text-2xl">📍</span>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-blue-800">
+                        <strong>Disponible en sedes seleccionadas</strong>
+                      </p>
+                      <p className="text-sm text-blue-700 mt-1">
+                        Este producto está disponible en: {availability.locations.join(", ")}.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            
+            default:
+              return (
+                <div className="bg-gradient-to-r from-gray-100 to-gray-50 border-l-4 border-gray-600 p-4 rounded-lg shadow-md">
+                  <div className="flex items-center">
+                    <div className="flex-shrink-0">
+                      <span className="text-2xl">ℹ️</span>
+                    </div>
+                    <div className="ml-3">
+                      <p className="text-sm font-medium text-gray-800">
+                        <strong>Consulta disponibilidad</strong>
+                      </p>
+                      <p className="text-sm text-gray-700 mt-1">
+                        {availability.message}.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+          }
+        })()}
+      </div>
 
       <div className="max-w-6xl mx-auto p-4">
         {/* Product Header */}

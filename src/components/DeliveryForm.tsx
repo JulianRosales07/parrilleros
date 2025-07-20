@@ -10,10 +10,7 @@ import {
   ArrowLeft,
   Send,
   CheckCircle,
-  Clock,
   Truck,
-  Download,
-  Printer,
   Receipt,
   ExternalLink,
 } from "lucide-react";
@@ -706,6 +703,7 @@ ${cartDetails}
                 <div class="totals-section">
                   <div class="totals-title">💰 Resumen de Costos</div>
                   <div class="total-row subtotal">
+                  <div class="total-row">
                     <span>Subtotal:</span>
                     <span>$${Math.round(subtotal).toLocaleString()}</span>
                   </div>

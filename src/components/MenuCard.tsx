@@ -2,6 +2,7 @@ import React from "react";
 import { MenuItem } from "../types";
 import { useOrder } from "../context/OrderContext";
 import { useNavigate } from "react-router-dom";
+import { getAvailabilityMessage, isAvailableAtAllLocations } from "../utils/locationUtils";
 
 interface MenuCardProps {
   item: MenuItem;
@@ -69,14 +70,14 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
           </div>
         )}
 
-        {/* Tamasagra Only Badge */}
-        {item.availableAt === "tamasagra-only" && (
+        {/* Location Availability Badge */}
+        {item.availableAt && !isAvailableAtAllLocations(item.availableAt) && (
           <div
             className="absolute top-4 left-4 z-20"
             style={{ marginTop: isBurger ? "3rem" : "0" }}
           >
             <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs px-3 py-2 rounded-full font-bold shadow-lg backdrop-blur-sm animate-pulse">
-              📍 Solo Tamasagra
+              📍 {getAvailabilityMessage(item.availableAt).message}
             </div>
           </div>
         )}
