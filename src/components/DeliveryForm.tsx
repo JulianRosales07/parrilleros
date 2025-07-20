@@ -24,6 +24,7 @@ import LocationSelectionPage from "../pages/LocationSelectionPage";
 import { Location } from "../types";
 import { useDriverTour } from "../hooks/useDriverTour";
 import { generateInvoicePDF } from "../utils/pdfGenerator";
+import FONDO from '../assets/fondo.png';
 
 interface DeliveryFormProps {
   onBack: () => void;
@@ -805,7 +806,16 @@ ${cartDetails}
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 px-4">
+<div
+  className="min-h-screen"
+  style={{
+    backgroundImage: `url(${FONDO})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',
+  }}
+>
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
