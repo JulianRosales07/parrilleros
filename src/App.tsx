@@ -11,7 +11,6 @@ import SuggestionsPage from './pages/SuggestionsPage';
 import OrderTypePage from './pages/OrderTypePage';
 import DeliveryForm from './components/DeliveryForm';
 import PickupFormPage from './pages/PickupFormPage';
-import LocationSelectionMainPage from './pages/LocationSelectionMainPage';
 import TicketPage from './pages/TicketPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
@@ -21,7 +20,6 @@ function App() {
       <OrderProvider>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/location-selection" element={<LocationSelectionMainPage />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/customize" element={<CustomizationPage />} />
           <Route path="/suggestions" element={<SuggestionsPage />} />
