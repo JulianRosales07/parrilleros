@@ -145,7 +145,7 @@ const SuggestionsPage: React.FC = () => {
           alt={item.name}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
-        {item.availableAt === 'tamasagra-only' && (
+     
         {item.availableAt && item.availableAt.length === 1 && item.availableAt[0] === 'sede-tamasagra' && (
           <div className="absolute top-2 left-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-xs px-2 py-1 rounded-full font-bold shadow-lg animate-pulse">
             📍 Solo Tamasagra
