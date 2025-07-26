@@ -64,7 +64,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 3,
-    name: "Burger parrillera beacon-chese",
+    name: "Burger parrillera bacon-cheese",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal sellado en mantequilla, queso cheddar, tocineta ahumada, vegetales frescos, mayonesa de ajo, mostaza, y nuestra BBQ Johnnie Walker",
     price: 17000,
