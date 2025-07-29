@@ -1,7 +1,6 @@
 import React from "react";
-import { Beef, GlassWater , IceCream, Salad } from "lucide-react";
-import { Hamburger } from '@phosphor-icons/react';
-import { BowlFood } from '@phosphor-icons/react';
+import { Beef, GlassWater, IceCream, Salad } from "lucide-react";
+import { Hamburger } from "@phosphor-icons/react";
 import { FaHotdog } from "react-icons/fa";
 import { Category } from "../types";
 
@@ -11,8 +10,17 @@ interface CategorySelectorProps {
   onSelectCategory: (categoryId: string) => void;
 }
 
-const FriesIcon = ({ size = 24, color = 'white' }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+const FriesIcon = ({ size = 24, color = "white" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M5 3h1l1 4h10l1-4h1" />
     <path d="M4 8h16l-2 12H6L4 8z" />
     <path d="M9 3v4M15 3v4" />
@@ -30,17 +38,25 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
   ) => {
     switch (iconName) {
       case "beef":
-        return <Hamburger size={24} weight="duotone" color={isSelected ? "#FFFFFF" : "#FF8C00"} />
+        return (
+          <Hamburger
+            size={24}
+            weight="duotone"
+            color={isSelected ? "#FFFFFF" : "#FF8C00"}
+          />
+        );
       case "hot-dog":
         return (
           <FaHotdog size={24} color={isSelected ? "#FFFFFF" : "#FF8C00"} />
         );
       case "french-fries":
-        return <FriesIcon size={32} color={isSelected ? "#FFFFFF" : "#FF8C00"} />
-      case 'cup-soda':
+        return (
+          <FriesIcon size={32} color={isSelected ? "#FFFFFF" : "#FF8C00"} />
+        );
+      case "cup-soda":
         return <GlassWater size={24} />;
       case "acompañamientos":
-        return <Salad size={24} />
+        return <Salad size={24} />;
       case "ice-cream":
         return <IceCream size={24} />;
       default:
@@ -48,9 +64,11 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
     }
   };
 
-  // Filter non-burger categories
+  // Filter non-burger categories and exclude acompañamientos
   const nonBurgerCategories = categories.filter(
-    (cat) => !cat.id.includes("burgers") || cat.id === "burgers"
+    (cat) =>
+      (!cat.id.includes("burgers") || cat.id === "burgers") &&
+      cat.icon !== "acompañamientos"
   );
 
   // Get burger subcategories
@@ -87,41 +105,51 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 mt-18">
+      {/* Swipe hint for mobile */}
+      <div className="text-center mb-2 md:hidden">
+        <span className="text-xs text-gray-500">← Desliza →</span>
+      </div>
+
       {/* Main categories */}
-      <div className="flex space-x-4 overflow-x-auto px-2 pb-4">
-        {nonBurgerCategories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => onSelectCategory(category.id)}
-            className={`flex flex-col items-center px-6 py-3 rounded-xl transition-all transform hover:scale-105 ${
-              selectedCategory === category.id ||
-              (category.id === "burgers" && isInBurgerContext) ||
-              (category.id === "drinks" && isInDrinksContext)
-                ? "bg-[#FF8C00] text-white shadow-lg scale-105"
-                : "bg-gray-50 text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            <div
-              className={`mb-2 ${
+      <div className="overflow-x-auto px-2 pb-4">
+        <div
+          className="flex space-x-4 min-w-max justify-center mx-auto"
+          style={{ width: "fit-content" }}
+        >
+          {nonBurgerCategories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => onSelectCategory(category.id)}
+              className={`flex flex-col items-center px-4 py-3 rounded-xl transition-all transform hover:scale-105 flex-shrink-0 ${
                 selectedCategory === category.id ||
                 (category.id === "burgers" && isInBurgerContext) ||
                 (category.id === "drinks" && isInDrinksContext)
-                  ? "text-white"
-                  : "text-[#FF8C00]"
+                  ? "bg-[#FF8C00] text-white shadow-lg scale-105"
+                  : "bg-gray-50 text-gray-700 hover:bg-gray-100"
               }`}
             >
-              {getIconForCategory(
-                category.icon,
-                selectedCategory === category.id ||
+              <div
+                className={`mb-2 ${
+                  selectedCategory === category.id ||
                   (category.id === "burgers" && isInBurgerContext) ||
                   (category.id === "drinks" && isInDrinksContext)
-              )}
-            </div>
-            <span className="text-sm font-medium whitespace-nowrap">
-              {category.name}
-            </span>
-          </button>
-        ))}
+                    ? "text-white"
+                    : "text-[#FF8C00]"
+                }`}
+              >
+                {getIconForCategory(
+                  category.icon,
+                  selectedCategory === category.id ||
+                    (category.id === "burgers" && isInBurgerContext) ||
+                    (category.id === "drinks" && isInDrinksContext)
+                )}
+              </div>
+              <span className="text-sm font-medium whitespace-nowrap">
+                {category.name}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Burger subcategories - show when in burger context */}

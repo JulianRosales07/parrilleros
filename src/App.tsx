@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { OrderProvider } from './context/OrderContext';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import WelcomePage from './pages/WelcomePage';
@@ -18,6 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <OrderProvider>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/menu" element={<MenuPage />} />
