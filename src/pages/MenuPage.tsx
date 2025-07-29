@@ -364,13 +364,14 @@ const MenuPage: React.FC = () => {
             <span className="text-sm sm:text-base">Volver al inicio</span>
           </button>
         </div>
+        
         {/* Banner de Sede Detectada */}
-        <div className="max-w-6xl mx-auto mb-6">
+        {/* <div className="max-w-6xl mx-auto mb-6">
           <SedeBanner 
             sedeFormateada={sedeFormateada}
             esSedeValida={esSedeValida}
           />
-        </div>
+        </div> */}
 
         {/* Search Bar */}
         <div
