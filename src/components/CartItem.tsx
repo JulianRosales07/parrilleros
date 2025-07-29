@@ -75,9 +75,14 @@ const CartItem: React.FC<CartItemProps> = ({ item, readOnly = false }) => {
 
           <div className="flex items-center bg-gray-50 rounded-xl border border-gray-200">
             <button
-              onClick={() => updateQuantity(item.id, quantity - 1)}
+              onClick={() => {
+                if (quantity <= 1) {
+                  removeFromCart(item.id);
+                } else {
+                  updateQuantity(item.id, quantity - 1);
+                }
+              }}
               className="p-3 text-gray-600 rounded-l-xl"
-              disabled={quantity <= 1}
             >
               <Minus size={20} />
             </button>
