@@ -13,7 +13,7 @@ export const locations: Location[] = [
     ]
   },
   {
-    id: 'sede-san ignacio',
+    id: 'sede-san-ignacio',
     name: 'Parrilleros San Ignacio',
     address: 'Cra 32 # 14 - 84 - San Ignacio',
     phone: '316 606 0005',
@@ -24,7 +24,7 @@ export const locations: Location[] = [
     ]
   },
   {
-    id: 'sede-las cuadras',
+    id: 'sede-las-cuadras',
     name: 'Parrilleros Cuadras',
     address: 'Calle 20 # 31C - 38 - Las Cuadras',
     phone: '313 341 9733',

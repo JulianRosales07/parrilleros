@@ -13,6 +13,8 @@ interface OrderContextType {
   currentOrder: Order | null;
   completeOrder: () => void;
   orderNumber: number;
+  lastAddedTamasagraItem: string | null;
+  clearTamasagraAlert: () => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -22,6 +24,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [total, setTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
   const [currentOrder, setCurrentOrder] = useState<Order | null>(null);
+  const [lastAddedTamasagraItem, setLastAddedTamasagraItem] = useState<string | null>(null);
   
   // Initialize orderNumber from localStorage with automatic increment
   const [orderNumber, setOrderNumber] = useState(() => {
@@ -70,7 +73,23 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       specialInstructions
     };
     
+    // Verificar si es un producto exclusivo de Tamasagra
+    const availableAt = menuItem.availableAt;
+    const isTamasagraOnly = availableAt && availableAt.length === 1 && availableAt[0] === 'sede-tamasagra';
+    
+    if (isTamasagraOnly) {
+      setLastAddedTamasagraItem(menuItem.name);
+      // Auto-clear después de 5 segundos
+      setTimeout(() => {
+        setLastAddedTamasagraItem(null);
+      }, 5000);
+    }
+    
     setCart((prevCart) => [...prevCart, newItem]);
+  };
+
+  const clearTamasagraAlert = () => {
+    setLastAddedTamasagraItem(null);
   };
 
   const removeFromCart = (cartItemId: string) => {
@@ -127,6 +146,8 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     currentOrder,
     completeOrder,
     orderNumber,
+    lastAddedTamasagraItem,
+    clearTamasagraAlert,
   };
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;

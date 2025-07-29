@@ -21,9 +21,11 @@ import { useOrder } from "../context/OrderContext";
 import OrderSummary from "./OrderSummary";
 import TourButton from "./TourButton";
 import LocationSelectionPage from "../pages/LocationSelectionPage";
+import LocationValidationAlert from "./LocationValidationAlert";
 import { Location } from "../types";
 import { useDriverTour } from "../hooks/useDriverTour";
 import { generateInvoicePDF } from "../utils/pdfGenerator";
+import { validateCartForLocation } from "../utils/locationUtils";
 import FONDO from "../assets/fondo.png";
 
 interface DeliveryFormProps {
@@ -174,11 +176,18 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
       cart.length > 0 &&
       formData.dataProcessingAuthorized;
 
+    // Validar que los productos del carrito estén disponibles en la sede seleccionada
+    const locationValidation = selectedLocation ? 
+      validateCartForLocation(cart, selectedLocation.id) : 
+      { isValid: false };
+
+    const locationValid = locationValidation.isValid;
+
     if (formData.requiresInvoice) {
-      return basicFieldsValid && formData.cedula && formData.email;
+      return basicFieldsValid && formData.cedula && formData.email && locationValid;
     }
 
-    return basicFieldsValid;
+    return basicFieldsValid && locationValid;
   };
 
   const generateTicketContent = () => {
@@ -882,6 +891,15 @@ ${cartDetails}
               </div>
             </div>
           </div>
+
+          {/* Location Validation Alert */}
+          {selectedLocation && (
+            <LocationValidationAlert
+              cartItems={cart}
+              selectedLocationId={selectedLocation.id}
+              onLocationChange={handleBackToLocationSelection}
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

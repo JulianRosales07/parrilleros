@@ -1,7 +1,7 @@
 import React from 'react';
 import { useOrder } from '../context/OrderContext';
 import CartItem from './CartItem';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, AlertTriangle } from 'lucide-react';
 
 interface OrderSummaryProps {
   showItems?: boolean;
@@ -15,6 +15,12 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   const { cart, total, orderNumber, currentOrder } = useOrder();
   const items = isReceipt && currentOrder ? currentOrder.items : cart;
   const orderTotal = isReceipt && currentOrder ? currentOrder.total : total;
+
+  // Detectar productos exclusivos de Tamasagra
+  const tamasagraOnlyItems = items.filter(item => {
+    const availableAt = item.menuItem.availableAt;
+    return availableAt && availableAt.length === 1 && availableAt[0] === 'sede-tamasagra';
+  });
 
   if (items.length === 0 && !isReceipt) {
     return (
@@ -42,6 +48,34 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             <ShoppingBag size={20} className="text-white" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900">Tu Pedido</h2>
+        </div>
+      )}
+
+      {/* Alerta para productos exclusivos de Tamasagra */}
+      {!isReceipt && tamasagraOnlyItems.length > 0 && (
+        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+          <div className="flex items-start">
+            <AlertTriangle size={20} className="text-purple-600 mr-3 mt-0.5 flex-shrink-0" />
+            <div>
+              <h4 className="text-sm font-bold text-purple-800 mb-1">
+                📍 Productos exclusivos de Tamasagra
+              </h4>
+              <p className="text-xs text-purple-700 mb-2">
+                Tu carrito contiene productos que solo están disponibles en la sede Tamasagra:
+              </p>
+              <ul className="text-xs text-purple-700 space-y-1">
+                {tamasagraOnlyItems.map((item, index) => (
+                  <li key={index} className="flex items-center">
+                    <span className="w-1 h-1 bg-purple-400 rounded-full mr-2"></span>
+                    {item.menuItem.name} (x{item.quantity})
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-purple-600 mt-2 font-medium">
+                💡 Recuerda seleccionar la sede Tamasagra al momento de hacer tu pedido.
+              </p>
+            </div>
+          </div>
         </div>
       )}
 

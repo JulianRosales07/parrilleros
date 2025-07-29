@@ -8,6 +8,7 @@ import CategorySelector from "../components/CategorySelector";
 import MenuCard from "../components/MenuCard";
 import SearchBar from "../components/SearchBar";
 import TourButton from "../components/TourButton";
+import TamasagraAlert from "../components/TamasagraAlert";
 import {
   categories,
   menuItems,
@@ -22,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MenuPage: React.FC = () => {
   const navigate = useNavigate();
-  const { cart } = useOrder();
+  const { cart, lastAddedTamasagraItem, clearTamasagraAlert } = useOrder();
   const [selectedCategory, setSelectedCategory] = useState("classic-burgers");
   const [selectedSidesFilter, setSelectedSidesFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -500,6 +501,13 @@ const MenuPage: React.FC = () => {
             className="bottom-6 left-6"
           />
         )}
+
+        {/* Alerta para productos exclusivos de Tamasagra */}
+        <TamasagraAlert
+          show={!!lastAddedTamasagraItem}
+          productName={lastAddedTamasagraItem || ''}
+          onClose={clearTamasagraAlert}
+        />
       </div>
     </Layout>
   );

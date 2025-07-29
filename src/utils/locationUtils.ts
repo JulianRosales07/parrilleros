@@ -66,3 +66,40 @@ export const LOCATIONS = {
       locations: availableAt.map(getLocationName)
     };
   };
+export const validateCartForLocation = (cartItems: any[], selectedLocationId: string): {
+  isValid: boolean;
+  invalidItems: any[];
+  requiredLocation?: string;
+} => {
+  const invalidItems = cartItems.filter(item => {
+    const availableAt = item.menuItem.availableAt;
+    if (!availableAt || availableAt.length === 0) {
+      return false; // Si no tiene restricciones, está disponible en todas partes
+    }
+    return !availableAt.includes(selectedLocationId);
+  });
+
+  // Verificar si hay productos exclusivos de Tamasagra
+  const tamasagraOnlyItems = invalidItems.filter(item => {
+    const availableAt = item.menuItem.availableAt;
+    return availableAt && availableAt.length === 1 && availableAt[0] === 'sede-tamasagra';
+  });
+
+  return {
+    isValid: invalidItems.length === 0,
+    invalidItems,
+    requiredLocation: tamasagraOnlyItems.length > 0 ? 'sede-tamasagra' : undefined
+  };
+};
+
+export const getLocationValidationMessage = (invalidItems: any[], requiredLocation?: string): string => {
+  if (invalidItems.length === 0) return '';
+  
+  if (requiredLocation === 'sede-tamasagra') {
+    const itemNames = invalidItems.map(item => item.menuItem.name).join(', ');
+    return `Los siguientes productos solo están disponibles en la sede Tamasagra: ${itemNames}. Por favor selecciona la sede Tamasagra para continuar con tu pedido.`;
+  }
+  
+  const itemNames = invalidItems.map(item => item.menuItem.name).join(', ');
+  return `Los siguientes productos no están disponibles en la sede seleccionada: ${itemNames}. Por favor selecciona una sede donde estén disponibles.`;
+};
