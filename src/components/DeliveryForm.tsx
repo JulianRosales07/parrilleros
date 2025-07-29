@@ -275,9 +275,11 @@ ${cartDetails}
 • TOTAL: $${Math.round(total).toLocaleString()}
 
 💳 Forma de pago: ${formData.paymentMethod}
+📦 *Valor del domicilio:* entre $6.000 y $8.000 (según la zona)
 ⏰ Tiempo estimado: 45-60 minutos
 
-¡PROCESAR INMEDIATAMENTE!
+Si tienes alguna duda o deseas ajustar algo, no dudes en escribirnos.  
+¡Gracias por elegirnos.
 
 📍 ${selectedLocation?.name} | ${selectedLocation?.phone}`;
   };
