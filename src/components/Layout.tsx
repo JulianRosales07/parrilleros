@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
+import { useSedeFromURL } from '../hooks/useSedeFromURL';
 import LOGOB from '../assets/logos/logoblanco2.png';
 
 interface LayoutProps {
@@ -21,7 +22,11 @@ const Layout: React.FC<LayoutProps> = ({
   sedeTitle
 }) => {
   const { cart } = useOrder();
+  const { sedeFormateada, esSedeValida } = useSedeFromURL();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Usar sedeTitle si está disponible, sino usar el título con sede detectada
+  const finalTitle = sedeTitle || (esSedeValida && sedeFormateada ? `Sede: ${sedeFormateada}` : title);
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
@@ -46,18 +51,18 @@ const Layout: React.FC<LayoutProps> = ({
               className="h-8 w-auto object-contain"
             />
             {/* Título en móviles */}
-            {(title || sedeTitle) && (
+            {finalTitle && (
               <h2 className="text-base font-semibold text-white md:hidden">
-                {sedeTitle || title}
+                {finalTitle}
               </h2>
             )}
           </div>
 
           {/* Título centrado en pantallas md+ */}
-          {(title || sedeTitle) && (
+          {finalTitle && (
             <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
               <h2 className="text-xl font-semibold text-white drop-shadow">
-                {sedeTitle || title}
+                {finalTitle}
               </h2>
             </div>
           )}

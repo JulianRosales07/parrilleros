@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSedeNavigation } from '../hooks/useSedeNavigation';
 import { ArrowLeft, Truck, MapPin, Clock, CheckCircle } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import FONDO from '../assets/fondo.png';
 
 const OrderTypePage: React.FC = () => {
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
   const { cart, total } = useOrder();
   const [selectedType, setSelectedType] = useState<'delivery' | 'pickup' | null>(null);
 
   const handleBack = () => {
-    navigate('/cart');
+    navigateWithSede('/cart');
   };
 
   const handleContinue = () => {
     if (!selectedType) return;
     
     if (selectedType === 'delivery') {
-      navigate('/delivery-form');
+      navigateWithSede('/delivery-form');
     } else {
-      navigate('/pickup-form');
+      navigateWithSede('/pickup-form');
     }
   };
 
@@ -28,9 +30,9 @@ const OrderTypePage: React.FC = () => {
     // Auto-navigate after selection
     setTimeout(() => {
       if (type === 'delivery') {
-        navigate('/delivery-form');
+        navigateWithSede('/delivery-form');
       } else {
-        navigate('/pickup-form');
+        navigateWithSede('/pickup-form');
       }
     }, 500);
   };

@@ -5,10 +5,12 @@ import { MenuItem, CustomizationOption } from "../types";
 import { useOrder } from "../context/OrderContext";
 import { customizationOptions } from "../data/menu";
 import { getAvailabilityMessage, isAvailableAtAllLocations } from "../utils/locationUtils";
+import { useSedeNavigation } from "../hooks/useSedeNavigation";
 import FONDO from "../assets/fondo.png";
 
 const CustomizationPage: React.FC = () => {
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
   const location = useLocation();
   const { menuItem } = location.state as { menuItem: MenuItem };
 
@@ -66,9 +68,9 @@ const CustomizationPage: React.FC = () => {
     // Check if it's a burger to show suggestions
     const isBurgerCategory = menuItem.category.includes("burger");
     if (isBurgerCategory) {
-      navigate("/suggestions");
+      navigateWithSede("/suggestions");
     } else {
-      navigate("/menu");
+      navigateWithSede("/menu");
     }
   };
 
@@ -229,7 +231,7 @@ const CustomizationPage: React.FC = () => {
       <div className="bg-transparet shadow-md p-4">
         <div className="max-w-6xl mx-auto flex items-center">
           <button
-            onClick={() => navigate("/menu")}
+            onClick={() => navigateWithSede("/menu")}
             className="mr-4 p-2 bg-transparent-100 rounded-full hover:bg-gray-200 transition-colors"
           >
             <ArrowLeft size={20} />

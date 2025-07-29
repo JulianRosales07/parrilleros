@@ -10,7 +10,9 @@ import SearchBar from "../components/SearchBar";
 import TourButton from "../components/TourButton";
 import TamasagraAlert from "../components/TamasagraAlert";
 import SedeBanner from "../components/SedeBanner";
+
 import { useSedeFromURL } from "../hooks/useSedeFromURL";
+import { useSedeNavigation } from "../hooks/useSedeNavigation";
 import {
   categories,
   menuItems,
@@ -25,6 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const MenuPage: React.FC = () => {
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
   const { cart, lastAddedTamasagraItem, clearTamasagraAlert } = useOrder();
   const { sedeDetectada, sedeFormateada, esSedeValida } = useSedeFromURL();
   const [selectedCategory, setSelectedCategory] = useState("classic-burgers");
@@ -349,7 +352,7 @@ const MenuPage: React.FC = () => {
           <button
             ref={backButtonRef}
             data-tour="back-button"
-            onClick={() => navigate("/")}
+            onClick={() => navigateWithSede("/")}
             onMouseEnter={handleBackButtonHover}
             onMouseLeave={handleBackButtonLeave}
             className="group flex items-center bg-white hover:bg-[#FF8C00] text-[#FF8C00] hover:text-white px-4 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-2 border-[#FF8C00] font-semibold menu-card-enhanced"
@@ -496,7 +499,7 @@ const MenuPage: React.FC = () => {
             data-tour="cart-button"
           >
             <button
-              onClick={() => navigate("/cart")}
+              onClick={() => navigateWithSede("/cart")}
               className="flex items-center bg-[#FF8C00] text-white px-6 py-4 rounded-full shadow-lg hover:bg-orange-600 transition-all hover:scale-105 hover:shadow-xl backdrop-blur-sm"
             >
               <ShoppingCart size={28} />

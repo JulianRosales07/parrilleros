@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSedeNavigation } from '../hooks/useSedeNavigation';
 import { ShoppingBag } from 'lucide-react';
 import Layout from '../components/Layout';
 import TourButton from '../components/TourButton';
@@ -9,6 +10,7 @@ import { useDriverTour, cartTourSteps } from '../hooks/useDriverTour';
 
 const CartPage: React.FC = () => {
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
   const { cart } = useOrder();
   const [showTourButton, setShowTourButton] = useState(true);
 
@@ -35,11 +37,11 @@ const CartPage: React.FC = () => {
   }, [startTour, cart.length]);
   
   const handleBackToMenu = () => {
-    navigate('/menu');
+    navigateWithSede('/menu');
   };
 
   const handleOrderType = () => {
-    navigate('/order-type');
+    navigateWithSede('/order-type');
   };
 
   const handleStartTour = () => {

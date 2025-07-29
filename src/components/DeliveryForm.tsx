@@ -28,6 +28,7 @@ import { useDriverTour } from "../hooks/useDriverTour";
 import { generateInvoicePDF } from "../utils/pdfGenerator";
 import { validateCartForLocation } from "../utils/locationUtils";
 import { useSedeFromURL } from "../hooks/useSedeFromURL";
+import { useSedeNavigation } from "../hooks/useSedeNavigation";
 import FONDO from "../assets/fondo.png";
 
 interface DeliveryFormProps {
@@ -70,11 +71,12 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
     if (onBack) {
       onBack();
     } else {
-      navigate("/order-type");
+      navigateWithSede("/order-type");
     }
   };
   const { cart, total, clearCart, orderNumber } = useOrder();
   const { sedeDetectada, esSedeValida } = useSedeFromURL();
+  const { navigateWithSede } = useSedeNavigation();
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
   );
@@ -836,13 +838,13 @@ ${cartDetails}
 
       // Clear cart and redirect to home immediately
       clearCart();
-      navigate("/");
+      navigateWithSede("/");
     }, 2000);
   };
 
   const handleFinish = () => {
     clearCart();
-    navigate("/");
+    navigateWithSede("/");
   };
 
   // Show location selection page

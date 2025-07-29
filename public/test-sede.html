@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Sede URLs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .test-link {
+      display: block;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #f0f0f0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #333;
+      border: 2px solid #ddd;
+      transition: all 0.3s;
+    }
+    .test-link:hover {
+      background: #e0e0e0;
+      border-color: #FF8C00;
+    }
+    .current-url {
+      background: #e8f5e8;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      border: 1px solid #4caf50;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 Test de URLs de Sede</h1>
+  
+  <div class="current-url">
+    <h3>URL Actual:</h3>
+    <p id="current-url"></p>
+    <h3>Parámetro 'sedes':</h3>
+    <p id="sedes-param"></p>
+  </div>
+
+  <h2>Enlaces de prueba:</h2>
+  
+  <a href="/?sedes=tamasagra" class="test-link">
+    <strong>Sede Tamasagra</strong><br>
+    <code>/?sedes=tamasagra</code>
+  </a>
+  
+  <a href="/?sedes=san%20ignacio" class="test-link">
+    <strong>Sede San Ignacio</strong><br>
+    <code>/?sedes=san%20ignacio</code>
+  </a>
+  
+  <a href="/?sedes=las%20cuadras" class="test-link">
+    <strong>Sede Las Cuadras</strong><br>
+    <code>/?sedes=las%20cuadras</code>
+  </a>
+  
+  <a href="/?sedes=invalida" class="test-link">
+    <strong>Sede Inválida (para probar error)</strong><br>
+    <code>/?sedes=invalida</code>
+  </a>
+  
+  <a href="/" class="test-link">
+    <strong>Sin parámetro de sede</strong><br>
+    <code>/</code>
+  </a>
+
+  <script>
+    function updateCurrentUrl() {
+      const params = new URLSearchParams(window.location.search);
+      document.getElementById('current-url').textContent = window.location.href;
+      document.getElementById('sedes-param').textContent = params.get('sedes') || 'No encontrado';
+    }
+    
+    updateCurrentUrl();
+    
+    // Actualizar cuando cambie la URL
+    window.addEventListener('popstate', updateCurrentUrl);
+  </script>
+</body>
+</html>

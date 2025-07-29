@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSedeNavigation } from "../hooks/useSedeNavigation";
 import {
   ArrowLeft,
   ShoppingCart,
@@ -16,6 +17,7 @@ import FONDO from "../assets/fondo.png";
 const SuggestionsPage: React.FC = () => {
   const { addToCart } = useOrder();
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
   const [selectedItems, setSelectedItems] = useState<Set<number>>(new Set());
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(
     new Set(["gaseosas"])
@@ -34,11 +36,11 @@ const SuggestionsPage: React.FC = () => {
   };
 
   const handleContinue = () => {
-    navigate("/cart");
+    navigateWithSede("/cart");
   };
 
   const handleSkip = () => {
-    navigate("/cart");
+    navigateWithSede("/cart");
   };
 
   const toggleCategory = (categoryId: string) => {
@@ -237,7 +239,7 @@ const SuggestionsPage: React.FC = () => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center">
             <button
-              onClick={() => navigate("/menu")}
+              onClick={() => navigateWithSede("/menu")}
               className="mr-4 p-2 bg-transparent-100 rounded-full hover:bg-gray-200 transition-colors"
             >
               <ArrowLeft size={20} />

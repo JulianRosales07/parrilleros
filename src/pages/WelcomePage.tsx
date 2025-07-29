@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useSedeNavigation } from '../hooks/useSedeNavigation';
 import { gsap } from 'gsap';
 import { useDriverTour, welcomeTourSteps } from '../hooks/useDriverTour';
 import TourButton from '../components/TourButton';
@@ -9,6 +10,7 @@ import ICON from '../assets/logos/iconoh.png';
 
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
   const [showTourButton, setShowTourButton] = useState(false);
   
   // Referencias para las animaciones GSAP
@@ -26,7 +28,7 @@ const WelcomePage: React.FC = () => {
     onDestroyed: () => {
       // Auto-navigate to menu after welcome tour
       setTimeout(() => {
-        navigate('/menu');
+        navigateWithSede('/menu');
       }, 1000);
     }
   });
@@ -143,7 +145,7 @@ const WelcomePage: React.FC = () => {
   const handleStart = () => {
     // Animación de salida antes de navegar
     const tl = gsap.timeline({
-      onComplete: () => navigate('/menu')
+      onComplete: () => navigateWithSede('/menu')
     });
 
     tl.to([logoRef.current, titleRef.current, descriptionRef.current, buttonRef.current], {

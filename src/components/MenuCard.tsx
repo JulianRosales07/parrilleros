@@ -3,6 +3,7 @@ import { MenuItem } from "../types";
 import { useOrder } from "../context/OrderContext";
 import { useNavigate } from "react-router-dom";
 import { getAvailabilityMessage, isAvailableAtAllLocations } from "../utils/locationUtils";
+import { useSedeNavigation } from "../hooks/useSedeNavigation";
 
 interface MenuCardProps {
   item: MenuItem;
@@ -12,13 +13,14 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
   const { name, price, image, category } = item;
   const { addToCart } = useOrder();
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
 
   const handleClick = () => {
     if (category === "sides" || category === "drinks") {
       addToCart(item, 1, [], false, "");
     } else {
       // Navigate to customization page with item data
-      navigate("/customize", {
+      navigateWithSede("/customize", {
         state: {
           menuItem: item,
           options: [], // You can pass customization options here

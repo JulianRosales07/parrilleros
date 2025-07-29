@@ -7,11 +7,44 @@ interface SedeBannerProps {
 }
 
 const SedeBanner: React.FC<SedeBannerProps> = ({ sedeFormateada, esSedeValida }) => {
-  if (!sedeFormateada && !esSedeValida) {
-    // No mostrar nada si no hay parámetro de sede en la URL
-    return null;
+  // Verificar directamente en el componente si hay parámetro
+  const urlParams = new URLSearchParams(window.location.search);
+  const sedesParam = urlParams.get('sedes');
+  
+  // Si hay parámetro pero no es válido, mostrar error
+  if (sedesParam && !esSedeValida) {
+    return (
+      <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4 mb-6 shadow-sm animate-fade-in">
+        <div className="flex items-center">
+          <div className="flex-shrink-0">
+            <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+              <AlertTriangle size={20} className="text-amber-600" />
+            </div>
+          </div>
+          <div className="ml-4 flex-1">
+            <h3 className="text-lg font-bold text-amber-800 mb-1">
+              ⚠️ Sede no válida detectada: "{sedesParam}"
+            </h3>
+            <p className="text-sm text-amber-700">
+              No se ha detectado ninguna sede válida en el enlace. Por favor verifica el enlace o selecciona una sede manualmente al hacer tu pedido.
+            </p>
+            <div className="mt-3 p-3 bg-amber-100 rounded-md">
+              <p className="text-xs text-amber-800 font-medium mb-1">
+                💡 Sedes válidas para usar en la URL:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <code className="bg-white px-2 py-1 rounded text-xs text-amber-700">?sedes=tamasagra</code>
+                <code className="bg-white px-2 py-1 rounded text-xs text-amber-700">?sedes=san%20ignacio</code>
+                <code className="bg-white px-2 py-1 rounded text-xs text-amber-700">?sedes=las%20cuadras</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
-
+  
+  // Si es válida, mostrar banner de éxito
   if (esSedeValida && sedeFormateada) {
     return (
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4 mb-6 shadow-sm animate-fade-in">
@@ -37,37 +70,11 @@ const SedeBanner: React.FC<SedeBannerProps> = ({ sedeFormateada, esSedeValida })
       </div>
     );
   }
+  
+  // No hay parámetro de sede, no mostrar nada
+  return null;
 
-  // Sede no válida
-  return (
-    <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4 mb-6 shadow-sm animate-fade-in">
-      <div className="flex items-center">
-        <div className="flex-shrink-0">
-          <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
-            <AlertTriangle size={20} className="text-amber-600" />
-          </div>
-        </div>
-        <div className="ml-4 flex-1">
-          <h3 className="text-lg font-bold text-amber-800 mb-1">
-            ⚠️ Sede no válida detectada
-          </h3>
-          <p className="text-sm text-amber-700">
-            No se ha detectado ninguna sede válida en el enlace. Por favor verifica el enlace o selecciona una sede manualmente al hacer tu pedido.
-          </p>
-          <div className="mt-3 p-3 bg-amber-100 rounded-md">
-            <p className="text-xs text-amber-800 font-medium mb-1">
-              💡 Sedes válidas para usar en la URL:
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <code className="bg-white px-2 py-1 rounded text-xs text-amber-700">?sedes=tamasagra</code>
-              <code className="bg-white px-2 py-1 rounded text-xs text-amber-700">?sedes=san%20ignacio</code>
-              <code className="bg-white px-2 py-1 rounded text-xs text-amber-700">?sedes=las%20cuadras</code>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+
 };
 
 export default SedeBanner;
