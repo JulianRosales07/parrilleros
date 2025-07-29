@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSedeNavigation } from "../hooks/useSedeNavigation";
+import { useSedeFromURL } from "../hooks/useSedeFromURL";
 import {
   User,
   Phone,
@@ -25,6 +27,8 @@ import FONDO from "../assets/fondo.png";
 
 const PickupFormPage: React.FC = () => {
   const navigate = useNavigate();
+  const { navigateWithSede } = useSedeNavigation();
+  const { sedeDetectada, sedeFormateada, esSedeValida } = useSedeFromURL();
   const { cart, total, clearCart, orderNumber } = useOrder();
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     null
@@ -57,6 +61,18 @@ const PickupFormPage: React.FC = () => {
     setSelectedLocation(location);
     setCurrentStep("form");
   };
+
+  // Pre-seleccionar sede si viene de la URL
+  useEffect(() => {
+    if (sedeDetectada && esSedeValida && !selectedLocation) {
+      // Buscar la ubicación correspondiente en los datos
+      const locationFromURL = locations.find(loc => loc.id === sedeDetectada);
+      if (locationFromURL) {
+        setSelectedLocation(locationFromURL);
+        setCurrentStep("form"); // Ir directamente al formulario
+      }
+    }
+  }, [sedeDetectada, esSedeValida, selectedLocation]);
 
   const isFormValid = () => {
     const basicFieldsValid =
@@ -342,7 +358,7 @@ ${cartDetails}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex items-center mb-4">
             <button
-              onClick={() => navigate("/order-type")}
+              onClick={() => navigateWithSede("/order-type")}
               className="mr-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
             >
               <ArrowLeft size={20} />
