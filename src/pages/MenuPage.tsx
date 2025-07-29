@@ -9,7 +9,7 @@ import MenuCard from "../components/MenuCard";
 import SearchBar from "../components/SearchBar";
 import TourButton from "../components/TourButton";
 import TamasagraAlert from "../components/TamasagraAlert";
-import SedeBanner from "../components/SedeBanner";
+//import SedeBanner from "../components/SedeBanner";
 
 import { useSedeFromURL } from "../hooks/useSedeFromURL";
 import { useSedeNavigation } from "../hooks/useSedeNavigation";
@@ -364,7 +364,7 @@ const MenuPage: React.FC = () => {
             <span className="text-sm sm:text-base">Volver al inicio</span>
           </button>
         </div>
-        
+
         {/* Banner de Sede Detectada */}
         {/* <div className="max-w-6xl mx-auto mb-6">
           <SedeBanner 
