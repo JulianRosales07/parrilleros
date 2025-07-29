@@ -9,6 +9,8 @@ import MenuCard from "../components/MenuCard";
 import SearchBar from "../components/SearchBar";
 import TourButton from "../components/TourButton";
 import TamasagraAlert from "../components/TamasagraAlert";
+import SedeBanner from "../components/SedeBanner";
+import { useSedeFromURL } from "../hooks/useSedeFromURL";
 import {
   categories,
   menuItems,
@@ -24,6 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 const MenuPage: React.FC = () => {
   const navigate = useNavigate();
   const { cart, lastAddedTamasagraItem, clearTamasagraAlert } = useOrder();
+  const { sedeDetectada, sedeFormateada, esSedeValida } = useSedeFromURL();
   const [selectedCategory, setSelectedCategory] = useState("classic-burgers");
   const [selectedSidesFilter, setSelectedSidesFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -336,8 +339,10 @@ const MenuPage: React.FC = () => {
   const itemsToShow = searchQuery.trim() ? globalSearchResults : filteredItems;
   const showCategorySelector = !searchQuery.trim();
 
+  const tituloSede = sedeFormateada ? `Realiza tu pedido en la sede: ${sedeFormateada}` : undefined;
+
   return (
-    <Layout title="Menú" showCart={false}>
+    <Layout title="Menú" sedeTitle={tituloSede} showCart={false}>
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         {/* Enhanced Back Button */}
         <div className="max-w-4xl mx-auto mb-6">
@@ -356,6 +361,14 @@ const MenuPage: React.FC = () => {
             <span className="text-sm sm:text-base">Volver al inicio</span>
           </button>
         </div>
+        {/* Banner de Sede Detectada */}
+        <div className="max-w-6xl mx-auto mb-6">
+          <SedeBanner 
+            sedeFormateada={sedeFormateada}
+            esSedeValida={esSedeValida}
+          />
+        </div>
+
         {/* Search Bar */}
         <div
           ref={searchBarRef}

@@ -9,6 +9,7 @@ interface LayoutProps {
   showCart?: boolean;
   showBack?: boolean;
   onBack?: () => void;
+  sedeTitle?: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({
@@ -16,7 +17,8 @@ const Layout: React.FC<LayoutProps> = ({
   title,
   showCart = false,
   showBack = false,
-  onBack
+  onBack,
+  sedeTitle
 }) => {
   const { cart } = useOrder();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -44,18 +46,18 @@ const Layout: React.FC<LayoutProps> = ({
               className="h-8 w-auto object-contain"
             />
             {/* Título en móviles */}
-            {title && (
+            {(title || sedeTitle) && (
               <h2 className="text-base font-semibold text-white md:hidden">
-                {title}
+                {sedeTitle || title}
               </h2>
             )}
           </div>
 
           {/* Título centrado en pantallas md+ */}
-          {title && (
+          {(title || sedeTitle) && (
             <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2">
               <h2 className="text-xl font-semibold text-white drop-shadow">
-                {title}
+                {sedeTitle || title}
               </h2>
             </div>
           )}
@@ -83,7 +85,7 @@ const Layout: React.FC<LayoutProps> = ({
 
       {/* Footer */}
       <footer className="bg-[#1A1A1A] text-white p-4 text-center">
-        <p className="text-sm">&copy; 2025 <span className="font-heavyrust-primary">PARRILLEROS</span> <span className="font-bebas-neue-primary">FAST FOOD</span></p>
+        <p className="text-sm">Desarrollado por Julian.dev <span className="font-heavyrust-primary">PARRILLEROS</span> <span className="font-bebas-neue-primary">FAST FOOD</span></p>
       </footer>
     </div>
   );
