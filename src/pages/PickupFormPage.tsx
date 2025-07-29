@@ -23,6 +23,9 @@ import OrderSummary from "../components/OrderSummary";
 import { locations } from "../data/locations";
 import { Location } from "../types";
 import { generateInvoicePDF } from "../utils/pdfGenerator";
+import SedeBanner from "../components/SedeBanner";
+import LocationValidationAlert from "../components/LocationValidationAlert";
+import { validateCartForLocation } from "../utils/locationUtils";
 import FONDO from "../assets/fondo.png";
 
 const PickupFormPage: React.FC = () => {
@@ -83,11 +86,18 @@ const PickupFormPage: React.FC = () => {
       cart.length > 0 &&
       formData.dataProcessingAuthorized;
 
+    // Validar que los productos del carrito estén disponibles en la sede seleccionada
+    const locationValidation = selectedLocation ? 
+      validateCartForLocation(cart, selectedLocation.id) : 
+      { isValid: false };
+
+    const locationValid = locationValidation.isValid;
+
     if (formData.requiresInvoice) {
-      return basicFieldsValid && formData.cedula && formData.email;
+      return basicFieldsValid && formData.cedula && formData.email && locationValid;
     }
 
-    return basicFieldsValid;
+    return basicFieldsValid && locationValid;
   };
 
   const generateTicketContent = () => {
@@ -218,13 +228,13 @@ ${cartDetails}
 
       // Clear cart and redirect to welcome page
       clearCart();
-      navigate("/");
+      navigateWithSede("/");
     }, 2000);
   };
 
   const handleFinish = () => {
     clearCart();
-    navigate("/");
+    navigateWithSede("/");
   };
 
   if (orderSubmitted) {
@@ -411,6 +421,14 @@ ${cartDetails}
           )}
         </div>
 
+        {/* Banner de Sede Detectada */}
+        <div className="mb-6">
+          <SedeBanner 
+            sedeFormateada={sedeFormateada}
+            esSedeValida={esSedeValida}
+          />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2">
@@ -536,17 +554,47 @@ ${cartDetails}
 
                 {/* Selected Location Summary */}
                 {selectedLocation && (
-                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-                    <h3 className="font-bold text-orange-800 mb-2">
-                      Sede seleccionada:
+                  <div className={`border rounded-lg p-4 mb-6 ${
+                    sedeDetectada && esSedeValida 
+                      ? 'bg-blue-50 border-blue-200' 
+                      : 'bg-orange-50 border-orange-200'
+                  }`}>
+                    <h3 className={`font-bold mb-2 ${
+                      sedeDetectada && esSedeValida 
+                        ? 'text-blue-800' 
+                        : 'text-orange-800'
+                    }`}>
+                      {sedeDetectada && esSedeValida ? '🔗 Sede detectada desde enlace:' : 'Sede seleccionada:'}
                     </h3>
-                    <p className="text-orange-700 font-medium">
+                    <p className={`font-medium ${
+                      sedeDetectada && esSedeValida 
+                        ? 'text-blue-700' 
+                        : 'text-orange-700'
+                    }`}>
                       {selectedLocation.name}
                     </p>
-                    <p className="text-sm text-orange-600">
+                    <p className={`text-sm ${
+                      sedeDetectada && esSedeValida 
+                        ? 'text-blue-600' 
+                        : 'text-orange-600'
+                    }`}>
                       {selectedLocation.address}
                     </p>
+                    {sedeDetectada && esSedeValida && (
+                      <p className="text-xs text-blue-500 mt-2">
+                        💡 Esta sede fue seleccionada automáticamente desde el enlace
+                      </p>
+                    )}
                   </div>
+                )}
+
+                {/* Location Validation Alert */}
+                {selectedLocation && (
+                  <LocationValidationAlert
+                    cartItems={cart}
+                    selectedLocationId={selectedLocation.id}
+                    onLocationChange={() => setCurrentStep("location")}
+                  />
                 )}
 
                 <div className="space-y-4">
