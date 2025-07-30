@@ -105,22 +105,15 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-4 mt-18">
-      {/* Swipe hint for mobile */}
-      <div className="text-center mb-2 md:hidden">
-        <span className="text-xs text-gray-500">← Desliza →</span>
-      </div>
-
       {/* Main categories */}
-      <div className="overflow-x-auto px-2 pb-4">
-        <div
-          className="flex space-x-4 min-w-max justify-center mx-auto"
-          style={{ width: "fit-content" }}
-        >
+      <div className="w-full">
+        {/* Desktop: Grid layout */}
+        <div className="hidden md:grid md:grid-cols-4 gap-4">
           {nonBurgerCategories.map((category) => (
             <button
               key={category.id}
               onClick={() => onSelectCategory(category.id)}
-              className={`flex flex-col items-center px-4 py-3 rounded-xl transition-all transform hover:scale-105 flex-shrink-0 ${
+              className={`flex flex-col items-center justify-center px-4 py-4 rounded-xl transition-all transform hover:scale-105 min-h-[100px] ${
                 selectedCategory === category.id ||
                 (category.id === "burgers" && isInBurgerContext) ||
                 (category.id === "drinks" && isInDrinksContext)
@@ -129,7 +122,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               }`}
             >
               <div
-                className={`mb-2 ${
+                className={`mb-3 ${
                   selectedCategory === category.id ||
                   (category.id === "burgers" && isInBurgerContext) ||
                   (category.id === "drinks" && isInDrinksContext)
@@ -144,50 +137,101 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                     (category.id === "drinks" && isInDrinksContext)
                 )}
               </div>
-              <span className="text-sm font-medium whitespace-nowrap">
+              <span className="text-sm font-medium text-center leading-tight">
                 {category.name}
               </span>
             </button>
           ))}
         </div>
+
+        {/* Mobile: Horizontal scroll with equal width */}
+        <div className="md:hidden">
+          <div className="text-center mb-3">
+            <span className="text-xs text-gray-500">← Desliza →</span>
+          </div>
+          <div className="overflow-x-auto pb-4">
+            <div
+              className="flex gap-3 px-2"
+              style={{ width: `${nonBurgerCategories.length * 120}px` }}
+            >
+              {nonBurgerCategories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => onSelectCategory(category.id)}
+                  className={`flex flex-col items-center justify-center px-3 py-4 rounded-xl transition-all transform hover:scale-105 min-w-[110px] min-h-[90px] flex-shrink-0 ${
+                    selectedCategory === category.id ||
+                    (category.id === "burgers" && isInBurgerContext) ||
+                    (category.id === "drinks" && isInDrinksContext)
+                      ? "bg-[#FF8C00] text-white shadow-lg scale-105"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  <div
+                    className={`mb-2 ${
+                      selectedCategory === category.id ||
+                      (category.id === "burgers" && isInBurgerContext) ||
+                      (category.id === "drinks" && isInDrinksContext)
+                        ? "text-white"
+                        : "text-[#FF8C00]"
+                    }`}
+                  >
+                    {getIconForCategory(
+                      category.icon,
+                      selectedCategory === category.id ||
+                        (category.id === "burgers" && isInBurgerContext) ||
+                        (category.id === "drinks" && isInDrinksContext)
+                    )}
+                  </div>
+                  <span className="text-xs font-medium text-center leading-tight">
+                    {category.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Burger subcategories - show when in burger context */}
       {isInBurgerContext && (
-        <div className="grid grid-cols-3 gap-3 mt-4">
-          {burgerCategories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => onSelectCategory(category.id)}
-              className={`py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                selectedCategory === category.id
-                  ? "bg-[#FF8C00] text-white shadow-md"
-                  : "bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white"
-              }`}
-            >
-              {category.name.replace("Hamburguesas ", "")}
-            </button>
-          ))}
+        <div className="mt-6 pt-4 border-t border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {burgerCategories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => onSelectCategory(category.id)}
+                className={`py-3 px-4 rounded-xl text-sm font-medium transition-all transform hover:scale-105 ${
+                  selectedCategory === category.id
+                    ? "bg-[#FF8C00] text-white shadow-md scale-105"
+                    : "bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white"
+                }`}
+              >
+                {category.name.replace("Hamburguesas ", "")}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
       {/* Drink subcategories - show when in drinks context */}
       {isInDrinksContext && (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
-          {drinkSubcategories.map((subcategory) => (
-            <button
-              key={subcategory.id}
-              onClick={() => onSelectCategory(subcategory.id)}
-              className={`flex items-center justify-center py-3 px-4 rounded-lg text-sm font-medium transition-all ${
-                selectedCategory === subcategory.id
-                  ? "bg-[#FF8C00] text-white shadow-md"
-                  : "bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white"
-              }`}
-            >
-              <span className="mr-2 text-lg">{subcategory.icon}</span>
-              {subcategory.name}
-            </button>
-          ))}
+        <div className="mt-6 pt-4 border-t border-gray-100">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {drinkSubcategories.map((subcategory) => (
+              <button
+                key={subcategory.id}
+                onClick={() => onSelectCategory(subcategory.id)}
+                className={`flex items-center justify-center py-3 px-4 rounded-xl text-sm font-medium transition-all transform hover:scale-105 ${
+                  selectedCategory === subcategory.id
+                    ? "bg-[#FF8C00] text-white shadow-md scale-105"
+                    : "bg-gray-50 text-gray-700 hover:bg-[#FF8C00] hover:text-white"
+                }`}
+              >
+                <span className="mr-2 text-lg">{subcategory.icon}</span>
+                {subcategory.name}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
