@@ -16,6 +16,10 @@ import POP from "../assets/POP.jpeg";
 import POLLOGRILL from "../assets/pollogrill.jpg";
 import PAPASCASA from "../assets/PAPASDELACASA.png";
 import CHESSEANDFRIES from "../assets/chesseandfries.png";
+import ARGENTINA from  "../assets/ARGENTINA.jpeg";
+import DOBLECARNE from "../assets/DOBLECARNE.jpeg";
+import BEEFMASTER from "../assets/BEEFMASTER.jpeg";
+import ESPECIAL from "../assets/ESPECIAL.jpeg";
 
 export const categories: Category[] = [
   { id: "burgers", name: "Hamburguesas", icon: "beef" },
@@ -120,7 +124,7 @@ export const menuItems: MenuItem[] = [
     price: 18000,
     priceWithFries: 24000,
     priceWithRusticFries: 24000,
-    image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
+    image: ESPECIAL,
     category: "classic-burgers",
     customizable: true,
     availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
@@ -136,7 +140,7 @@ export const menuItems: MenuItem[] = [
     price: 19000,
     priceWithFries: 25000,
     priceWithRusticFries: 25000,
-    image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
+    image: ARGENTINA,
     category: "deluxe-burgers",
     customizable: true,
     availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
@@ -152,7 +156,7 @@ export const menuItems: MenuItem[] = [
     price: 27000,
     priceWithFries: 33000,
     priceWithRusticFries: 33000,
-    image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg" ,
+    image: DOBLECARNE ,
     category: "deluxe-burgers",
     customizable: true,
     availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
@@ -266,7 +270,7 @@ export const menuItems: MenuItem[] = [
     price: 26000,
     priceWithFries: 32000,
     priceWithRusticFries: 32000,
-    image: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
+    image: BEEFMASTER,
     category: "deluxe-burgers",
     customizable: true,
     availableAt: ["sede-tamasagra"],
