@@ -112,21 +112,24 @@ const Layout: React.FC<LayoutProps> = ({
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 space-y-6 md:space-y-0">
             {/* Left - Social Media */}
             <div className="flex items-center space-x-4">
-              <div className="flex space-x-3">
+              <div className="flex space-x-4">
                 <a
                   href="https://www.instagram.com/parrillerosfastfood/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                  className="relative w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-xl flex items-center justify-center hover:scale-110 hover:shadow-xl hover:shadow-pink-500/25 transition-all duration-300 cursor-pointer group overflow-hidden"
                 >
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <svg
-                    className="w-4 h-4 text-white drop-shadow-sm"
+                    className="w-5 h-5 text-white drop-shadow-sm z-10 group-hover:scale-110 transition-transform duration-300"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2ZM16.25 3.5h-8.5a4.25 4.25 0 0 0-4.25 4.25v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM17.5 5.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z" />
                   </svg>
+                  <div className="absolute -inset-1 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10"></div>
                 </a>
+               
               </div>
             </div>
 
@@ -141,10 +144,18 @@ const Layout: React.FC<LayoutProps> = ({
 
             {/* Right - Developer Credit */}
             <div className="text-center md:text-right">
-              <p className="text-sm text-gray-300 mb-1">Desarrollado por</p>
-              <p className="text-base font-semibold italic text-white hover:text-[#FF8C00] transition-colors duration-300">
-                Julian Rosales
-              </p>
+              <div className="inline-flex flex-col items-center md:items-end space-y-1 p-3 rounded-lg bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border border-gray-700/30 hover:border-[#FF8C00]/30 transition-all duration-300 group">
+                <p className="text-xs text-gray-400 uppercase tracking-wider font-medium">
+                  Desarrollado por
+                </p>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-[#FF8C00] rounded-full animate-pulse"></div>
+                  <p className="text-sm font-bold text-white group-hover:text-[#FF8C00] transition-colors duration-300 tracking-wide">
+                    Julian Rosales
+                  </p>
+                </div>
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FF8C00]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
             </div>
           </div>
 
