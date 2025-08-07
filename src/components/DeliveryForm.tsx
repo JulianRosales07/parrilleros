@@ -254,18 +254,18 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
     return `🍔 NUEVO PEDIDO DOMICILIO - PARRILLEROS
 ═══════════════════════════════════════
 
-📋 PEDIDO #${orderNumber
+🧾 PEDIDO #${orderNumber
       .toString()
       .padStart(
         3,
         "0"
       )} | ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
 
-👤 CLIENTE
+👤  CLIENTE
 ${formData.name}
 📱 ${formData.phone}${invoiceInfo}
 
-📍 ENTREGA
+📄 ENTREGA
 ${formData.address}, ${formData.neighborhood}
 
 🛒 PRODUCTOS
@@ -279,14 +279,11 @@ ${cartDetails}
 💳 Forma de pago: ${formData.paymentMethod}
 🚚 Costo del domicilio: entre $6.000 y $8.000 (según la zona)
 ⏱ Tiempo estimado de entrega: entre 45 y 60 minutos
-(Queremos que recibas tu pedido fresco y en su punto, por eso agradecemos tu paciencia mientras lo preparamos con dedicación.)
+🧑‍🍳(Queremos que recibas tu pedido fresco y en su punto, por eso agradecemos tu paciencia mientras lo preparamos con dedicación.)
 
-📩 Si tienes alguna duda o quieres ajustar algo, escríbenos sin problema.
-
-🙏 ¡Gracias por elegir Parrilleros Tamasagra!
-
-
-📱 ${selectedLocation?.name} | ${selectedLocation?.phone}`;
+❓ Si tienes alguna duda o deseas ajustar algo, no dudes en escribirnos.  
+🙏¡Gracias por elegirnos.
+${selectedLocation?.name} | ${selectedLocation?.phone}`;
   };
 
   const handleDownloadTicket = () => {
