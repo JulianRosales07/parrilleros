@@ -19,7 +19,7 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
     if (category === "sides" || category === "drinks") {
       addToCart(item, 1, [], false, "");
     } else {
-      // Navigate to customization page with item data
+      // Navigate to customization page with item data (includes burgers and hotdogs)
       navigateWithSede("/customize", {
         state: {
           menuItem: item,

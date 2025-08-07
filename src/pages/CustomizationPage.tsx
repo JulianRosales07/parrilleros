@@ -65,9 +65,11 @@ const CustomizationPage: React.FC = () => {
       friesType !== "none" ? friesType : undefined
     );
 
-    // Check if it's a burger to show suggestions
+    // Check if it's a burger or hotdog to show suggestions
     const isBurgerCategory = menuItem.category.includes("burger");
-    if (isBurgerCategory) {
+    const isHotdogCategory = menuItem.category === "hotdogs";
+    
+    if (isBurgerCategory || isHotdogCategory) {
       navigateWithSede("/suggestions");
     } else {
       navigateWithSede("/menu");
@@ -356,6 +358,8 @@ const CustomizationPage: React.FC = () => {
                   ? "Deluxe"
                   : menuItem.category.includes("contest")
                   ? "Burger Master"
+                  : menuItem.category === "hotdogs"
+                  ? "Perro Caliente"
                   : "Hamburguesa"}
               </span>
 
@@ -490,7 +494,7 @@ const CustomizationPage: React.FC = () => {
               <div className="space-y-4">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                    Personaliza tu Hamburguesa
+                    Personaliza tu {menuItem.category === "hotdogs" ? "Perro Caliente" : "Hamburguesa"}
                   </h3>
                   <p className="text-gray-600">
                     Selecciona los ingredientes adicionales que desees
@@ -502,7 +506,7 @@ const CustomizationPage: React.FC = () => {
                   title="Proteínas Adicionales"
                   options={proteinOptions}
                   icon="🥩"
-                  description="Agrega más proteína a tu hamburguesa"
+                  description={`Agrega más proteína a tu ${menuItem.category === "hotdogs" ? "perro caliente" : "hamburguesa"}`}
                 />
 
                 <OptionGroup
@@ -510,7 +514,7 @@ const CustomizationPage: React.FC = () => {
                   title="Quesos Premium"
                   options={cheeseOptions}
                   icon="🧀"
-                  description="Diferentes tipos de queso para tu hamburguesa"
+                  description={`Diferentes tipos de queso para tu ${menuItem.category === "hotdogs" ? "perro caliente" : "hamburguesa"}`}
                 />
 
                 <OptionGroup
@@ -526,7 +530,7 @@ const CustomizationPage: React.FC = () => {
                   title="Otros Complementos"
                   options={otherOptions}
                   icon="➕"
-                  description="Complementos especiales para tu hamburguesa"
+                  description={`Complementos especiales para tu ${menuItem.category === "hotdogs" ? "perro caliente" : "hamburguesa"}`}
                 />
               </div>
 

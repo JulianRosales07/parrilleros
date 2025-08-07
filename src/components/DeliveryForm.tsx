@@ -166,7 +166,7 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
   useEffect(() => {
     if (sedeDetectada && esSedeValida && !selectedLocation) {
       // Buscar la ubicación correspondiente en los datos
-      const locationFromURL = locations.find(loc => loc.id === sedeDetectada);
+      const locationFromURL = locations.find((loc) => loc.id === sedeDetectada);
       if (locationFromURL) {
         setSelectedLocation(locationFromURL);
         setShowLocationSelection(false);
@@ -194,14 +194,16 @@ const DeliveryForm: React.FC<DeliveryFormProps> = ({ onBack }) => {
       formData.dataProcessingAuthorized;
 
     // Validar que los productos del carrito estén disponibles en la sede seleccionada
-    const locationValidation = selectedLocation ? 
-      validateCartForLocation(cart, selectedLocation.id) : 
-      { isValid: false };
+    const locationValidation = selectedLocation
+      ? validateCartForLocation(cart, selectedLocation.id)
+      : { isValid: false };
 
     const locationValid = locationValidation.isValid;
 
     if (formData.requiresInvoice) {
-      return basicFieldsValid && formData.cedula && formData.email && locationValid;
+      return (
+        basicFieldsValid && formData.cedula && formData.email && locationValid
+      );
     }
 
     return basicFieldsValid && locationValid;
@@ -892,44 +894,56 @@ Si tienes alguna duda o deseas ajustar algo, no dudes en escribirnos.
           </div>
 
           {/* Selected Location Info */}
-          <div className={`border rounded-lg p-4 ${
-            sedeDetectada && esSedeValida 
-              ? 'bg-blue-50 border-blue-200' 
-              : 'bg-green-50 border-green-200'
-          }`}>
+          <div
+            className={`border rounded-lg p-4 ${
+              sedeDetectada && esSedeValida
+                ? "bg-blue-50 border-blue-200"
+                : "bg-green-50 border-green-200"
+            }`}
+          >
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${
-                sedeDetectada && esSedeValida 
-                  ? 'bg-blue-100' 
-                  : 'bg-green-100'
-              }`}>
-                <CheckCircle size={16} className={
-                  sedeDetectada && esSedeValida 
-                    ? 'text-blue-600' 
-                    : 'text-green-600'
-                } />
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${
+                  sedeDetectada && esSedeValida ? "bg-blue-100" : "bg-green-100"
+                }`}
+              >
+                <CheckCircle
+                  size={16}
+                  className={
+                    sedeDetectada && esSedeValida
+                      ? "text-blue-600"
+                      : "text-green-600"
+                  }
+                />
               </div>
               <div>
-                <p className={`font-medium ${
-                  sedeDetectada && esSedeValida 
-                    ? 'text-blue-800' 
-                    : 'text-green-800'
-                }`}>
-                  {sedeDetectada && esSedeValida ? '🔗 Sede detectada desde enlace:' : 'Sede seleccionada:'}{" "}
+                <p
+                  className={`font-medium ${
+                    sedeDetectada && esSedeValida
+                      ? "text-blue-800"
+                      : "text-green-800"
+                  }`}
+                >
+                  {sedeDetectada && esSedeValida
+                    ? "🔗 Sede detectada desde enlace:"
+                    : "Sede seleccionada:"}{" "}
                   <span className="font-heavyrust-primary">
                     {selectedLocation?.name}
                   </span>
                 </p>
-                <p className={`text-sm ${
-                  sedeDetectada && esSedeValida 
-                    ? 'text-blue-600' 
-                    : 'text-green-600'
-                }`}>
+                <p
+                  className={`text-sm ${
+                    sedeDetectada && esSedeValida
+                      ? "text-blue-600"
+                      : "text-green-600"
+                  }`}
+                >
                   {selectedLocation?.address} | {selectedLocation?.phone}
                 </p>
                 {sedeDetectada && esSedeValida && (
                   <p className="text-xs text-blue-500 mt-1">
-                    💡 Esta sede fue seleccionada automáticamente desde el enlace
+                    💡 Esta sede fue seleccionada automáticamente desde el
+                    enlace
                   </p>
                 )}
               </div>
