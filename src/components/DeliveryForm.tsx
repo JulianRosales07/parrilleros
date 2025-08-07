@@ -277,13 +277,16 @@ ${cartDetails}
 • TOTAL: $${Math.round(total).toLocaleString()}
 
 💳 Forma de pago: ${formData.paymentMethod}
-📦 *Valor del domicilio:* entre $6.000 y $8.000 (según la zona)
-⏰ Tiempo estimado: 45-60 minutos
+🚚 Costo del domicilio: entre $6.000 y $8.000 (según la zona)
+⏱ Tiempo estimado de entrega: entre 45 y 60 minutos
+(Queremos que recibas tu pedido fresco y en su punto, por eso agradecemos tu paciencia mientras lo preparamos con dedicación.)
 
-Si tienes alguna duda o deseas ajustar algo, no dudes en escribirnos.  
-¡Gracias por elegirnos.
+📩 Si tienes alguna duda o quieres ajustar algo, escríbenos sin problema.
 
-📍 ${selectedLocation?.name} | ${selectedLocation?.phone}`;
+🙏 ¡Gracias por elegir Parrilleros Tamasagra!
+
+
+📱 ${selectedLocation?.name} | ${selectedLocation?.phone}`;
   };
 
   const handleDownloadTicket = () => {
