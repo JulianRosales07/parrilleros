@@ -5,6 +5,7 @@ import { useSedeFromURL } from "../hooks/useSedeFromURL";
 import LOGOB from "../assets/logos/logoblanco.png";
 import LOGO2 from "../assets/logos/logoblanco2.png";
 
+
 interface LayoutProps {
   children: React.ReactNode;
   title?: string;
