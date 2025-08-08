@@ -5,7 +5,6 @@ import { useSedeFromURL } from "../hooks/useSedeFromURL";
 import LOGOB from "../assets/logos/logoblanco.png";
 import LOGO2 from "../assets/logos/logoblanco2.png";
 
-
 interface LayoutProps {
   children: React.ReactNode;
   title?: string;
@@ -130,7 +129,6 @@ const Layout: React.FC<LayoutProps> = ({
                   </svg>
                   <div className="absolute -inset-1 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10"></div>
                 </a>
-               
               </div>
             </div>
 

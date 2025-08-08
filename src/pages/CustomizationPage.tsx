@@ -65,11 +65,12 @@ const CustomizationPage: React.FC = () => {
       friesType !== "none" ? friesType : undefined
     );
 
-    // Check if it's a burger or hotdog to show suggestions
+    // Check if it's a burger, hotdog, or fries to show suggestions
     const isBurgerCategory = menuItem.category.includes("burger");
     const isHotdogCategory = menuItem.category === "hotdogs";
+    const isFriesCategory = menuItem.category === "fries";
     
-    if (isBurgerCategory || isHotdogCategory) {
+    if (isBurgerCategory || isHotdogCategory || isFriesCategory) {
       navigateWithSede("/suggestions");
     } else {
       navigateWithSede("/menu");
