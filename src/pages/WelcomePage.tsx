@@ -279,7 +279,7 @@ const WelcomePage: React.FC = () => {
     </div>
 
     {/* Burbuja de instrucciones */}
-    <InstructionsBubble />
+    <InstructionsBubble autoOpen={true} autoOpenDelay={3000} />
     </>
   );
 };

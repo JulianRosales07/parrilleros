@@ -1280,7 +1280,7 @@ ${selectedLocation?.name} | ${selectedLocation?.phone}`;
         )}
         
         {/* Burbuja de instrucciones */}
-        <InstructionsBubble />
+        <InstructionsBubble autoOpen={true} autoOpenDelay={2000} />
       </div>
     </div>
   );

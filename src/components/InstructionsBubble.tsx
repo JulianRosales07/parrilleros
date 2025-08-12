@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HelpCircle, X, Smartphone, Monitor } from 'lucide-react';
 
-const InstructionsBubble: React.FC = () => {
+interface InstructionsBubbleProps {
+  autoOpen?: boolean;
+  autoOpenDelay?: number;
+}
+
+const InstructionsBubble: React.FC<InstructionsBubbleProps> = ({
+  autoOpen = false,
+  autoOpenDelay = 2000
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (autoOpen) {
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+      }, autoOpenDelay);
+
+      return () => clearTimeout(timer);
+    }
+  }, [autoOpen, autoOpenDelay]);
 
   const toggleBubble = () => {
     setIsOpen(!isOpen);

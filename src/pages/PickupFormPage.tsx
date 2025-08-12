@@ -25,6 +25,7 @@ import { Location } from "../types";
 import { generateInvoicePDF } from "../utils/pdfGenerator";
 import SedeBanner from "../components/SedeBanner";
 import LocationValidationAlert from "../components/LocationValidationAlert";
+import InstructionsBubble from "../components/InstructionsBubble";
 import { validateCartForLocation } from "../utils/locationUtils";
 import FONDO from "../assets/fondo.png";
 
@@ -813,6 +814,9 @@ ${cartDetails}
             </div>
           </div>
         </div>
+        
+        {/* Burbuja de instrucciones */}
+        <InstructionsBubble autoOpen={true} autoOpenDelay={2500} />
       </div>
     </div>
   );

@@ -93,7 +93,7 @@ const CartPage: React.FC = () => {
       </div>
       
       {/* Burbuja de instrucciones */}
-      <InstructionsBubble />
+      <InstructionsBubble autoOpen={false} />
     </Layout>
   );
 };
