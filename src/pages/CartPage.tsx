@@ -4,6 +4,7 @@ import { useSedeNavigation } from '../hooks/useSedeNavigation';
 import { ShoppingBag } from 'lucide-react';
 import Layout from '../components/Layout';
 import TourButton from '../components/TourButton';
+import InstructionsBubble from '../components/InstructionsBubble';
 import { useOrder } from '../context/OrderContext';
 import OrderSummary from '../components/OrderSummary';
 import { useDriverTour, cartTourSteps } from '../hooks/useDriverTour';
@@ -90,6 +91,9 @@ const CartPage: React.FC = () => {
           />
         )}
       </div>
+      
+      {/* Burbuja de instrucciones */}
+      <InstructionsBubble />
     </Layout>
   );
 };

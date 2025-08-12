@@ -5,6 +5,7 @@ import { useSedeNavigation } from '../hooks/useSedeNavigation';
 import { gsap } from 'gsap';
 import { useDriverTour, welcomeTourSteps } from '../hooks/useDriverTour';
 import TourButton from '../components/TourButton';
+import InstructionsBubble from '../components/InstructionsBubble';
 import LOGOB from '../assets/logos/logoblanco.png';
 import ICON from '../assets/logos/iconoh.png';
 
@@ -12,6 +13,7 @@ const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
   const { navigateWithSede } = useSedeNavigation();
   const [showTourButton, setShowTourButton] = useState(false);
+
   
   // Referencias para las animaciones GSAP
   const logoRef = useRef<HTMLDivElement>(null);
@@ -168,6 +170,8 @@ const WelcomePage: React.FC = () => {
     startTour();
   };
 
+
+
   const handleButtonHover = () => {
     gsap.to(buttonRef.current, {
       scale: 1.05,
@@ -185,6 +189,7 @@ const WelcomePage: React.FC = () => {
   };
 
   return (
+    <>
     <div 
       ref={backgroundRef}
       className="min-h-screen flex flex-col items-center justify-center p-4 text-center relative overflow-hidden welcome-page-bg"
@@ -272,6 +277,10 @@ const WelcomePage: React.FC = () => {
         />
       )}
     </div>
+
+    {/* Burbuja de instrucciones */}
+    <InstructionsBubble />
+    </>
   );
 };
 

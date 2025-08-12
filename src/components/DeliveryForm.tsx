@@ -20,6 +20,7 @@ import {
 import { useOrder } from "../context/OrderContext";
 import OrderSummary from "./OrderSummary";
 import TourButton from "./TourButton";
+import InstructionsBubble from "./InstructionsBubble";
 import LocationSelectionPage from "../pages/LocationSelectionPage";
 import LocationValidationAlert from "./LocationValidationAlert";
 import { Location } from "../types";
@@ -1277,6 +1278,9 @@ ${selectedLocation?.name} | ${selectedLocation?.phone}`;
             className="bottom-6 left-6"
           />
         )}
+        
+        {/* Burbuja de instrucciones */}
+        <InstructionsBubble />
       </div>
     </div>
   );
