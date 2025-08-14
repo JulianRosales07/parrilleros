@@ -26,7 +26,6 @@ import { useDriverTour, menuTourSteps } from "../hooks/useDriverTour";
 gsap.registerPlugin(ScrollTrigger);
 
 const MenuPage: React.FC = () => {
-  const navigate = useNavigate();
   const { navigateWithSede } = useSedeNavigation();
   const { cart, lastAddedTamasagraItem, clearTamasagraAlert } = useOrder();
   const { sedeDetectada, sedeFormateada, esSedeValida } = useSedeFromURL();
@@ -112,7 +111,7 @@ const MenuPage: React.FC = () => {
       if (selectedSidesFilter !== "all") {
         const categoryItems =
           categorizedSides[
-            selectedSidesFilter as keyof typeof categorizedSides
+          selectedSidesFilter as keyof typeof categorizedSides
           ];
         if (categoryItems) {
           const categoryIds = categoryItems
@@ -412,11 +411,10 @@ const MenuPage: React.FC = () => {
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => setSelectedSidesFilter("all")}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                    selectedSidesFilter === "all"
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${selectedSidesFilter === "all"
                       ? "bg-[#FF8C00] text-white shadow-md"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                    }`}
                 >
                   Todos
                 </button>
@@ -424,11 +422,10 @@ const MenuPage: React.FC = () => {
                   <button
                     key={filterKey}
                     onClick={() => setSelectedSidesFilter(filterKey)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                      selectedSidesFilter === filterKey
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${selectedSidesFilter === filterKey
                         ? "bg-[#FF8C00] text-white shadow-md"
                         : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
+                      }`}
                   >
                     {filterKey}
                   </button>

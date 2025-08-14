@@ -84,40 +84,6 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 4,
-    name: "Burger parrillera chicken grill",
-    description:
-      "130 GR DE PECHUGA DE POLLO A LA PARRILLA, pan artesanal sellado en mantequilla, queso fundido, tocineta, cebolla caramelizada, pimientos asados, vegetales frescos (lechuga, tomate), mayonesa de ajo y nuestra salsa BBQ.",
-    price: 17000,
-    priceWithFries: 23000,
-    priceWithRusticFries: 23000,
-    image: POLLOGRILL,
-    category: "deluxe-burgers",
-    customizable: true,
-    availableAt: ["sede-tamasagra"],
-    badges: [
-      "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
-    ],
-  },
-  {
-    id: 5,
-    name: "Burger parrillera chicken crunch",
-    description:
-      "130 GR DE PECHUGA APANADA AL ESTILO AMERICANO, pan artesanal sellado en mantequilla, queso colby jack, pepinillos agridulces, cebolla crunch, lechuga y nuestra salsa especial New York.",
-    price: 17000,
-    priceWithFries: 23000,
-    priceWithRusticFries: 23000,
-    image: CHICKEN,
-    category: "deluxe-burgers",
-    customizable: true,
-    availableAt: ["sede-san-ignacio", "sede-tamasagra", "sede-las-cuadras"],
-    badges: [
-      "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
-    ],
-  },
-
-  // Hamburguesas Deluxe
-  {
-    id: 6,
     name: "Burger parrillera especial",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, pan artesanal, queso fundido, queso cheddar, piña asada, tocineta ahumada, lechuga fresca, papitas crocantes, mayonesa de ajo.",
@@ -132,6 +98,8 @@ export const menuItems: MenuItem[] = [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
   },
+
+  // Hamburguesas Deluxe
   {
     id: 7,
     name: "Burger parrillera argentina",
@@ -164,42 +132,8 @@ export const menuItems: MenuItem[] = [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
   },
-
-  // Hamburguesas Burger Master (anteriormente de Concurso)
   {
     id: 9,
-    name: "Burger parrillera rolly burger",
-    description:
-      "150 GR DE CARNE DE RES A LA PARRILLA ACOMPAÑADA DE PAN ARTESANAL, QUESO CHEEDAR, SOUR CREAM, TOCINETA AHUMADA CROCANTE Y NUESTRA SALSA BBQ ROLLY CON UNOS TONOS DULCES Y PIMIENTA.",
-    price: 24000,
-    priceWithFries: 30000,
-    priceWithRusticFries: 30000,
-    image: ROLLY,
-    category: "contest-burgers",
-    customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
-    badges: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
-    ],
-  },
-  {
-    id: 10,
-    name: "Burger parrillera volcanica 2.0",
-    description:
-      "150 GR DE CARNE DE RES A LA PARRILLA, ACOMPAÑADA DE PAN ARTESANAL, QUESO SABANA, TROCITOS DE CHILACUAN, TOCINETA AHUMADA, CUAJADA ASADA, UN ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
-    price: 24000,
-    priceWithFries: 30000,
-    priceWithRusticFries: 30000,
-    image: VOLCANICA2,
-    category: "contest-burgers",
-    customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
-    badges: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
-    ],
-  },
-  {
-    id: 11,
     name: "Burger parriiiera-big monster",
     description:
       "330 GR DE CARNE DE RES A LA PARRILLA, acompañada de pan artesanal, triple queso cheddar, tocineta ahumada, aros de cebolla apanados, mayonesa de ajo, mostaza y nuestra salsa BBQ Johnnie Walker",
@@ -215,23 +149,7 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    id: 12,
-    name: "Burger Parrillera mero flow",
-    description:
-      "150 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO MOZARELA. MERMELADA DE TOCINETA AHUMADA Y MANZANA VERDE, SOUR CREAM CON TONOS DE QUESO AZUL, CEBOLLA CRISPY Y SALSA DE LA CASA.",
-    price: 24000,
-    priceWithFries: 30000,
-    priceWithRusticFries: 30000,
-    image: MERO,
-    category: "contest-burgers",
-    customizable: true,
-    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
-    badges: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
-    ],
-  },
-  {
-    id: 13,
+    id: 10,
     name: "Burger Parrillera bacon deluxe",
     description:
       "135 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO CHEDDAR, TOCINETA EN REDUCCION DE VINO TINTO, CEBOLLA CARAMELIZADA, RUGULA, MAYONESA DE AJO Y SALSA CHIPOTLE.",
@@ -247,7 +165,7 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    id: 14,
+    id: 11,
     name: "Burger Parrillera volcanica",
     description:
       "180 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, DOBLE QUESO SABANA, TOCINETA AHUMADA, CHUTNEY DE MANGO, ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
@@ -263,7 +181,7 @@ export const menuItems: MenuItem[] = [
     ],
   },
   {
-    id: 15,
+    id: 12,
     name: "Burger Parrillera beef master",
     description:
       "180 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, DOBLE QUESO SABANA, DOBLE TOCINETA AHUMADA EN REDUCCION DE VINO TINTO, RUGULA, MAYONESA DE AJO.",
@@ -278,6 +196,89 @@ export const menuItems: MenuItem[] = [
       "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
     ],
   },
+  {
+    id: 5,
+    name: "Burger parrillera chicken grill",
+    description:
+      "130 GR DE PECHUGA DE POLLO A LA PARRILLA, pan artesanal sellado en mantequilla, queso fundido, tocineta, cebolla caramelizada, pimientos asados, vegetales frescos (lechuga, tomate), mayonesa de ajo y nuestra salsa BBQ.",
+    price: 17000,
+    priceWithFries: 23000,
+    priceWithRusticFries: 23000,
+    image: POLLOGRILL,
+    category: "deluxe-burgers",
+    customizable: true,
+    availableAt: ["sede-tamasagra"],
+    badges: [
+      "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
+    ],
+  },
+  {
+    id: 6,
+    name: "Burger parrillera chicken crunch",
+    description:
+      "130 GR DE PECHUGA APANADA AL ESTILO AMERICANO, pan artesanal sellado en mantequilla, queso colby jack, pepinillos agridulces, cebolla crunch, lechuga y nuestra salsa especial New York.",
+    price: 17000,
+    priceWithFries: 23000,
+    priceWithRusticFries: 23000,
+    image: CHICKEN,
+    category: "deluxe-burgers",
+    customizable: true,
+    availableAt: ["sede-san-ignacio", "sede-tamasagra", "sede-las-cuadras"],
+    badges: [
+      "https://images.pexels.com/photos/2983101/pexels-photo-2983101.jpeg?auto=compress&cs=tinysrgb&w=100",
+    ],
+  },
+  // Hamburguesas Burger Master
+  {
+    id: 13,
+    name: "Burger Parrillera mero flow",
+    description:
+      "150 GR DE CARNE DE RES A LA PARRILLA, PAN ARTESANAL SELLADO EN MANTEQUILLA, QUESO MOZARELA. MERMELADA DE TOCINETA AHUMADA Y MANZANA VERDE, SOUR CREAM CON TONOS DE QUESO AZUL, CEBOLLA CRISPY Y SALSA DE LA CASA.",
+    price: 24000,
+    priceWithFries: 30000,
+    priceWithRusticFries: 30000,
+    image: MERO,
+    category: "contest-burgers",
+    customizable: true,
+    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
+    badges: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
+    ],
+  },
+  {
+    id: 14,
+    name: "Burger parrillera rolly burger",
+    description:
+      "150 GR DE CARNE DE RES A LA PARRILLA ACOMPAÑADA DE PAN ARTESANAL, QUESO CHEEDAR, SOUR CREAM, TOCINETA AHUMADA CROCANTE Y NUESTRA SALSA BBQ ROLLY CON UNOS TONOS DULCES Y PIMIENTA.",
+    price: 24000,
+    priceWithFries: 30000,
+    priceWithRusticFries: 30000,
+    image: ROLLY,
+    category: "contest-burgers",
+    customizable: true,
+    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
+    badges: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
+    ],
+  },
+  {
+    id: 15,
+    name: "Burger parrillera volcanica 2.0",
+    description:
+      "150 GR DE CARNE DE RES A LA PARRILLA, ACOMPAÑADA DE PAN ARTESANAL, QUESO SABANA, TROCITOS DE CHILACUAN, TOCINETA AHUMADA, CUAJADA ASADA, UN ADEREZO DE MANI LIGERAMENTE PICANTE, RUGULA Y MAYONESA DE LA CASA.",
+    price: 24000,
+    priceWithFries: 30000,
+    priceWithRusticFries: 30000,
+    image: VOLCANICA2,
+    category: "contest-burgers",
+    customizable: true,
+    availableAt: ["sede-tamasagra", "sede-san-ignacio", "sede-las-cuadras"],
+    badges: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQGjTDyxTK8zxI9pPoVVDOeROJSqYYc8mqpQ&s",
+    ],
+  },
+
+
   {
     id: 16,
     name: "Burger Parrillera super meat",
