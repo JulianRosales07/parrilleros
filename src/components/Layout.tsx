@@ -152,6 +152,16 @@ const Layout: React.FC<LayoutProps> = ({
                   <p className="text-sm font-bold text-white group-hover:text-[#FF8C00] transition-colors duration-300 tracking-wide">
                     Julian Rosales
                   </p>
+                                    <p className="text-sm font-bold text-white group-hover:text-[#FF8C00] transition-colors duration-300 tracking-wide">
+                    Juan Diego Botina
+                  </p>
+                  <p className="text-sm font-bold text-white group-hover:text-[#FF8C00] transition-colors duration-300 tracking-wide">
+                    Janier David Acosta
+                  </p>
+                  <p className="text-sm font-bold text-white group-hover:text-[#FF8C00] transition-colors duration-300 tracking-wide">
+                    Cristian David Landazuri
+                  </p>
+
                 </div>
                 <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FF8C00]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
